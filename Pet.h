@@ -15,29 +15,27 @@ class Pet{
     std::string name_;
     bool isAlive_;
     public:
-    Pet(std::string petName);
-    int getAttention();
-    int getHealth();
-    int getCleanliness();
-    int getFatigue();
-    int getHunger();
 
+    Pet(std::string petName);
+    
+    bool getIsAlive();
+    void setIsAlive(bool isAlive);
+    
     void setAttention(int attention);
     void setHealth(int health);
     void setCleanliness(int cleanliness);
     void setFatigue(int fatigue);
     void setHunger(int hunger);
-    void setName(std::string name);
-    void setIsAlive(bool isAlive);
+
 
     virtual bool death() = 0;
-    virtual void feed() = 0;
-    virtual void treat() = 0;
-    virtual void clean() = 0;
-    virtual void play() = 0;
-    virtual void pet() = 0;
-    virtual void punch() = 0;
-    virtual void goToSleep() = 0; 
+    void feed();
+    void treat();
+    void clean();
+    void play();
+    void pet();
+    void punch();
+    void goToSleep();
 };
 
 #endif 
