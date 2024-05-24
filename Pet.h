@@ -1,6 +1,5 @@
 #ifndef PET_H
 #define PET_H
-
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -17,7 +16,7 @@ class Pet{
     public:
 
     Pet(std::string petName);
-    
+
     bool getIsAlive();
     void setIsAlive(bool isAlive);
     

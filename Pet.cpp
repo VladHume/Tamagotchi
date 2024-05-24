@@ -3,6 +3,7 @@
 #include <cstring>
 #include <string>
 
+
 Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), name_(petName), isAlive_(true){}
 
 bool Pet::getIsAlive(){
