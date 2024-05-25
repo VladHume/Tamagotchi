@@ -4,10 +4,11 @@
 #include <cstring>
 #include <string>
 
-Player::Player(std::string name, Pet* pet): name_(name), pet_(pet), playerSteps_(0){}
+Player::Player(std::string name, Pet* pet, int playerSteps): name_(name), pet_(pet), playerSteps_(playerSteps){}
+Player::Player(): name_("\0"), pet_(nullptr), playerSteps_(0){}
 
-int Player::countPlayerSteps(){
-    return playerSteps_;
+void Player::increasePlayerSteps(){
+    ++playerSteps_;
 }
 
 int Player::getSteps(){

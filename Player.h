@@ -11,10 +11,11 @@ class Player{
     std::string name_;
     Pet* pet_;
     public:
-    Player(std::string name, Pet* pet);
-    int countPlayerSteps();
+    Player(std::string name, Pet* pet, int playerSteps);
+    Player();
+    void increasePlayerSteps();
     int getSteps();
-    void setSteps();
+    void setSteps(int playerSteps);
 }
 
 #endif
