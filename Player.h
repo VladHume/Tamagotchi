@@ -14,7 +14,7 @@ class Player{
     Player(std::string name, Pet* pet);
     int countPlayerSteps();
     int getSteps();
-    int setSteps();
+    void setSteps();
 }
 
 

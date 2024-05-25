@@ -6,14 +6,14 @@
 
 Player::Player(std::string name, Pet* pet): name_(name), pet_(pet), playerSteps_(0){}
 
-Player::countPlayerSteps(){
+int Player::countPlayerSteps(){
     return playerSteps_;
 }
 
-Player::getSteps(){
+int Player::getSteps(){
     return playerSteps_;
 }
 
-Player::setSteps(int playerSteps){
+void Player::setSteps(int playerSteps){
     playerSteps_ = playerSteps;
 }
