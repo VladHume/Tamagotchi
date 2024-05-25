@@ -71,7 +71,6 @@ void Pet::feed() {
         if (health_ > 100)
             health_ = 100;
      }
-    //steps++
 }
 
    
@@ -81,11 +80,7 @@ void Pet::treat(){
             health_ = 100;
             fatigue_ -= 10;
         }
-        else{
-            std::cout << "Your pet is healthy";
-        }
     }
-   //steps++
 }
 
 
@@ -96,7 +91,6 @@ void Pet::clean() {
             cleanliness_ = 100;
         fatigue_ -= 10;
     }
-     //steps++
 }
 
 
@@ -109,7 +103,6 @@ void Pet::play(){
         hunger_ -= 10;
         fatigue_ -= 20;
     }
-     //steps++
 }
 
 
@@ -122,7 +115,6 @@ void Pet::pet() {
         hunger_ -= 5;
         fatigue_ -= 5;
     }
-    //steps++
 }
 
 
@@ -131,7 +123,6 @@ void Pet::punch(){
         health_ -= 10;
         fatigue_ -= 10;
     } 
-   //steps++
 }
 
 
@@ -142,5 +133,4 @@ void Pet::goToSleep() {
             hunger_ -= 20;
         }
     } 
-    //steps++
 }
