@@ -56,7 +56,9 @@ void Pet::setHunger(int hunger){
     hunger_ = hunger;
 }
 
+
 virtual bool Pet::death() = 0;
+
 
 void Pet::feed() {
      if (isAlive_) {
@@ -69,8 +71,9 @@ void Pet::feed() {
         if (health_ > 100)
             health_ = 100;
      }
-     playerSteps_++;
+    setSteps(getSteps()++);
 }
+
    
 void Pet::treat(){
       if (isAlive_) {
@@ -82,7 +85,7 @@ void Pet::treat(){
             std::cout << "Your pet is healthy";
         }
     }
-    playerSteps_++;
+    setSteps(getSteps()++);
 }
 
 
@@ -93,7 +96,7 @@ void Pet::clean() {
             cleanliness_ = 100;
         fatigue_ -= 10;
     }
-    playerSteps_++;
+     setSteps(getSteps()++);
 }
 
 
@@ -106,7 +109,7 @@ void Pet::play(){
         hunger_ -= 10;
         fatigue_ -= 20;
     }
-    playerSteps_++;
+     setSteps(getSteps()++);
 }
 
 
@@ -119,7 +122,7 @@ void Pet::pet() {
         hunger_ -= 5;
         fatigue_ -= 5;
     }
-    playerSteps_++;
+    setSteps(getSteps()++);
 }
 
 
@@ -128,7 +131,7 @@ void Pet::punch(){
         health_ -= 10;
         fatigue_ -= 10;
     } 
-    playerSteps_++;
+    setSteps(getSteps()++);
 }
 
 
@@ -139,5 +142,5 @@ void Pet::goToSleep() {
             hunger_ -= 20;
         }
     } 
-    playerSteps_++;
+     setSteps(getSteps()++);
 }
