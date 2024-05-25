@@ -16,6 +16,6 @@ class Player{
     void increasePlayerSteps();
     int getSteps();
     void setSteps(int playerSteps);
-}
+};
 
 #endif
