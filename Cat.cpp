@@ -4,15 +4,15 @@
 Cat::Cat(std::string petName) : Pet(petName), lives_(9){}
 
 bool Cat::death (){
-    if (health_ <= 0 || cleanliness_ <= 0 || fatigue_ <= 0 || hunger_ <= 0) {
+    if (health_ <= 0 || fatigue_ <= 0 || hunger_ <= 0) {
         if (lives_ <= 0) {
             isAlive_ = false;
             return true;
         } else {
-            setHealth(50);
-            setCleanliness(50);
-            setFatigue(50);
-            setHunger(50);
+            setHealth(30);
+            setCleanliness(30);
+            setFatigue(30);
+            setHunger(30);
             lives_--;
             return false;
         }
