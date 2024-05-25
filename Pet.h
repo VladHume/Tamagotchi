@@ -18,8 +18,14 @@ class Pet{
     Pet(std::string petName);
 
     bool getIsAlive();
-    void setIsAlive(bool isAlive);
+    int getAttention();
+    int getHealth();
+    int getCleanliness();
+    int getFatigue();
+    int getHunger();
+    std::string getName();
     
+    void setIsAlive(bool isAlive);
     void setAttention(int attention);
     void setHealth(int health);
     void setCleanliness(int cleanliness);
