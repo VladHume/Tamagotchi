@@ -17,5 +17,4 @@ class Player{
     void setSteps();
 }
 
-
 #endif
