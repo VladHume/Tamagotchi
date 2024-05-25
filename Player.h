@@ -6,14 +6,15 @@
 #include <string>
 
 class Player{
-    protected:
-    int playerSteps_;
     private:
+    int playerSteps_;
     std::string name_;
     Pet* pet_;
     public:
     Player(std::string name, Pet* pet);
     int countPlayerSteps();
+    int getSteps();
+    int setSteps();
 }
 
 
