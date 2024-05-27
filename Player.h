@@ -17,6 +17,7 @@ class Player{
     int getSteps();
     void setSteps(int playerSteps);
     std::string Player::getName();
+    Pet* getPet();
 };
 
 #endif

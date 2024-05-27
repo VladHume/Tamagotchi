@@ -22,3 +22,7 @@ std::string Player::getName(){
 void Player::setSteps(int playerSteps){
     playerSteps_ = playerSteps;
 }
+
+Pet* Player::getPet(){
+    return pet_;
+}
