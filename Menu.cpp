@@ -1,7 +1,21 @@
 #include "Menu.h"
+
+std::ostream &setColor(std::ostream &stream)
+{
+    stream << "\x1b[1;32m";
+    return stream;
+}
+
+std::ostream &unsetColor(std::ostream &stream)
+{
+    stream << "\x1b[1;37m";
+    return stream;
+}
+
 const std::vector<std::string>& Menu::getPetOptions() const {
         return petOptions;
-    }
+}
+
 int Menu::readControlKeys()
 {
     int userKey = 0;
@@ -32,7 +46,7 @@ void Menu::displayOptions()
     {
         if (i == currentOption)
         {
-            std::cout << "\x1b[1;32m" << petOptions[i] << " ■" << "\x1b[1;37m" << std::endl;
+            std::cout << setColor << petOptions[i] << " ■" << unsetColor << std::endl;
         }
         else
         {
