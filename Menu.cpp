@@ -23,23 +23,23 @@ bool Menu::isCorrectControlKey(int key)
     return key == ENTER || key == ARROW_UP || key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT;
 }
 
-// методя для демонстрації роботи
-// void Menu::displayOptions()
-// {
-//     std::cout << "\033c"; 
-//     numOptions = petOptions.size();
-//     for (int i = 0; i < numOptions; ++i)
-//     {
-//         if (i == currentOption)
-//         {
-//             std::cout << petOptions[i] << " ■" << std::endl;
-//         }
-//         else
-//         {
-//             std::cout << petOptions[i] << std::endl;
-//         }
-//     }    
-// }
+
+void Menu::displayOptions()
+{
+    std::cout << "\033c"; 
+    numOptions = petOptions.size();
+    for (int i = 0; i < numOptions; ++i)
+    {
+        if (i == currentOption)
+        {
+            std::cout << "\x1b[1;32m" << petOptions[i] << " ■" << "\x1b[1;37m" << std::endl;
+        }
+        else
+        {
+            std::cout << petOptions[i] << std::endl;
+        }
+    }    
+}
 
 int Menu::chooseOption(const std::vector<std::string>& opt)
 {
