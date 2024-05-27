@@ -15,6 +15,14 @@ int Player::getSteps(){
     return playerSteps_;
 }
 
+std::string Player::getName(){
+    return name_;
+}
+
 void Player::setSteps(int playerSteps){
     playerSteps_ = playerSteps;
+}
+
+Pet* Player::getPet(){
+    return pet_;
 }
