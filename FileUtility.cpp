@@ -34,7 +34,9 @@ bool FileUtility::deleteFile(const std::string& fileName){
     }
 }
 
-//void FileUtility::updateFile(Player &player);
+void FileUtility::updateFile(Player *player){
+    
+}
 
 std::vector<std::string> FileUtility::fileList() {
     std::vector<std::string> files;
