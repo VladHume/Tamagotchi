@@ -19,3 +19,4 @@ bool Cat::death (){
     }
     return false;
 }
+
