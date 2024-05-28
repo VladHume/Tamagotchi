@@ -8,55 +8,6 @@
 Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), name_(petName), isAlive_(true){}
 
 
-//гетери
-int  Pet::getAttention(){
-    return attention_;
-}
-int Pet::getHealth(){
-    return health_;
-}
- int Pet::getCleanliness(){
-    return cleanliness_;
- }
-
-int Pet::getFatigue(){
-    return fatigue_;
-}
-
-int Pet::getHunger(){
-    return hunger_;
-}
-
-std::string Pet::getName(){
-        return name_;
-}
-bool Pet::getIsAlive(){
-    return isAlive_;
-}
-
-
-//сетери
-void Pet::setIsAlive(bool isAlive){
-    isAlive_ = isAlive;
-}
-
-void Pet::setAttention(int attention){
-    attention_ = attention;
-}
-void Pet::setHealth(int health){
-    health_ = health;
-}
-void Pet::setCleanliness(int cleanliness){
-    cleanliness_ = cleanliness;
-}
-void Pet::setFatigue(int fatigue){
-    fatigue_ = fatigue;
-}
-void Pet::setHunger(int hunger){
-    hunger_ = hunger;
-}
-
-
 virtual bool Pet::death() = 0;
 
 

@@ -5,7 +5,7 @@
 #include <string>
 
 class Pet{
-    private:
+    protected:
     int attention_;
     int health_;
     int cleanliness_;
@@ -16,22 +16,6 @@ class Pet{
     public:
 
     Pet(std::string petName);
-
-    bool getIsAlive();
-    int getAttention();
-    int getHealth();
-    int getCleanliness();
-    int getFatigue();
-    int getHunger();
-    std::string getName();
-    
-    void setIsAlive(bool isAlive);
-    void setAttention(int attention);
-    void setHealth(int health);
-    void setCleanliness(int cleanliness);
-    void setFatigue(int fatigue);
-    void setHunger(int hunger);
-
 
     virtual bool death() = 0;
     void feed();
