@@ -1,7 +1,21 @@
 #include "Menu.h"
+
+std::ostream &setColor(std::ostream &stream)
+{
+    stream << "\x1b[1;32m";
+    return stream;
+}
+
+std::ostream &unsetColor(std::ostream &stream)
+{
+    stream << "\x1b[1;37m";
+    return stream;
+}
+
 const std::vector<std::string>& Menu::getPetOptions() const {
         return petOptions;
-    }
+}
+
 int Menu::readControlKeys()
 {
     int userKey = 0;
@@ -23,23 +37,23 @@ bool Menu::isCorrectControlKey(int key)
     return key == ENTER || key == ARROW_UP || key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT;
 }
 
-// методя для демонстрації роботи
-// void Menu::displayOptions()
-// {
-//     std::cout << "\033c"; 
-//     numOptions = petOptions.size();
-//     for (int i = 0; i < numOptions; ++i)
-//     {
-//         if (i == currentOption)
-//         {
-//             std::cout << petOptions[i] << " ■" << std::endl;
-//         }
-//         else
-//         {
-//             std::cout << petOptions[i] << std::endl;
-//         }
-//     }    
-// }
+
+void Menu::displayOptions()
+{
+    std::cout << "\033c"; 
+    numOptions = petOptions.size();
+    for (int i = 0; i < numOptions; ++i)
+    {
+        if (i == currentOption)
+        {
+            std::cout << setColor << petOptions[i] << " ■" << unsetColor << std::endl;
+        }
+        else
+        {
+            std::cout << petOptions[i] << std::endl;
+        }
+    }    
+}
 
 int Menu::chooseOption(const std::vector<std::string>& opt)
 {
