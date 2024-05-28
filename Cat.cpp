@@ -9,10 +9,10 @@ bool Cat::death (){
             isAlive_ = false;
             return true;
         } else {
-            setHealth(30);
-            setCleanliness(30);
-            setFatigue(30);
-            setHunger(30);
+            health_ = 30;
+            cleanliness_ = 30;
+            fatigue_ = 30;
+            hunger_ = 30;
             lives_--;
             return false;
         }
