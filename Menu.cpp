@@ -1,12 +1,12 @@
 #include "Menu.h"
 
-std::ostream &setColor(std::ostream &stream)
+std::ostream & setColor(std::ostream &stream)
 {
     stream << "\x1b[1;32m";
     return stream;
 }
 
-std::ostream &unsetColor(std::ostream &stream)
+std::ostream & unsetColor(std::ostream &stream)
 {
     stream << "\x1b[1;37m";
     return stream;
@@ -38,31 +38,30 @@ bool Menu::isCorrectControlKey(int key)
 }
 
 
-void Menu::displayOptions()
+void Menu::displayVertOptions(const std::vector<std::string>& opt)
 {
     std::cout << "\033c"; 
-    numOptions = petOptions.size();
-    for (int i = 0; i < numOptions; ++i)
+    for (int i = 0; i < static_cast<int>(opt.size()); ++i)
     {
         if (i == currentOption)
         {
-            std::cout << setColor << petOptions[i] << " ■" << unsetColor << std::endl;
+            std::cout << setColor << opt[i] << " ■" << unsetColor << std::endl;
         }
         else
         {
-            std::cout << petOptions[i] << std::endl;
+            std::cout << opt[i] << std::endl;
         }
     }    
 }
 
-int Menu::chooseOption(const std::vector<std::string>& opt)
+int Menu::chooseVertOption(const std::vector<std::string>& opt)
 {
     int numOptions = opt.size();
     while (true)
     {
-        displayOptions();
+        displayVertOptions(opt);
         int key = readControlKeys();
-
+        displayVertOptions(opt);
         switch (key)
         {
             case ARROW_UP:
@@ -79,11 +78,54 @@ int Menu::chooseOption(const std::vector<std::string>& opt)
     }
 }
 
+void Menu::interactWithPet(Player* player)
+{
+    std::string petName = player->getPet()->getName();
+    int playerChoice = chooseVertOption(petOptions);
+    std::cout << playerChoice;
+    std::cin.clear();
+    switch (playerChoice)
+    {
+    case 0: //Погодувати улюбленця
+        player->getPet()->feed();
+        std::cout << petName << " погодовано\n";
+        break;
+    case 1: //Полікувати улюбленця
+        player->getPet()->treat();
+        std::cout << petName << " поліковано\n";
+        break;
+    case 2: //Покупати улюбленця
+        player->getPet()->clean();
+        std::cout << petName << " покупано\n";
+        break;
+    case 3: //Погратися з улюбленцем
+        player->getPet()->play();
+        std::cout << "Ви погралися з "<< petName << '\n';
+        break;
+    case 4: //Погладити улюбленця
+        player->getPet()->pet();
+        std::cout << "Ви погладили "<< petName << '\n';    
+        break;
+    case 5: //Вдарити улюбленця
+        player->getPet()->punch();
+        std::cout << "Ви вдарили "<< petName << '\n';    
+        break;
+    case 6: // Покласти спати
+        player->getPet()->goToSleep();
+        std::cout << petName << " заснув\n";    
+        break;                    
+    default:
+        break;
+    }
+}
+
 int main()
 {
     Menu menu;
-    int choice = menu.chooseOption(menu.getPetOptions());
-    std::cout << "You chose option: " << choice << std::endl;
+    Dog* myDog = new Dog("Buddy");
+    Player player("John", myDog, 100);
+    menu.interactWithPet(&player);
+
 
     return 0;
 }
