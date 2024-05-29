@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 
+enum class MOOD{  //+
+    HAPPY, NORMAL, SAD
+};
+
 class Pet {
 protected:
     int attention_;
@@ -53,8 +57,6 @@ public:
     void checkMood(); //+
 };
 
-enum class MOOD{  //+
-    HAPPY, NORMAL, SAD
-};
+
 
 #endif 
