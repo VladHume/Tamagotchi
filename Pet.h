@@ -38,6 +38,7 @@ public:
     void setName(std::string name);
 
     virtual bool death() = 0;
+    virtual std::string getType() = 0;
 
     void feed();
     void treat();
