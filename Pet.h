@@ -35,6 +35,7 @@ public:
     void setCleanliness(int cleanliness);
     void setFatigue(int fatigue);
     void setHunger(int hunger);
+    void setName(std::string name);
 
     virtual bool death() = 0;
 

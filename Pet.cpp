@@ -35,9 +35,9 @@ bool Pet::getIsAlive(){
     return isAlive_;
 }
 
-MOOD Pet::getMood(){
-    return MOOD.currentMood_;
-}
+//MOOD Pet::getMood(){
+//   return MOOD.currentMood_;
+//}
 
 
 //сетери
@@ -61,9 +61,13 @@ void Pet::setHunger(int hunger){
     hunger_ = hunger;
 }
 
-void Pet::setMood(MOOD mood){
-    MOOD.currentMood_ = mood;
+void Pet::setName(std::string name){
+    name_ = name;
 }
+
+//void Pet::setMood(MOOD mood){
+//    MOOD.currentMood_ = mood;
+//}
 
 
 void Pet::feed() {
