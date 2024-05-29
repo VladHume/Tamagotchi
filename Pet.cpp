@@ -7,7 +7,7 @@
 
 Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), name_(petName), isAlive_(true){}
 
-Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), name_('\0'), isAlive_(true){}
+Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), name_(""), isAlive_(true){}
 
 //гетери
 int  Pet::getAttention(){
