@@ -34,30 +34,48 @@ bool Menu::isCorrectControlKey(int key)
 }
 
 
-void Menu::displayPetInteractions(const std::vector<std::string>& opt, int maxLen)
+void Menu::displayVert(const std::vector<std::string>& opt, int maxLen)
 {
     PrintUtility::cleanScreen(); 
     std::cout << PrintUtility::drawLine(maxLen);
-    for (int i = 0; i < static_cast<int>(opt.size()); ++i)
+    for (int i = 0; i < static_cast<int>(opt.size()); i++)
     {
         int spaces = (maxLen - (PrintUtility::charCounter(opt[i])/2))-2;
         if (i == currentOption)
         {
-            std::cout << "| " << setColor << opt[i] << " ■" << unsetColor << std::setw(spaces-2) << std::setfill(' ') << "|" << std::endl;
+            std::cout << "| " << setColor << opt[i] << " ■" << unsetColor << std::right << std::setw(spaces-2) << std::setfill(' ') << "|" << std::endl;
         }
-        else std::cout << "| " << opt[i] << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+        else std::cout << "| " << opt[i] << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
     }
     std::cout << PrintUtility::drawLine(maxLen);
 }
 
-// void Menu::displayMenuOprions(const std::vector<std::string>& opt)
+void Menu::displayHoriz(const std::vector<std::string>& opt, int maxLen)
+{
+    PrintUtility::cleanScreen();
+    std::cout << PrintUtility::drawLine(maxLen);
+    for (int i = 0; i < static_cast<int>(opt.size()); i++)
+    {
+        if (i == currentOption)
+        {
+            std::cout << setColor << opt[i] << " ■" << unsetColor;
+        }
+        else
+        {
+            std::cout << opt[i];
+        }
+        std::cout << std::setw(LINE_BETWEEN) << std::setfill(' ');
+    }
+    std::cout << '\n' << PrintUtility::drawLine(maxLen);
+}
 
 int Menu::chooseVertOption(const std::vector<std::string>& opt, int maxLen)
 {
+    currentOption = 0;
     int numOptions = opt.size();
     while (true)
     {
-        displayPetInteractions(opt, maxLen);
+        displayVert(opt, maxLen);
         int key = readControlKeys();
         switch (key)
         {
@@ -75,20 +93,33 @@ int Menu::chooseVertOption(const std::vector<std::string>& opt, int maxLen)
     }
 }
 
-// bool Menu::chooseYesNo(const std::vector<std::string>& opt)
-// {   
-//     int numOptions = opt.size();
-//     while (true)
-//     {
-//         int = readControlKeys();
-//     }
-    
-// }
+int Menu::chooseYesNo(const std::vector<std::string>& opt, int maxLen)
+{
+    currentOption = 0; 
+    while (true)
+    {
+        displayHoriz(opt, maxLen);
+        int key = readControlKeys();
+        switch (key)
+        {
+            case ARROW_LEFT:
+                currentOption = 0;
+                break;
+            case ARROW_RIGHT:
+                currentOption = 1;
+                break;
+            case ENTER:
+                return currentOption;
+            default:
+                break;
+        }
+    }
+}
 
 void Menu::interactWithPet(Player* player)
 {
-    std::string petName = player->getPet()->getName();
-    int playerChoice = chooseVertOption(menuOptions, LINE_BETWEEN_OPT);
+    std::string petName = player->getPet()->getPetName();
+    int playerChoice = chooseVertOption(petOptions, SCREEN_WIDGHT);
     std::cin.clear();
     switch (playerChoice)
     {
@@ -125,12 +156,18 @@ void Menu::interactWithPet(Player* player)
     }
 }
 
+void Menu::hovnotest()
+{
+    int playerChoice = chooseYesNo(yesNoOptions, SCREEN_WIDGHT);
+    std::cout << playerChoice;
+}
 int main()
 {
     Menu menu;
     Dog* myDog = new Dog("Buddy");
     Player player("John", myDog, 100);
     menu.interactWithPet(&player);
+    // menu.hovnotest();
 
 
     return 0;

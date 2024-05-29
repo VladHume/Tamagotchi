@@ -23,13 +23,16 @@ class Menu
 {
 private:
     static const int SCREEN_WIDGHT = 76;
-    static const int LINE_BETWEEN_OPT = 40;
-    int currentOption = 0; 
+    static const int MENU_WIDGHT = 40;
+    static const int LINE_BETWEEN = 20;
+    static const int INDENT = 10;
+    int currentOption; 
     int numOptions; 
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
-    std::vector<std::string> yesNoOptions {"Так", "Ні"};
+    std::vector<std::string> yesNoOptions {"Ні", "Так"};
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
+
 public:
     const std::vector<std::string>& getPetOptions() const;
     const std::vector<std::string>& getYesNoOptions() const;
@@ -37,8 +40,11 @@ public:
     bool isCorrectControlKey(int key);
     int readControlKeys();
     void interactWithPet(Player* player);
+    int chooseYesNo(const std::vector<std::string>& opt, int maxLen);
     int chooseVertOption(const std::vector<std::string>& opt, int maxLen); 
-    void displayPetInteractions(const std::vector<std::string>& opt, int maxLen);
+    void displayVert(const std::vector<std::string>& opt, int maxLen);
+    void displayHoriz(const std::vector<std::string>& opt, int maxLen);
+    void hovnotest();
     
 };
 
