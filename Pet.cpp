@@ -5,9 +5,9 @@
 #include <string>
 
 
-Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), name_(petName), isAlive_(true){}
+Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), name_(petName), isAlive_(true), currentMood_(MOOD::NORMAL){}
 
-Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), name_(""), isAlive_(true){}
+Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), name_(""), isAlive_(true), currentMood_(MOOD::NORMAL){}
 
 //гетери
 int  Pet::getAttention(){
@@ -35,9 +35,9 @@ bool Pet::getIsAlive(){
     return isAlive_;
 }
 
-//MOOD Pet::getMood(){
-//   return MOOD.currentMood_;
-//}
+MOOD Pet::getMood(){  //+
+  return currentMood_;
+}
 
 
 //сетери
@@ -65,9 +65,9 @@ void Pet::setName(std::string name){
     name_ = name;
 }
 
-//void Pet::setMood(MOOD mood){
-//    MOOD.currentMood_ = mood;
-//}
+void Pet::setMood(MOOD mood){  //+
+    currentMood_ = mood;
+}
 
 
 void Pet::feed() {
@@ -145,4 +145,15 @@ void Pet::goToSleep() {
     } 
 }
 
+
+void Pet::checkMood(){
+    double generalMood = ((attention_ *0.8)+ health_ + fatigue_*0.8 + hunger_ + (cleanliness_*0.5)) / 5;
+    if(generalMood >= 80 && generalMood <= 100){
+        currentMood_ = MOOD::HAPPY;
+    }else if(generalMood >= 50 && generalMood < 80){
+        currentMood_ = MOOD::NORMAL;
+    }else{
+        currentMood_ = MOOD::SAD;
+    }
+}
 
