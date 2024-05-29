@@ -10,6 +10,7 @@ class Dog : public Pet{
     public:   
     Dog(std::string petName);     
     bool death() override;
+    std::string getType() override;
 };
 
 #endif
