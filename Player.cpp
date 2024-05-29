@@ -19,6 +19,10 @@ std::string Player::getName(){
     return name_;
 }
 
+void Player::setName(std::string name){
+    name_ = name;
+}
+
 void Player::setSteps(int playerSteps){
     playerSteps_ = playerSteps;
 }
