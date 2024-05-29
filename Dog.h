@@ -8,7 +8,8 @@
 
 class Dog : public Pet{
     public:   
-    Dog(std::string petName);     
+    Dog(std::string petName);  
+    Dog();   
     bool death() override;
     std::string getType() override;
 };
