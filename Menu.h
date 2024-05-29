@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <iomanip>
+#include "PrintUtility.h"
 #include "Pet.h"
 #include "Player.h"
 #include "Dog.h"
@@ -20,10 +22,12 @@ enum ControlKeys
 class Menu
 {
 private:
+    static const int SCREEN_WIDGHT = 76;
+    static const int LINE_BETWEEN_OPT = 40;
     int currentOption = 0; 
     int numOptions; 
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
-                                     "Погладити", "Вдарити", "Покласти спати"}; 
+                                     "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
     std::vector<std::string> yesNoOptions {"Так", "Ні"};
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
 public:
@@ -33,8 +37,8 @@ public:
     bool isCorrectControlKey(int key);
     int readControlKeys();
     void interactWithPet(Player* player);
-    int chooseVertOption(const std::vector<std::string>& opt); 
-    void displayVertOptions(const std::vector<std::string>& opt);
+    int chooseVertOption(const std::vector<std::string>& opt, int maxLen); 
+    void displayPetInteractions(const std::vector<std::string>& opt, int maxLen);
     
 };
 
