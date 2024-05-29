@@ -15,7 +15,7 @@ protected:
     int cleanliness_;
     int fatigue_;
     int hunger_;
-    std::string name_;
+    std::string petName_;
     bool isAlive_;
     MOOD currentMood_;  //+
 
@@ -30,7 +30,7 @@ public:
     int getCleanliness();
     int getFatigue();
     int getHunger();
-    std::string getName();
+    std::string getPetName();
     MOOD getMood(); //+
 
     // Сетери
@@ -40,7 +40,7 @@ public:
     void setCleanliness(int cleanliness);
     void setFatigue(int fatigue);
     void setHunger(int hunger);
-    void setName(std::string name);
+    void setPetName(std::string petName);
     void setMood(MOOD mood);  //+
 
     virtual bool death() = 0;
