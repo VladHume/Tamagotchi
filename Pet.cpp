@@ -5,9 +5,9 @@
 #include <string>
 
 
-Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), name_(petName), isAlive_(true), currentMood_(MOOD::NORMAL){}
+Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), petName_(petName), isAlive_(true), currentMood_(MOOD::NORMAL){}
 
-Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), name_(""), isAlive_(true), currentMood_(MOOD::NORMAL){}
+Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), petName_(""), isAlive_(true), currentMood_(MOOD::NORMAL){}
 
 //гетери
 int  Pet::getAttention(){
@@ -28,8 +28,8 @@ int Pet::getHunger(){
     return hunger_;
 }
 
-std::string Pet::getName(){
-        return name_;
+std::string Pet::getPetName(){
+        return petName_;
 }
 bool Pet::getIsAlive(){
     return isAlive_;
@@ -61,8 +61,8 @@ void Pet::setHunger(int hunger){
     hunger_ = hunger;
 }
 
-void Pet::setName(std::string name){
-    name_ = name;
+void Pet::setPetName(std::string petName){
+    petName_ = petName;
 }
 
 void Pet::setMood(MOOD mood){  //+
