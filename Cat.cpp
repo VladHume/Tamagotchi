@@ -20,3 +20,8 @@ bool Cat::death (){
     return false;
 }
 
+std::string Cat::getType(){
+    return std::string("CAT"); 
+}
+
+
