@@ -30,3 +30,7 @@ void Player::setSteps(int playerSteps){
 Pet* Player::getPet(){
     return pet_;
 }
+
+void Player::setPet(Pet* pet) {
+    pet_ = pet;
+}
