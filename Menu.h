@@ -3,12 +3,10 @@
 #include <vector>
 #include <string>
 #include <iostream>
-enum MainMenuChoice
-{
-    START = 1,
-    LOAD = 2,
-    EXIT = 3
-};
+#include "Pet.h"
+#include "Player.h"
+#include "Dog.h"
+
 
 enum ControlKeys
 {
@@ -26,14 +24,18 @@ private:
     int numOptions; 
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
                                      "Погладити", "Вдарити", "Покласти спати"}; 
-    //std::vector<std::string> yesNoOptions {"Так", "Ні"};
-    //std::vector<std::string> yesNoOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
+    std::vector<std::string> yesNoOptions {"Так", "Ні"};
+    std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
 public:
     const std::vector<std::string>& getPetOptions() const;
+    const std::vector<std::string>& getYesNoOptions() const;
+    const std::vector<std::string>& getMenuOptions() const;
     bool isCorrectControlKey(int key);
     int readControlKeys();
-    int chooseOption(const std::vector<std::string>& opt); 
-    void displayOptions();
+    void interactWithPet(Player* player);
+    int chooseVertOption(const std::vector<std::string>& opt); 
+    void displayVertOptions(const std::vector<std::string>& opt);
+    
 };
 
 #endif
