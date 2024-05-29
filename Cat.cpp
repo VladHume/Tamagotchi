@@ -2,6 +2,7 @@
 #include "Cat.h"
 
 Cat::Cat(std::string petName) : Pet(petName), lives_(9){}
+Cat::Cat():Pet(), lives_(9){}
 
 bool Cat::death (){
     if (health_ <= 0 || fatigue_ <= 0 || hunger_ <= 0) {

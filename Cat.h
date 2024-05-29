@@ -9,7 +9,8 @@ class Cat : public Pet{
     private:
     int lives_;
     public:   
-    Cat(std::string petName);     
+    Cat(std::string petName);    
+    Cat(); 
     bool death() override;
     std::string getType() override;
 };
