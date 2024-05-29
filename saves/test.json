@@ -1,0 +1,14 @@
+{
+    "name": "John",
+    "pet": {
+        "attention": 60,
+        "cleanliness": 60,
+        "fatigue": 90,
+        "health": 100,
+        "hunger": 60,
+        "isAlive": true,
+        "name": "Buddy",
+        "type": "DOG"
+    },
+    "playerSteps": 100
+}

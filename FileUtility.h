@@ -3,22 +3,24 @@
 
 #include <string>
 #include "Player.h"
+#include "Pet.h"
 #include "Dog.h"
 #include "Cat.h"
 #include <vector>
 #include <fstream>
+#include "json\single_include\nlohmann\json.hpp"
+
+using json = nlohmann::json;
 
 class FileUtility {
 private:
-    std::ofstream &file;
-    //const std::string fileDirectory;
-    void writeString(std::ofstream &out, const std::string &str);
+    std::string fileName;
 public:
-    FileUtility(std::ofstream &f);
-    ~FileUtility();
+    FileUtility(std::string fileName);
     static FileUtility* createFile(const std::string& fileName);
     static bool deleteFile(const std::string& fileName);
     void updateFile(Player *player);
+    void read(Player* player);
     static std::vector<std::string> fileList();
     static bool checkFileExistence(const std::string& fileName);
 };

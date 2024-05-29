@@ -54,7 +54,23 @@
         "semaphore": "cpp",
         "sstream": "cpp",
         "stop_token": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "any": "cpp",
+        "bitset": "cpp",
+        "condition_variable": "cpp",
+        "csignal": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "optional": "cpp",
+        "regex": "cpp",
+        "mutex": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "valarray": "cpp",
+        "variant": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
