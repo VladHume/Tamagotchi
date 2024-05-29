@@ -62,7 +62,7 @@ void Pet::setHunger(int hunger){
 }
 
 void Pet::setName(std::string name){
-    name_ = name;
+    strcpy(name_, name);
 }
 
 void Pet::setMood(MOOD mood){  //+

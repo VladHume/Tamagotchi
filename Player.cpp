@@ -20,7 +20,7 @@ std::string Player::getName(){
 }
 
 void Player::setName(std::string name){
-    name_ = name;
+    strcpy(name_, name);
 }
 
 void Player::setSteps(int playerSteps){
