@@ -13,9 +13,11 @@ protected:
     int hunger_;
     std::string name_;
     bool isAlive_;
+    //MOOD currentMood_;
 
 public:
     Pet(std::string petName);
+    Pet();
 
     // Гетери
     bool getIsAlive();
@@ -33,8 +35,10 @@ public:
     void setCleanliness(int cleanliness);
     void setFatigue(int fatigue);
     void setHunger(int hunger);
+    void setName(std::string name);
 
     virtual bool death() = 0;
+    virtual std::string getType() = 0;
 
     void feed();
     void treat();
@@ -44,5 +48,9 @@ public:
     void punch();
     void goToSleep();
 };
+
+//enum class MOOD{
+//    HAPPY, NORMAL, SAD
+//};
 
 #endif 

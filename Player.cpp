@@ -19,10 +19,18 @@ std::string Player::getName(){
     return name_;
 }
 
+void Player::setName(std::string name){
+    name_ = name;
+}
+
 void Player::setSteps(int playerSteps){
     playerSteps_ = playerSteps;
 }
 
 Pet* Player::getPet(){
     return pet_;
+}
+
+void Player::setPet(Pet* pet) {
+    pet_ = pet;
 }

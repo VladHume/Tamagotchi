@@ -9,3 +9,7 @@ bool Dog::death (){
             return true;
         } else  return false;
 }
+
+std::string Dog::getType(){
+    return std::string("DOG"); 
+}
