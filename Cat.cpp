@@ -4,6 +4,14 @@
 Cat::Cat(std::string petName) : Pet(petName), lives_(9){}
 Cat::Cat():Pet(), lives_(9){}
 
+int Cat::getLives(){ //+
+    return lives_;
+}
+
+void Cat::setLives(int lives){ //+
+    lives_ = lives;
+}
+
 bool Cat::death (){
     if (health_ <= 0 || fatigue_ <= 0 || hunger_ <= 0) {
         if (lives_ <= 0) {
