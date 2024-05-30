@@ -42,12 +42,12 @@ void FileUtility::updateFile(Player* player) {
 
     json petData;
     petData["type"] = player->getPet()->getType();
-    petData["name"] = player->getPet()->getName();
+    petData["name"] = player->getPet()->getPetName();
     petData["attention"] = player->getPet()->getAttention();
     petData["health"] = player->getPet()->getHealth();
     petData["cleanliness"] = player->getPet()->getCleanliness();
-    petData["fatigue"] = player->getPet()->getFatigue();
-    petData["hunger"] = player->getPet()->getHunger();
+    petData["rested"] = player->getPet()->getRested();
+    petData["satiated"] = player->getPet()->getSatiated();
     petData["isAlive"] = player->getPet()->getIsAlive();
 
     j["pet"] = petData;
@@ -81,12 +81,12 @@ void FileUtility::read(Player* player) {
             return;
         }
 
-        pet->setName(petData["name"]);
+        pet->setPetName(petData["name"]);
         pet->setAttention(petData["attention"]);
         pet->setHealth(petData["health"]);
         pet->setCleanliness(petData["cleanliness"]);
-        pet->setFatigue(petData["fatigue"]);
-        pet->setHunger(petData["hunger"]);
+        pet->setRested(petData["rested"]);
+        pet->setSatiated(petData["satiated"]);
         pet->setIsAlive(petData["isAlive"]);
 
         player->setPet(pet);
