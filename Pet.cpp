@@ -5,9 +5,9 @@
 #include <string>
 
 
-Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), fatigue_(90), hunger_(60), petName_(petName), isAlive_(true), currentMood_(MOOD::NORMAL){}
+Pet::Pet(std::string petName): attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), petName_(petName), isAlive_(true), currentMood_(MOOD::NORMAL){}
 
-Pet::Pet(): attention_(0), health_(0), cleanliness_(0), fatigue_(0), hunger_(0), petName_(""), isAlive_(true), currentMood_(MOOD::NORMAL){}
+Pet::Pet(): attention_(0), health_(0), cleanliness_(0), rested_(0), satiated_(0), petName_(""), isAlive_(true), currentMood_(MOOD::NORMAL){}
 
 //гетери
 int  Pet::getAttention(){
@@ -20,12 +20,12 @@ int Pet::getHealth(){
     return cleanliness_;
  }
 
-int Pet::getFatigue(){
-    return fatigue_;
+int Pet::getRested(){
+    return rested_;
 }
 
-int Pet::getHunger(){
-    return hunger_;
+int Pet::getSatiated(){
+    return satiated_;
 }
 
 std::string Pet::getPetName(){
@@ -54,11 +54,11 @@ void Pet::setHealth(int health){
 void Pet::setCleanliness(int cleanliness){
     cleanliness_ = cleanliness;
 }
-void Pet::setFatigue(int fatigue){
-    fatigue_ = fatigue;
+void Pet::setRested(int rested){
+    rested_ = rested;
 }
-void Pet::setHunger(int hunger){
-    hunger_ = hunger;
+void Pet::setSatiated(int satiated){
+    satiated_ = satiated;
 }
 
 void Pet::setPetName(std::string petName){
@@ -72,11 +72,11 @@ void Pet::setMood(MOOD mood){  //+
 
 void Pet::feed() {
      if (isAlive_) {
-        hunger_ += 20;
-        if (hunger_ > 100)
-            hunger_ = 100;
+        satiated_ += 20;
+        if (satiated_ > 100)
+            satiated_ = 100;
         cleanliness_ -= 10;
-        fatigue_ -= 10;
+        rested_ -= 10;
         health_ += 5;
         if (health_ > 100)
             health_ = 100;
@@ -88,7 +88,7 @@ void Pet::treat(){
       if (isAlive_) {
         if(health_ < 90){
             health_ = 100;
-            fatigue_ -= 10;
+            rested_ -= 10;
         }
     }
 }
@@ -99,7 +99,7 @@ void Pet::clean() {
         cleanliness_ += 30;
         if (cleanliness_ > 100)
             cleanliness_ = 100;
-        fatigue_ -= 10;
+        rested_ -= 10;
     }
 }
 
@@ -110,8 +110,8 @@ void Pet::play(){
         if (attention_ > 100)
             attention_ = 100;
         cleanliness_ -= 10;
-        hunger_ -= 10;
-        fatigue_ -= 20;
+        satiated_ -= 10;
+        rested_ -= 20;
     }
 }
 
@@ -122,8 +122,8 @@ void Pet::pet() {
         if (attention_ > 100)
             attention_ = 100;
         cleanliness_ -= 5;
-        hunger_ -= 5;
-        fatigue_ -= 5;
+        satiated_ -= 5;
+        rested_ -= 5;
     }
 }
 
@@ -131,23 +131,23 @@ void Pet::pet() {
 void Pet::punch(){
      if (isAlive_) {
         health_ -= 10;
-        fatigue_ -= 10;
+        rested_ -= 10;
     } 
 }
 
 
 void Pet::goToSleep() {
     if (isAlive_) {
-        if(fatigue_ < 100){
-            fatigue_ = 100;
-            hunger_ -= 20;
+        if(rested_ < 100){
+            rested_ = 100;
+            satiated_ -= 20;
         }
     } 
 }
 
 
 void Pet::checkMood(){
-    double generalMood = ((attention_ *0.8)+ health_ + fatigue_*0.8 + hunger_ + (cleanliness_*0.5)) / 5;
+    double generalMood = ((attention_ *0.8)+ health_ + rested_*0.8 + satiated_ + (cleanliness_*0.5)) / 5;
     if(generalMood >= 80 && generalMood <= 100){
         currentMood_ = MOOD::HAPPY;
     }else if(generalMood >= 50 && generalMood < 80){
