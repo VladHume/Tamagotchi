@@ -8,6 +8,7 @@ const std::string fileDirectory = ".\\saves";
 
 FileUtility::FileUtility(std::string fName) : fileName(fName) {}
 
+//Створює новий файл у вказаній директорії, або повертає вже існуючиий файл
 FileUtility* FileUtility::createFile(const std::string& fileName){
     std::string filePath = fileDirectory + "\\" + fileName;
     if (!std::filesystem::exists(filePath)) {
@@ -24,7 +25,7 @@ FileUtility* FileUtility::createFile(const std::string& fileName){
     }
 }
 
-
+//Видаляє файл
 bool FileUtility::deleteFile(const std::string& fileName){
     if (std::remove((fileDirectory + "\\" + fileName).c_str()) != 0) {
         return false;
@@ -33,6 +34,7 @@ bool FileUtility::deleteFile(const std::string& fileName){
     }
 }
 
+//Оновлює файл
 void FileUtility::updateFile(Player* player) {
     json j;
     j["name"] = player->getName();
@@ -57,6 +59,7 @@ void FileUtility::updateFile(Player* player) {
     }
 }
 
+//Зчитує данні з файлу
 void FileUtility::read(Player* player) {
     std::ifstream file(fileDirectory + "\\" + fileName);
     if (file.is_open()) {
@@ -92,6 +95,7 @@ void FileUtility::read(Player* player) {
     }
 }
 
+//Повертає вектор з файлами, які містяться у директорії
 std::vector<std::string> FileUtility::fileList() {
     std::vector<std::string> files;
     for (const auto& entry : std::filesystem::directory_iterator(fileDirectory)) {
@@ -102,6 +106,7 @@ std::vector<std::string> FileUtility::fileList() {
     return files;
 }
 
+//Перевіряє наявність файлу у директорії
 bool FileUtility::checkFileExistence(const std::string& fileName) {
     std::ifstream file(fileDirectory + "\\" + fileName);
     return file.good();
