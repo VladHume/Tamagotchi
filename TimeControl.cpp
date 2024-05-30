@@ -87,3 +87,22 @@ void TimeControl::changeStatesDueToPhase() {
             break;
     }
 }
+
+TimePhase TimeControl::getCurrentPhase() {
+    return currentPhase;
+}
+
+std::string TimeControl::getCurrentPhaseString() {
+    switch (currentPhase) {
+        case TimePhase::MORNING:
+            return "MORNING";
+        case TimePhase::AFTERNOON:
+            return "AFTERNOON";
+        case TimePhase::EVENING:
+            return "EVENING";
+        case TimePhase::NIGHT:
+            return "NIGHT";
+        default:
+            return " ";
+    }
+}
