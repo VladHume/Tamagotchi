@@ -9,6 +9,10 @@
 #include "Player.h"
 #include "Dog.h"
 
+static const int SCREEN_WIDGHT = 76;
+static const int MENU_WIDGHT = 40;
+static const int LINE_BETWEEN = 20;
+static const int INDENT = 10;
 
 enum ControlKeys
 {
@@ -22,17 +26,12 @@ enum ControlKeys
 class Menu
 {
 private:
-    static const int SCREEN_WIDGHT = 76;
-    static const int MENU_WIDGHT = 40;
-    static const int LINE_BETWEEN = 20;
-    static const int INDENT = 10;
     int currentOption; 
-    int numOptions; 
+    int numOptions;     
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
     std::vector<std::string> yesNoOptions {"Ні", "Так"};
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
-
 public:
     const std::vector<std::string>& getPetOptions() const;
     const std::vector<std::string>& getYesNoOptions() const;

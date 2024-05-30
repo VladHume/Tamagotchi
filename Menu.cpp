@@ -37,6 +37,7 @@ bool Menu::isCorrectControlKey(int key)
 void Menu::displayVert(const std::vector<std::string>& opt, int maxLen)
 {
     PrintUtility::cleanScreen(); 
+    PrintUtility::startGame();
     std::cout << PrintUtility::drawLine(maxLen);
     for (int i = 0; i < static_cast<int>(opt.size()); i++)
     {
@@ -71,6 +72,7 @@ void Menu::displayHoriz(const std::vector<std::string>& opt, int maxLen)
 
 int Menu::chooseVertOption(const std::vector<std::string>& opt, int maxLen)
 {
+    
     currentOption = 0;
     int numOptions = opt.size();
     while (true)
@@ -118,6 +120,7 @@ int Menu::chooseYesNo(const std::vector<std::string>& opt, int maxLen)
 
 void Menu::interactWithPet(Player* player)
 {
+    
     std::string petName = player->getPet()->getPetName();
     int playerChoice = chooseVertOption(petOptions, SCREEN_WIDGHT);
     std::cin.clear();
@@ -156,19 +159,4 @@ void Menu::interactWithPet(Player* player)
     }
 }
 
-void Menu::hovnotest()
-{
-    int playerChoice = chooseYesNo(yesNoOptions, SCREEN_WIDGHT);
-    std::cout << playerChoice;
-}
-int main()
-{
-    Menu menu;
-    Dog* myDog = new Dog("Buddy");
-    Player player("John", myDog, 100);
-    menu.interactWithPet(&player);
-    // menu.hovnotest();
 
-
-    return 0;
-}
