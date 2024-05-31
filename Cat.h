@@ -9,7 +9,7 @@ class Cat : public Pet{
     private:
     int lives_;
     public:   
-    Cat(std::string petName);    
+    Cat(std::string name);    
     Cat(); 
     int getLives(); //+
     void setLives(int lives); //+
