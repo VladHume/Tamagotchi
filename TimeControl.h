@@ -28,7 +28,7 @@ class TimeControl{
         void changePhaseInGame();
         void changeStatesDueToPhase();
         void updateTimeInGame();
-        string getCurrentPhaseString();
-        TimePhase getCurrentPhase()
+        std::string getCurrentPhaseString();
+        TimePhase getCurrentPhase();
 };
 #endif
