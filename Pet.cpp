@@ -47,18 +47,23 @@ void Pet::setIsAlive(bool isAlive){
 
 void Pet::setAttention(int attention){
     attention_ = attention;
+    checkBounds();
 }
 void Pet::setHealth(int health){
     health_ = health;
+    checkBounds();
 }
 void Pet::setCleanliness(int cleanliness){
     cleanliness_ = cleanliness;
+    checkBounds();
 }
 void Pet::setRested(int rested){
     rested_ = rested;
+    checkBounds();
 }
 void Pet::setSatiated(int satiated){
     satiated_ = satiated;
+    checkBounds();
 }
 
 void Pet::setName(std::string name){
