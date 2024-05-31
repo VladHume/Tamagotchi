@@ -5,9 +5,12 @@
 #include <thread>
 #include <chrono>
 #include <ctime>
-#include <TimePhase.h>
-#include <Player.h>
-#include <FileUtility.h>
+#include "TimePhase.h"
+#include "Player.h"
+#include "Pet.h"
+#include "Dog.h"
+#include "Cat.h"
+#include "FileUtility.h"
 
 class TimeControl{
     private:
@@ -20,8 +23,12 @@ class TimeControl{
         Player *player;
     public:
         TimeControl(Player *player, FileUtility *filetm);
-        void autoSave();
+        ~TimeControl();
+        void timeControlLoop();
         void changePhaseInGame();
         void changeStatesDueToPhase();
-}
+        void updateTimeInGame();
+        std::string getCurrentPhaseString();
+        TimePhase getCurrentPhase();
+};
 #endif
