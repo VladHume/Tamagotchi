@@ -1,12 +1,13 @@
 #include "TimeControl.h"
 
 TimeControl::TimeControl(Player *player, FileUtility *filetm) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING) {
-    // Ініціалізація часу гри нульовими значеннями
+    // Ініціалізація часу гри нульовими значеннями 
     timeInGame = std::tm{};
 
     // Ініціалізація часу початку гри поточним часом
     std::time_t now = std::time(nullptr);
     timeStartGame = *std::localtime(&now);
+    currentTime = *std::localtime(&now);
         
     controlThread = std::thread(&TimeControl::timeControlLoop, this);
 }
@@ -18,18 +19,20 @@ TimeControl::~TimeControl() {
 }
 
 void TimeControl::timeControlLoop(){
-    int durationOfTheCurrentPhase = 0;
+    int durationOfTheCurrentPhase = 0; //к-сть часу, який триває поточна фаза
+    checkElapsedTimeAndUpdate();
+    updateTimeInGame();
     while(player->getPet()->getIsAlive()){
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        filetm->updateFile(player);
+        updateTimeInGame();
+        filetm->updateFile(player, currentTime);
         durationOfTheCurrentPhase++;
-        if(durationOfTheCurrentPhase % timePhaseChanger == 0){
+        if((durationOfTheCurrentPhase %= timePhaseChanger) == 0){
             changePhaseInGame();
-            updateTimeInGame();
             player->getPet()->death();
         }
     }
-    filetm->updateFile(player);
+    filetm->updateFile(player, currentTime);
 }
 
 void TimeControl::updateTimeInGame() {
@@ -46,6 +49,9 @@ void TimeControl::updateTimeInGame() {
     timeInGame.tm_hour = hours;
     timeInGame.tm_min = minutes;
     timeInGame.tm_sec = seconds;
+
+    std::time_t currentNow = std::time(nullptr);
+    currentTime = *std::localtime(&currentNow);
 }
 
 void TimeControl::changePhaseInGame(){
@@ -88,6 +94,30 @@ void TimeControl::changeStatesDueToPhase() {
     }
 }
 
+void TimeControl::checkElapsedTimeAndUpdate() {
+    std::tm savedTime = filetm->readTimeEndGame();
+    
+    // Конвертуємо часи в time_t для обчислення різниці
+    std::time_t savedTime_t = std::mktime(const_cast<std::tm*>(&savedTime));
+    std::time_t nowTime_t = std::mktime(&timeStartGame);
+
+    // Обчислення різниці в секундах
+    double elapsedSeconds = std::difftime(nowTime_t, savedTime_t);
+
+    // Обчислення різниці в годинах
+    int elapsedHours = static_cast<int>(elapsedSeconds / 3600);
+
+    updateStateBasedOnAbsenceTime(elapsedHours);
+}
+
+void TimeControl::updateStateBasedOnAbsenceTime(int elapsedHours){
+    player->getPet()->setAttention(player->getPet()->getAttention() - (3*elapsedHours));
+    player->getPet()->setCleanliness(player->getPet()->getCleanliness() - (3*elapsedHours));
+    player->getPet()->setHealth(player->getPet()->getHealth() - (3*elapsedHours));
+    player->getPet()->setRested(player->getPet()->getRested() - (3*elapsedHours));
+    player->getPet()->setSatiated(player->getPet()->getSatiated() - (3*elapsedHours));
+}
+
 TimePhase TimeControl::getCurrentPhase() {
     return currentPhase;
 }
@@ -105,4 +135,24 @@ std::string TimeControl::getCurrentPhaseString() {
         default:
             return " ";
     }
+}
+
+std::string TimeControl::getTimeInGameString() {
+    return std::to_string(timeInGame.tm_hour) + ":" +
+            std::to_string(timeInGame.tm_min) + ":" +
+            std::to_string(timeInGame.tm_sec);
+}
+
+std::string TimeControl::getCurrentTimeString() {
+    return std::to_string(currentTime.tm_hour) + ":" +
+            std::to_string(currentTime.tm_min) + ":" +
+            std::to_string(currentTime.tm_sec);
+}
+
+int main(){
+    Player player;
+    FileUtility *fileUtility = FileUtility::createFile("test.json");
+    fileUtility->read(&player);
+    TimeControl timeControl(&player, fileUtility);
+    return 0;
 }

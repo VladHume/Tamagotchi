@@ -35,7 +35,7 @@ bool FileUtility::deleteFile(const std::string& fileName){
 }
 
 //Оновлює файл
-void FileUtility::updateFile(Player* player) {
+void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
     json j;
     j["name"] = player->getName();
     j["playerSteps"] = player->getSteps();
@@ -51,6 +51,16 @@ void FileUtility::updateFile(Player* player) {
     petData["isAlive"] = player->getPet()->getIsAlive();
 
     j["pet"] = petData;
+
+    json timeData;
+    timeData["year"] = currentTime.tm_year + 1900;  // tm_year відраховується від 1900
+    timeData["month"] = currentTime.tm_mon + 1;     // tm_mon починається з 0 для січня
+    timeData["day"] = currentTime.tm_mday;
+    timeData["hour"] = currentTime.tm_hour;
+    timeData["minute"] = currentTime.tm_min;
+    timeData["second"] = currentTime.tm_sec;
+
+    j["timeEndGame"] = timeData;
 
     std::ofstream file((fileDirectory + "\\" + fileName), std::ofstream::trunc);
     if (file.is_open()) {
@@ -94,6 +104,32 @@ void FileUtility::read(Player* player) {
         file.close();
     }
 }
+
+std::tm FileUtility::readTimeEndGame() {
+    std::tm timeEndGame = {};
+
+    std::ifstream file((fileDirectory + "\\" + fileName));
+    if (file.is_open()) {
+        json j;
+        file >> j;
+        file.close();
+
+        if (j.contains("timeEndGame")) {
+            json timeData = j["timeEndGame"];
+            timeEndGame.tm_year = timeData["year"].get<int>() - 1900;
+            timeEndGame.tm_mon = timeData["month"].get<int>() - 1;
+            timeEndGame.tm_mday = timeData["day"].get<int>();
+            timeEndGame.tm_hour = timeData["hour"].get<int>();
+            timeEndGame.tm_min = timeData["minute"].get<int>();
+            timeEndGame.tm_sec = timeData["second"].get<int>();
+        }
+    } else {
+        std::cerr << "Unable to open file: " << (fileDirectory + "\\" + fileName) << std::endl;
+    }
+
+    return timeEndGame;
+}
+
 
 //Повертає вектор з файлами, які містяться у директорії
 std::vector<std::string> FileUtility::fileList() {
