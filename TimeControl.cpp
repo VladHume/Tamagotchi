@@ -149,10 +149,10 @@ std::string TimeControl::getCurrentTimeString() {
             std::to_string(currentTime.tm_sec);
 }
 
-int main(){
-    Player player;
-    FileUtility *fileUtility = FileUtility::createFile("test.json");
-    fileUtility->read(&player);
-    TimeControl timeControl(&player, fileUtility);
-    return 0;
-}
+// int main(){
+//     Player player;
+//     FileUtility *fileUtility = FileUtility::createFile("test.json");
+//     fileUtility->read(&player);
+//     TimeControl timeControl(&player, fileUtility);
+//     return 0;
+// }
