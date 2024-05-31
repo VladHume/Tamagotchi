@@ -17,6 +17,7 @@ class TimeControl{
         std::thread controlThread;
         std::tm timeInGame;
         std::tm timeStartGame;
+        std::tm currentTime;
         const int timePhaseChanger = 30;
         TimePhase currentPhase;
         FileUtility *filetm;
@@ -28,7 +29,11 @@ class TimeControl{
         void changePhaseInGame();
         void changeStatesDueToPhase();
         void updateTimeInGame();
+        void checkElapsedTimeAndUpdate();
+        void updateStateBasedOnAbsenceTime(int elapsedHours);
         std::string getCurrentPhaseString();
+        std::string getTimeInGameString();
+        std::string getCurrentTimeString();
         TimePhase getCurrentPhase();
 };
 #endif
