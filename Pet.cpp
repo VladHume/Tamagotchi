@@ -35,7 +35,7 @@ bool Pet::getIsAlive(){
     return isAlive_;
 }
 
-MOOD Pet::getMood(){  //+
+MOOD Pet::getMood(){ 
   return currentMood_;
 }
 
@@ -73,13 +73,10 @@ void Pet::setMood(MOOD mood){  //+
 void Pet::feed() {
      if (isAlive_) {
         satiated_ += 20;
-        if (satiated_ > 100)
-            satiated_ = 100;
         cleanliness_ -= 10;
         rested_ -= 10;
         health_ += 5;
-        if (health_ > 100)
-            health_ = 100;
+        checkBounds();
      }
 }
 
@@ -89,6 +86,7 @@ void Pet::treat(){
         if(health_ < 90){
             health_ = 100;
             rested_ -= 10;
+            checkBounds();
         }
     }
 }
@@ -97,9 +95,8 @@ void Pet::treat(){
 void Pet::clean() {
      if (isAlive_) {
         cleanliness_ += 30;
-        if (cleanliness_ > 100)
-            cleanliness_ = 100;
         rested_ -= 10;
+        checkBounds();
     }
 }
 
@@ -107,11 +104,10 @@ void Pet::clean() {
 void Pet::play(){
     if (isAlive_) {
         attention_ += 20;
-        if (attention_ > 100)
-            attention_ = 100;
         cleanliness_ -= 10;
         satiated_ -= 10;
         rested_ -= 20;
+        checkBounds();
     }
 }
 
@@ -119,11 +115,10 @@ void Pet::play(){
 void Pet::pet() {
     if (isAlive_) {
         attention_ += 10;
-        if (attention_ > 100)
-            attention_ = 100;
         cleanliness_ -= 5;
         satiated_ -= 5;
         rested_ -= 5;
+        checkBounds();
     }
 }
 
@@ -132,6 +127,7 @@ void Pet::punch(){
      if (isAlive_) {
         health_ -= 10;
         rested_ -= 10;
+        checkBounds();
     } 
 }
 
@@ -141,8 +137,22 @@ void Pet::goToSleep() {
         if(rested_ < 100){
             rested_ = 100;
             satiated_ -= 20;
+            checkBounds();
         }
     } 
+}
+
+void Pet::checkBounds() {
+    if (attention_ > MAX_VALUE) attention_ = MAX_VALUE;
+    if (attention_ < MIN_VALUE) attention_ = MIN_VALUE;
+    if (health_ > MAX_VALUE) health_ = MAX_VALUE;
+    if (health_ < MIN_VALUE) health_ = MIN_VALUE;
+    if (cleanliness_ > MAX_VALUE) cleanliness_ = MAX_VALUE;
+    if (cleanliness_ < MIN_VALUE) cleanliness_ = MIN_VALUE;
+    if (rested_ > MAX_VALUE) rested_ = MAX_VALUE;
+    if (rested_ < MIN_VALUE) rested_ = MIN_VALUE;
+    if (satiated_ > MAX_VALUE) satiated_ = MAX_VALUE;
+    if (satiated_ < MIN_VALUE) satiated_ = MIN_VALUE;
 }
 
 

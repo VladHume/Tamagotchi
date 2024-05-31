@@ -4,7 +4,10 @@
 #include <iostream>
 #include <string>
 
-enum class MOOD{  //+
+const int MAX_VALUE = 100;
+const int MIN_VALUE = 0;
+
+enum class MOOD{  
     HAPPY, NORMAL, SAD
 };
 
@@ -17,7 +20,7 @@ protected:
     int satiated_;
     std::string name_;
     bool isAlive_;
-    MOOD currentMood_;  //+
+    MOOD currentMood_;
 
 public:
     Pet(std::string name_);
@@ -31,7 +34,7 @@ public:
     int getRested();
     int getSatiated();
     std::string getName();
-    MOOD getMood(); //+
+    MOOD getMood(); 
 
     // Сетери
     void setIsAlive(bool isAlive);
@@ -41,7 +44,7 @@ public:
     void setRested(int rested);
     void setSatiated(int satiated);
     void setName(std::string name);
-    void setMood(MOOD mood);  //+
+    void setMood(MOOD mood);  
 
     virtual bool death() = 0;
     virtual std::string getType() = 0;
@@ -54,7 +57,8 @@ public:
     void punch();
     void goToSleep();
 
-    void checkMood(); //+
+    void checkBounds();
+    void checkMood(); 
 };
 
 
