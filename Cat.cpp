@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Cat.h"
 
-Cat::Cat(std::string petName) : Pet(petName), lives_(9){}
+Cat::Cat(std::string name) : Pet(name), lives_(9){}
 Cat::Cat():Pet(), lives_(9){}
 
 int Cat::getLives(){ //+

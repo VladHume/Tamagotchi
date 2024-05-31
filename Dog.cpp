@@ -1,7 +1,7 @@
 #include "Dog.h"
 #include <iostream>
 
-Dog::Dog(std::string petName) : Pet(petName){}
+Dog::Dog(std::string name) : Pet(name){}
 Dog::Dog() : Pet(){}
 bool Dog::death (){
     if (health_ <= 0 || rested_ <= 0 || satiated_ <= 0) {
