@@ -2,7 +2,6 @@
 #define PLAYER_H
 #include <iostream>
 #include "Pet.h"
-#include <cstring>
 #include <string>
 
 class Player{

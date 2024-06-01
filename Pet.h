@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "Frames.h"
 
 const int MAX_VALUE = 100;
 const int MIN_VALUE = 0;
@@ -21,9 +22,16 @@ protected:
     std::string name_;
     bool isAlive_;
     MOOD currentMood_;
+    bool isAwaken_;
+
+    Frames *happy_;
+    Frames *sad_;
+    Frames *usual_;
+    Frames *sleep_;
+    Frames *death_;
 
 public:
-    Pet(std::string name_);
+    Pet(std::string name, Frame *happy, Frame *sad, Frame *usual, Frame *sleep, Frame *death);
     Pet();
 
     // Гетери
@@ -35,6 +43,7 @@ public:
     int getSatiated();
     std::string getName();
     MOOD getMood(); 
+    bool getIsAwaken();
 
     // Сетери
     void setIsAlive(bool isAlive);
@@ -45,8 +54,13 @@ public:
     void setSatiated(int satiated);
     void setName(std::string name);
     void setMood(MOOD mood);  
+    void setIsAwaken(bool isAwaken);
 
     virtual bool death() = 0;
+    void nextFrame();
+    void drawPet();
+    void wakeUp();
+
     virtual std::string getType() = 0;
 
     void feed();

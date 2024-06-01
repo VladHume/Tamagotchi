@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Cat.h"
 
-Cat::Cat(std::string name) : Pet(name), lives_(9){}
+Cat::Cat(std::string name) :  Pet(name, FileUtility::readFrames(happyPath),  FileUtility::readFrames(sadPath), FileUtility::readFrames(usualPath), FileUtility::readFrames(sleepPath), FileUtility::readFrames(deathPath)), lives_(9){}
 Cat::Cat():Pet(), lives_(9){}
 
 int Cat::getLives(){ //+

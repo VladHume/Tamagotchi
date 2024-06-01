@@ -4,7 +4,7 @@ class IDrawablePetUtility
 {
 public:
     virtual ~IDrawablePetUtility(){} 
-    virtual void drawPet() = 0;
+    virtual void drawPetUsual() = 0;
     virtual void drawPetSleep() = 0;
     virtual void drawPetDeath() = 0;
     virtual void drawPetSad() = 0;
