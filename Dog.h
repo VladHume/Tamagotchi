@@ -11,7 +11,7 @@ class Dog : public Pet{
     Dog(std::string name);  
     Dog();   
     bool death() override;
-    std::string getType() override;
+    std::string getType() override; 
 };
 
 #endif
