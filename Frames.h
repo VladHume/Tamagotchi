@@ -17,6 +17,12 @@ struct Frames {
             delete next;
         }
     }
+
+    void printFrame(){
+        for (const auto& str : frame) {
+            std::cout << str << std::endl;
+        }
+    }
 };
 
 #endif
