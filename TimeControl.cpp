@@ -148,13 +148,3 @@ std::string TimeControl::getCurrentTimeString() {
             std::to_string(currentTime.tm_min) + ":" +
             std::to_string(currentTime.tm_sec);
 }
-
-// int main(){
-//     Player player;
-//     FileUtility *fileUtility = FileUtility::createFile("test.json");
-//     fileUtility->read(&player);
-//     TimeControl timeControl(&player, fileUtility);
-
-//     FileUtility::printFileContent("pictures\\pet\\cat\\happyCat\\CatHappy1.txt");
-//     return 0;
-// }

@@ -6,6 +6,7 @@
 #include "Pet.h"
 #include "Dog.h"
 #include "Cat.h"
+#include "Frames.h"
 #include <vector>
 #include <fstream>
 #include "json\single_include\nlohmann\json.hpp"
@@ -24,7 +25,9 @@ public:
     std::tm readTimeEndGame();
     static bool printFileContent(const std::string& filePath);
     static std::vector<std::string> fileList();
+    static std::vector<std::string> fileList(const std::string directory);
     static bool checkFileExistence(const std::string& fileName);
+    static Frames* readFrames(const std::string directory);
 };
 
 #endif 

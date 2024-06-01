@@ -146,7 +146,7 @@ std::tm FileUtility::readTimeEndGame() {
 }
 
 
-//Повертає вектор з файлами, які містяться у директорії
+//Повертає вектор з файлами, які містяться у папці saves
 std::vector<std::string> FileUtility::fileList() {
     std::vector<std::string> files;
     for (const auto& entry : std::filesystem::directory_iterator(fileDirectory)) {
@@ -156,6 +156,57 @@ std::vector<std::string> FileUtility::fileList() {
     }
     return files;
 }
+
+//Повертає вектор з файлами, які містяться у директорії
+std::vector<std::string> FileUtility::fileList(const std::string directory) {
+    std::vector<std::string> files;
+    for (const auto& entry : std::filesystem::directory_iterator(directory)) {
+        if (entry.is_regular_file()) {
+            files.push_back(entry.path().filename().string());
+        }
+    }
+    return files;
+}
+
+Frames* FileUtility::readFrames(const std::string directory){
+    std::vector<std::string> fileNames = FileUtility::fileList(directory);
+
+    if (fileNames.empty()) {
+        return nullptr;
+    }
+
+    Frames* headFrame = nullptr; 
+    Frames* currentFrame = nullptr; 
+
+    for (const auto& fileName : fileNames) {
+        std::ifstream file(directory + "\\" + fileName);
+        if (!file.is_open()) {
+            if (headFrame != nullptr) {
+                delete headFrame;
+            }
+            return nullptr;
+        }
+
+        Frames* frame = new Frames();
+        if (headFrame == nullptr) {
+            headFrame = frame;
+        } else {
+            currentFrame->next = frame; 
+        }
+        currentFrame = frame;
+
+        std::string line;
+        while (std::getline(file, line)) {
+            currentFrame->frame.push_back(line);
+        }
+
+        file.close();
+    }
+    currentFrame->next = headFrame;
+
+    return headFrame;
+}
+
 
 //Перевіряє наявність файлу у директорії
 bool FileUtility::checkFileExistence(const std::string& fileName) {
