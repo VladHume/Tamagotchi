@@ -23,6 +23,16 @@ struct Frames {
             std::cout << str << std::endl;
         }
     }
+    
+    Frames& operator=(const Frames& other) {
+        if (this == &other) return *this;
+        
+        frame = other.frame;
+        delete next;
+        next = other.next ? new Frames(*other.next) : nullptr;
+        
+        return *this;
+    }
 };
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Pet.h"
+#include "Frames.h"
 #include <string>
 
 class Cat : public Pet{

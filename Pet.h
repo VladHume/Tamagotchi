@@ -31,8 +31,9 @@ protected:
     Frames *death_;
 
 public:
-    Pet(std::string name, Frame *happy, Frame *sad, Frame *usual, Frame *sleep, Frame *death);
+    Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death);
     Pet();
+    ~Pet();
 
     // Гетери
     bool getIsAlive();

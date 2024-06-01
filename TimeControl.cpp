@@ -1,4 +1,5 @@
 #include "TimeControl.h"
+#include "PrintUtility.h"
 
 TimeControl::TimeControl(Player *player, FileUtility *filetm) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING) {
     // Ініціалізація часу гри нульовими значеннями 
@@ -24,6 +25,7 @@ void TimeControl::timeControlLoop(){
     updateTimeInGame();
     while(player->getPet()->getIsAlive()){
         std::this_thread::sleep_for(std::chrono::seconds(1));
+        //player->getPet()->nextFrame();
         updateTimeInGame();
         filetm->updateFile(player, currentTime);
         durationOfTheCurrentPhase++;
@@ -147,4 +149,21 @@ std::string TimeControl::getCurrentTimeString() {
     return std::to_string(currentTime.tm_hour) + ":" +
             std::to_string(currentTime.tm_min) + ":" +
             std::to_string(currentTime.tm_sec);
+}
+
+int main(){
+    Player player;
+    FileUtility *fu = FileUtility::createFile("test.json");
+
+    fu->read(&player);
+
+    TimeControl tc(&player, fu);
+    player.getPet()->drawPet();
+    // while(player.getPet()->getIsAlive()){
+    //     //PrintUtility::cleanScreen();
+    //     std::this_thread::sleep_for(std::chrono::seconds(1));
+    //     player.getPet()->drawPet();
+    // }
+
+    return 0;
 }

@@ -1,4 +1,5 @@
 #include "Dog.h"
+#include "FileUtility.h"
 #include <iostream>
 
 Dog::Dog(std::string name) : Pet(name, FileUtility::readFrames(happyPath),  FileUtility::readFrames(sadPath), FileUtility::readFrames(usualPath), FileUtility::readFrames(sleepPath), FileUtility::readFrames(deathPath)) {}

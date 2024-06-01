@@ -1,15 +1,24 @@
 #include "Pet.h"
 #include "Player.h"
+#include "FileUtility.h"
 #include <iostream>
 #include <cstring>
 #include <string>
 
 
-Pet::Pet(std::string name, Frame *happy, Frame *sad, Frame *usual, Frame *sleep, Frame *death): attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), name_(name), isAlive_(true), isAwaken_(true), currentMood_(MOOD::NORMAL){}
+Pet::Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death): attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), name_(name), isAlive_(true), isAwaken_(true), currentMood_(MOOD::NORMAL), happy_(happy), sad_(sad), usual_(usual), sleep_(sleep), death_(death){}
 
 Pet::Pet(): attention_(0), health_(0), cleanliness_(0), rested_(0), satiated_(0), name_(""), 
 isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true),  happy_(nullptr), sad_(nullptr),
 usual_(nullptr), sleep_(nullptr), death_(nullptr) {}
+
+Pet::~Pet() {
+    delete happy_;
+    delete sad_;
+    delete usual_;
+    delete sleep_;
+    delete death_;
+}
 
 //гетери
 int  Pet::getAttention(){
