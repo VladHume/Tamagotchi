@@ -42,7 +42,7 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
 
     json petData;
     petData["type"] = player->getPet()->getType();
-    petData["name"] = player->getPet()->getPetName();
+    petData["name"] = player->getPet()->getName();
     petData["attention"] = player->getPet()->getAttention();
     petData["health"] = player->getPet()->getHealth();
     petData["cleanliness"] = player->getPet()->getCleanliness();
@@ -91,7 +91,7 @@ void FileUtility::read(Player* player) {
             return;
         }
 
-        pet->setPetName(petData["name"]);
+        pet->setName(petData["name"]);
         pet->setAttention(petData["attention"]);
         pet->setHealth(petData["health"]);
         pet->setCleanliness(petData["cleanliness"]);
