@@ -13,6 +13,7 @@ class Player{
     public:
     Player(std::string name, Pet* pet, int playerSteps);
     Player();
+    ~Player();
     void increasePlayerSteps();
     int getSteps();
     void setSteps(int playerSteps);

@@ -5,7 +5,11 @@
 #include <string>
 
 Player::Player(std::string name, Pet* pet, int playerSteps): name_(name), pet_(pet), playerSteps_(playerSteps){}
-Player::Player(): name_("\0"), pet_(nullptr), playerSteps_(0){}
+Player::Player(): name_(""), pet_(nullptr), playerSteps_(0){}
+
+Player::~Player(){
+    delete pet_;
+}
 
 void Player::increasePlayerSteps(){
     ++playerSteps_;
