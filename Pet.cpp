@@ -196,17 +196,17 @@ void Pet::nextFrame(){
 
 void Pet::drawPet(){
     if(!isAlive_){
-        printFrame(death_);
+        death_ -> printFrame();
     }else if(!isAwaken_){
-        printFrame(sleep_);
+        sleep_ -> printFrame();
     }else if(currentMood_ == MOOD::HAPPY){
-        printFrame(happy_);
+        happy_ -> printFrame();
     }else if(currentMood_ == MOOD::NORMAL){
-        printFrame(usual_);
+        usual_ -> printFrame();
     }else if(currentMood_ == MOOD::SAD){
-        printFrame(sad_);
+        sad_ -> printFrame();
     }else{
-        printFrame(usual_);
+        usual_ -> printFrame();
     }
 }
 
