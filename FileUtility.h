@@ -22,6 +22,7 @@ public:
     void updateFile(Player *player, const std::tm& currentTime);
     void read(Player* player);
     std::tm readTimeEndGame();
+    static bool printFileContent(const std::string& filePath);
     static std::vector<std::string> fileList();
     static bool checkFileExistence(const std::string& fileName);
 };

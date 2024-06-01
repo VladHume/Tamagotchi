@@ -105,6 +105,21 @@ void FileUtility::read(Player* player) {
     }
 }
 
+bool FileUtility::printFileContent(const std::string& filePath) {
+    std::ifstream file(filePath); 
+    if (!file.is_open()) { 
+        return false;
+    }
+
+    std::string line;
+    while (std::getline(file, line)) { 
+        std::cout << line << std::endl;
+    }
+
+    file.close();
+    return true;
+}
+
 std::tm FileUtility::readTimeEndGame() {
     std::tm timeEndGame = {};
 
