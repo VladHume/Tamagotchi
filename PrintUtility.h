@@ -6,6 +6,8 @@
 #include <iomanip>
 #include <string>
 #include "Player.h"
+#include "FileUtility.h"
+#include "TimeControl.h"
 #include "Menu.h"
 
 class PrintUtility
@@ -19,11 +21,15 @@ public:
     static const int LINE_SIZE = 40;
     static void cleanScreen();
     static int charCounter(std::string text);
-    static void mainScreen();
+    void showPetStats(Player *player);
+    void showPetInfo(Player *player);
+    std::string drawStats(int variable);
+    void mainScreen();
     static void petChoice();
     static void startGame();
     static void endGame();
     static std::string drawLine(int lenght);
+
 };
 
 #endif
