@@ -25,7 +25,8 @@ void TimeControl::timeControlLoop(){
     updateTimeInGame();
     while(player->getPet()->getIsAlive()){
         std::this_thread::sleep_for(std::chrono::seconds(1));
-        //player->getPet()->nextFrame();
+        player->getPet()->nextFrame();
+        player->getPet()->checkMood();
         updateTimeInGame();
         filetm->updateFile(player, currentTime);
         durationOfTheCurrentPhase++;
@@ -151,19 +152,19 @@ std::string TimeControl::getCurrentTimeString() {
             std::to_string(currentTime.tm_sec);
 }
 
-int main(){
-    Player player;
-    FileUtility *fu = FileUtility::createFile("test.json");
+// int main(){
+//     Player player;
+//     FileUtility *fu = FileUtility::createFile("test.json");
+//     std::cout << 1 << std::endl;
+//     fu->read(&player);
+//     std::cout << 2 << std::endl;
+//     TimeControl tc(&player, fu);
+//     std::cout << 3 << std::endl;
 
-    fu->read(&player);
+//     while(player.getPet()->getIsAlive()){
+//         PrintUtility::cleanScreen();
+//         player.getPet()->drawPet();
+//     }
 
-    TimeControl tc(&player, fu);
-    player.getPet()->drawPet();
-    // while(player.getPet()->getIsAlive()){
-    //     //PrintUtility::cleanScreen();
-    //     std::this_thread::sleep_for(std::chrono::seconds(1));
-    //     player.getPet()->drawPet();
-    // }
-
-    return 0;
-}
+//     return 0;
+// }

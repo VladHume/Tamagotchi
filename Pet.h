@@ -33,7 +33,6 @@ protected:
 public:
     Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death);
     Pet();
-    ~Pet();
 
     // Гетери
     bool getIsAlive();

@@ -90,7 +90,6 @@ void FileUtility::read(Player* player) {
         } else {
             return;
         }
-
         pet->setName(petData["name"]);
         pet->setAttention(petData["attention"]);
         pet->setHealth(petData["health"]);

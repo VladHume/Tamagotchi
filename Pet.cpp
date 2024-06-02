@@ -12,14 +12,6 @@ Pet::Pet(): attention_(0), health_(0), cleanliness_(0), rested_(0), satiated_(0)
 isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true),  happy_(nullptr), sad_(nullptr),
 usual_(nullptr), sleep_(nullptr), death_(nullptr) {}
 
-Pet::~Pet() {
-    delete happy_;
-    delete sad_;
-    delete usual_;
-    delete sleep_;
-    delete death_;
-}
-
 //гетери
 int  Pet::getAttention(){
     return attention_;

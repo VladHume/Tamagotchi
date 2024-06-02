@@ -18,21 +18,22 @@ struct Frames {
         }
     }
 
-    void printFrame(){
-        for (const auto& str : frame) {
-            std::cout << str << std::endl;
+    void printFrame() {
+        for (size_t i = 0; i < frame.size(); ++i) {
+            std::cout << frame[i] << std::endl;
         }
     }
-    
-    Frames& operator=(const Frames& other) {
-        if (this == &other) return *this;
+
+
+    // Frames& operator=(const Frames& other) {
+    //     if (this == &other) return *this;
         
-        frame = other.frame;
-        delete next;
-        next = other.next ? new Frames(*other.next) : nullptr;
+    //     frame = other.frame;
+    //     delete next;
+    //     next = other.next ? new Frames(*other.next) : nullptr;
         
-        return *this;
-    }
+    //     return *this;
+    // }
 };
 
 #endif
