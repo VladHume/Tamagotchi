@@ -5,13 +5,8 @@
 #include <cstring>
 #include <string>
 
-<<<<<<< HEAD
-//конструктори
-Pet::Pet(std::string name, Frame *happy, Frame *sad, Frame *usual, Frame *sleep, Frame *death): attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), name_(name), isAlive_(true), isAwaken_(true), currentMood_(MOOD::NORMAL){}
-=======
 
 Pet::Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death): attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), name_(name), isAlive_(true), isAwaken_(true), currentMood_(MOOD::NORMAL), happy_(happy), sad_(sad), usual_(usual), sleep_(sleep), death_(death){}
->>>>>>> 2a92cce6415b73232397efd06c4957034b68e7fd
 
 Pet::Pet(): attention_(0), health_(0), cleanliness_(0), rested_(0), satiated_(0), name_(""), 
 isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true),  happy_(nullptr), sad_(nullptr),
@@ -195,7 +190,7 @@ void Pet::checkMood(){ //перевірка настрою
     double generalMood = ((attention_ *0.8)+ health_ + rested_*0.8 + satiated_ + (cleanliness_*0.5)) / 5;
     if(generalMood >= 70 && generalMood <= 100){
         currentMood_ = MOOD::HAPPY;
-    }else if(generalMood >= 40 && generalMood < 70){
+    }else if(generalMood >= 30 && generalMood < 70){
         currentMood_ = MOOD::NORMAL;
     }else{
         currentMood_ = MOOD::SAD;
