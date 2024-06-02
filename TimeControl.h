@@ -11,6 +11,8 @@
 #include "Dog.h"
 #include "Cat.h"
 #include "FileUtility.h"
+#include <iomanip>
+#include <sstream>
 
 class TimeControl{
     private:

@@ -1,5 +1,5 @@
 #include "TimeControl.h"
-#include "PrintUtility.h"
+//#include "PrintUtility.h"
 
 TimeControl::TimeControl(Player *player, FileUtility *filetm) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING) {
     // Ініціалізація часу гри нульовими значеннями 
@@ -128,43 +128,48 @@ TimePhase TimeControl::getCurrentPhase() {
 std::string TimeControl::getCurrentPhaseString() {
     switch (currentPhase) {
         case TimePhase::MORNING:
-            return "MORNING";
+            return "РАНОК";
         case TimePhase::AFTERNOON:
-            return "AFTERNOON";
+            return "ДЕНЬ";
         case TimePhase::EVENING:
-            return "EVENING";
+            return "ВЕЧІР";
         case TimePhase::NIGHT:
-            return "NIGHT";
+            return "НІЧ";
         default:
             return " ";
     }
 }
 
 std::string TimeControl::getTimeInGameString() {
-    return std::to_string(timeInGame.tm_hour) + ":" +
-            std::to_string(timeInGame.tm_min) + ":" +
-            std::to_string(timeInGame.tm_sec);
+    std::ostringstream oss;
+    oss << std::setw(2) << std::setfill('0') << timeInGame.tm_hour << ":"
+        << std::setw(2) << std::setfill('0') << timeInGame.tm_min << ":"
+        << std::setw(2) << std::setfill('0') << timeInGame.tm_sec;
+    return oss.str();
 }
 
 std::string TimeControl::getCurrentTimeString() {
-    return std::to_string(currentTime.tm_hour) + ":" +
-            std::to_string(currentTime.tm_min) + ":" +
-            std::to_string(currentTime.tm_sec);
+    std::ostringstream oss;
+    oss << std::setw(2) << std::setfill('0') << currentTime.tm_hour << ":"
+        << std::setw(2) << std::setfill('0') << currentTime.tm_min << ":"
+        << std::setw(2) << std::setfill('0') << currentTime.tm_sec;
+    return oss.str();
 }
 
 // int main(){
 //     Player player;
 //     FileUtility *fu = FileUtility::createFile("test.json");
-//     std::cout << 1 << std::endl;
 //     fu->read(&player);
-//     std::cout << 2 << std::endl;
 //     TimeControl tc(&player, fu);
-//     std::cout << 3 << std::endl;
-
-//     while(player.getPet()->getIsAlive()){
+//     while(true){
 //         PrintUtility::cleanScreen();
-//         player.getPet()->drawPet();
+//         std::cout << tc.getTimeInGameString() << std::endl;
 //     }
+    
+//     // while(player.getPet()->getIsAlive()){
+//     //     PrintUtility::cleanScreen();
+//     //     player.getPet()->drawPet();
+//     // }
 
 //     return 0;
 // }
