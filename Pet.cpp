@@ -4,7 +4,7 @@
 #include <cstring>
 #include <string>
 
-
+//конструктори
 Pet::Pet(std::string name, Frame *happy, Frame *sad, Frame *usual, Frame *sleep, Frame *death): attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), name_(name), isAlive_(true), isAwaken_(true), currentMood_(MOOD::NORMAL){}
 
 Pet::Pet(): attention_(0), health_(0), cleanliness_(0), rested_(0), satiated_(0), name_(""), 
@@ -43,6 +43,20 @@ MOOD Pet::getMood(){
 
 bool Pet::getIsAwaken(){
     return isAwaken_;
+}
+
+//метод який повертає стрінгове знчення настрою пета
+std::string Pet::getStringMood() {
+    switch(currentMood_) {
+        case MOOD::HAPPY:
+            return "HAPPY";
+        case MOOD::NORMAL:
+            return "NORMAL";
+        case MOOD::SAD:
+            return "SAD";
+        default:
+            return " ";
+    }
 }
 
 //сетери
@@ -84,7 +98,7 @@ void Pet::setIsAwaken(bool isAwaken){
 }
 
 
-void Pet::feed() {
+void Pet::feed() { //погодувати
      if (isAlive_) {
         satiated_ += 20;
         cleanliness_ -= 10;
@@ -95,7 +109,7 @@ void Pet::feed() {
 }
 
    
-void Pet::treat(){
+void Pet::treat(){ //лікувати
       if (isAlive_) {
         if(health_ < 90){
             health_ = 100;
@@ -106,7 +120,7 @@ void Pet::treat(){
 }
 
 
-void Pet::clean() {
+void Pet::clean() { //почистити 
      if (isAlive_) {
         cleanliness_ += 30;
         rested_ -= 10;
@@ -115,7 +129,7 @@ void Pet::clean() {
 }
 
 
-void Pet::play(){
+void Pet::play(){ //пограти
     if (isAlive_) {
         attention_ += 20;
         cleanliness_ -= 10;
@@ -126,7 +140,7 @@ void Pet::play(){
 }
 
 
-void Pet::pet() {
+void Pet::pet() { //погладити
     if (isAlive_) {
         attention_ += 10;
         cleanliness_ -= 5;
@@ -137,7 +151,7 @@ void Pet::pet() {
 }
 
 
-void Pet::punch(){
+void Pet::punch(){ //вдарити :(
      if (isAlive_) {
         health_ -= 10;
         rested_ -= 10;
@@ -146,7 +160,7 @@ void Pet::punch(){
 }
 
 
-void Pet::goToSleep() {
+void Pet::goToSleep() { //покласти спати
     if (isAlive_) {
         if(rested_ < 100){
             isAwaken_ = false;
@@ -157,7 +171,7 @@ void Pet::goToSleep() {
     } 
 }
 
-void Pet::checkBounds() {
+void Pet::checkBounds() { //перевірка меж потреб
     if (attention_ > MAX_VALUE) attention_ = MAX_VALUE;
     if (attention_ < MIN_VALUE) attention_ = MIN_VALUE;
     if (health_ > MAX_VALUE) health_ = MAX_VALUE;
@@ -171,22 +185,22 @@ void Pet::checkBounds() {
 }
 
 
-void Pet::checkMood(){
+void Pet::checkMood(){ //перевірка настрою
     double generalMood = ((attention_ *0.8)+ health_ + rested_*0.8 + satiated_ + (cleanliness_*0.5)) / 5;
-    if(generalMood >= 80 && generalMood <= 100){
+    if(generalMood >= 70 && generalMood <= 100){
         currentMood_ = MOOD::HAPPY;
-    }else if(generalMood >= 50 && generalMood < 80){
+    }else if(generalMood >= 40 && generalMood < 70){
         currentMood_ = MOOD::NORMAL;
     }else{
         currentMood_ = MOOD::SAD;
     }
 }
 
-void Pet::wakeUp(){
+void Pet::wakeUp(){  //розбудити
     isAwaken_ = true;
 }
 
-void Pet::nextFrame(){
+void Pet::nextFrame(){ //перестановка кадру
     happy_ = happy_ -> next;
     sad_ = sad_ -> next;
     usual_ = usual_ ->next;
@@ -194,7 +208,7 @@ void Pet::nextFrame(){
     death_ = death_ -> next;
 }
 
-void Pet::drawPet(){
+void Pet::drawPet(){  //відмалювати пета по настрою або стану
     if(!isAlive_){
         death_ -> printFrame();
     }else if(!isAwaken_){

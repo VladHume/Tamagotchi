@@ -43,6 +43,7 @@ public:
     int getSatiated();
     std::string getName();
     MOOD getMood(); 
+    std::string getStringMood();
     bool getIsAwaken();
 
     // Сетери
