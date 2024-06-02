@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Pet.h"
+#include "Frames.h"
 #include <string>
 
 class Cat : public Pet{
@@ -20,6 +21,7 @@ class Cat : public Pet{
     void setLives(int lives); //+
     bool death() override;
     std::string getType() override;
+
 };
 
 #endif

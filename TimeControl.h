@@ -11,6 +11,8 @@
 #include "Dog.h"
 #include "Cat.h"
 #include "FileUtility.h"
+#include <iomanip>
+#include <sstream>
 
 class TimeControl{
     private:
@@ -18,7 +20,7 @@ class TimeControl{
         std::tm timeInGame;
         std::tm timeStartGame;
         std::tm currentTime;
-        const int timePhaseChanger = 30;
+        const int timePhaseChanger = 10;
         TimePhase currentPhase;
         FileUtility *filetm;
         Player *player;
