@@ -14,16 +14,16 @@ enum class MOOD{
 
 class Pet {
 protected:
+    std::string name_;
     int attention_;
     int health_;
     int cleanliness_;
     int rested_;
     int satiated_;
-    std::string name_;
+
     bool isAlive_;
     MOOD currentMood_;
     bool isAwaken_;
-
     Frames *happy_;
     Frames *sad_;
     Frames *usual_;
@@ -33,7 +33,7 @@ protected:
 public:
     Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death);
     Pet();
-
+    virtual ~Pet();
     // Гетери
     bool getIsAlive();
     int getAttention();

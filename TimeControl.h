@@ -16,14 +16,17 @@
 
 class TimeControl{
     private:
+        Player *player;
+        FileUtility *filetm;
+        TimePhase currentPhase;
         std::thread controlThread;
         std::tm timeInGame;
         std::tm timeStartGame;
         std::tm currentTime;
         const int timePhaseChanger = 10;
-        TimePhase currentPhase;
-        FileUtility *filetm;
-        Player *player;
+        
+        
+        
     public:
         TimeControl(Player *player, FileUtility *filetm);
         ~TimeControl();

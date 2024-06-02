@@ -5,15 +5,15 @@ void PrintUtility::cleanScreen()
     system("clear");
 }
 
-int PrintUtility::charCounter(std::string text)
+int PrintUtility::charCounter(const std::string text)
 {
     int count = 0;
-    for (int i = 0; text[i]; i++)
+    for (char c : text)
     {
-        if (text[i] == ' ' || text[i] == ':' || text[i] == '\'') count++;
-        count++;  
-    } 
-    return count;
+        if (c == ' ' || c == ':' || c == '\'')
+            count++;
+    }
+    return count + text.length();
 }
 
 void PrintUtility::showPetStats(Player *player)
@@ -24,7 +24,6 @@ void PrintUtility::showPetStats(Player *player)
     const std::string strSatiated = "Ситість: ";
     const std::string strRested = "Відпочинок: ";
     const int statsLenght = 12; 
-    TimeControl *time_;
     int attention = player->getPet()->getAttention();
     int health = player->getPet()->getHealth();
     int cleanliness = player->getPet()->getCleanliness();
@@ -46,14 +45,11 @@ void PrintUtility::showPetInfo(Player *player)
     const std::string strSteps = "Кроки власника: ";
     const std::string strMood = "Настрій улюбленця: ";
       
-    TimeControl *tmc;
     std::string ownerName = player->getName();
     std::string petName = player->getPet()->getName();
-    // std::string petMood = player->getPet()->getMood();
-    int playerSteps = player->getSteps();
-    std::string timeInGame =  tmc->getTimeInGameString();
-    std::string timePhase = tmc->getCurrentPhaseString();
-    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName + timePhase)/2)<< std::setfill(' ') << "|" << std::endl;
+    std::string petMood = player->getPet()->getStringMood();
+
+    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName)/2 - 2)<< std::setfill(' ') << "|" << std::endl;
     // std::cout << "| " <<
     // std::cout << "| " <<
 
@@ -137,14 +133,17 @@ void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen)
 {
     cleanScreen(); 
     std::cout << drawLine(maxLen);
-    for (int i = 0; i < static_cast<int>(opt.size()); i++)
+    for (const auto& option : opt)
     {
-        int spaces = (maxLen - (charCounter(opt[i])/2))-2;
-        if (i == currentOption)
+        int spaces = (maxLen - (charCounter(option) / 2)) - 2;
+        if (&option == &opt[currentOption])
         {
-            std::cout << "| " << setColor << opt[i] << " ■" << unsetColor << std::right << std::setw(spaces-2) << std::setfill(' ') << "|" << std::endl;
+            std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
         }
-        else std::cout << "| " << opt[i] << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+        else
+        {
+            std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+        }
     }
     std::cout << drawLine(maxLen);
 }
@@ -153,20 +152,21 @@ void PrintUtility::displayHoriz(const std::vector<std::string>& opt, int maxLen)
 {
     cleanScreen();
     std::cout << drawLine(maxLen);
-    for (int i = 0; i < static_cast<int>(opt.size()); i++)
+    for (const auto& option : opt)
     {
-        if (i == currentOption)
+        if (&option == &opt[currentOption])
         {
-            std::cout << setColor << opt[i] << " ■" << unsetColor;
+            std::cout << setColor << option << " ■" << unsetColor;
         }
         else
         {
-            std::cout << opt[i];
+            std::cout << option;
         }
         std::cout << std::setw(LINE_BETWEEN) << std::setfill(' ');
     }
     std::cout << '\n' << drawLine(maxLen);
 }
+
 
 int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxLen)
 {

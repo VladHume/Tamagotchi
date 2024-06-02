@@ -39,7 +39,7 @@
 //     PrintUtility::cleanScreen(); 
 //     PrintUtility::startGame();
 //     std::cout << PrintUtility::drawLine(maxLen);
-//     for (int i = 0; i < static_cast<int>(opt.size()); i++)
+//     for (int i = 0; i < opt.size(); i++)
 //     {
 //         int spaces = (maxLen - (PrintUtility::charCounter(opt[i])/2))-2;
 //         if (i == currentOption)

@@ -1,6 +1,6 @@
 #include "TimeControl.h"
 //#include "PrintUtility.h"
-
+//змінила орядок оголошення в конструкторі
 TimeControl::TimeControl(Player *player, FileUtility *filetm) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING) {
     // Ініціалізація часу гри нульовими значеннями 
     timeInGame = std::tm{};

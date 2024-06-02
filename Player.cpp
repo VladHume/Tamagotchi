@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstring>
 #include <string>
-
+//змінила орядок оголошення в конструкторі
 Player::Player(std::string name, Pet* pet, int playerSteps): name_(name), pet_(pet), playerSteps_(playerSteps){}
 Player::Player(): name_(""), pet_(nullptr), playerSteps_(0){}
 

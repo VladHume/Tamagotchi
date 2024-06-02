@@ -5,11 +5,11 @@
 #include <string>
 
 class Player{
-    private:
-    int playerSteps_;
+private:
     std::string name_;
     Pet* pet_;
-    public:
+    int playerSteps_;
+public:
     Player(std::string name, Pet* pet, int playerSteps);
     Player();
     ~Player();
