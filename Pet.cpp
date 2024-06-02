@@ -54,11 +54,11 @@ bool Pet::getIsAwaken(){
 std::string Pet::getStringMood() {
     switch(currentMood_) {
         case MOOD::HAPPY:
-            return "HAPPY";
+            return "Щасливий";
         case MOOD::NORMAL:
-            return "NORMAL";
+            return "Спокійний";
         case MOOD::SAD:
-            return "SAD";
+            return "Невтішний";
         default:
             return " ";
     }
@@ -192,9 +192,9 @@ void Pet::checkBounds() { //перевірка меж потреб
 
 void Pet::checkMood(){ //перевірка настрою
     double generalMood = ((attention_ *0.8)+ health_ + rested_*0.8 + satiated_ + (cleanliness_*0.5)) / 5;
-    if(generalMood >= 70 && generalMood <= 100){
+    if(generalMood >= 60 && generalMood <= 100){
         currentMood_ = MOOD::HAPPY;
-    }else if(generalMood >= 30 && generalMood < 70){
+    }else if(generalMood >= 30 && generalMood < 60){
         currentMood_ = MOOD::NORMAL;
     }else{
         currentMood_ = MOOD::SAD;

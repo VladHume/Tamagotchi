@@ -10,7 +10,7 @@ int PrintUtility::charCounter(const std::string text)
     int count = 0;
     for (char c : text)
     {
-        if (c == ' ' || c == ':' || c == '\'')
+        if (c == ' ' || c == ':' || c == '\'' || (c >= 48 && c <=57))
             count++;
     }
     return count + text.length();
@@ -38,21 +38,21 @@ void PrintUtility::showPetStats(Player *player)
 
 
 }
-void PrintUtility::showPetInfo(Player *player)
-{
+void PrintUtility::showPetInfo(Player* player) {
     const std::string strPetName = "Ім'я улюбленця: ";
     const std::string strOwnerName = "Ім'я власника: ";
     const std::string strSteps = "Кроки власника: ";
     const std::string strMood = "Настрій улюбленця: ";
-      
+
     std::string ownerName = player->getName();
     std::string petName = player->getPet()->getName();
     std::string petMood = player->getPet()->getStringMood();
+    int ownerSteps = player->getSteps();
 
-    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName)/2 - 2)<< std::setfill(' ') << "|" << std::endl;
-    // std::cout << "| " <<
-    // std::cout << "| " <<
-
+    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strPetName << petName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strPetName + petName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
 }
 
 void PrintUtility::mainScreen()
@@ -90,7 +90,9 @@ std::string PrintUtility::drawStats(int variable)
 
 std::string PrintUtility::drawLine(int lenght)
 {
-    return std::string(lenght, '-') + "\n";
+    std::string dots = "..";
+    const int dotcount = 4;
+    return dots + std::string(lenght - dotcount, '-')+ dots + "\n";
 }
 
 //FROM MENU
@@ -257,19 +259,19 @@ void PrintUtility::interactWithPet(Player* player)
 }
 int main()
 {
-    // PrintUtility print;
-    // print.mainScreen();
+    PrintUtility print;
+    print.mainScreen();
 
 
-    Player player;
-    FileUtility *fu = FileUtility::createFile("test.json");
-    std::cout << 1 << std::endl;
-    fu->read(&player);
-    std::cout << 2 << std::endl;
-    TimeControl tc(&player, fu);
-    std::cout << 3 << std::endl;
-    PrintUtility print12;
-    print12.interactWithPet(&player);
+    // Player player;
+    // FileUtility *fu = FileUtility::createFile("test.json");
+    // std::cout << 1 << std::endl;
+    // fu->read(&player);
+    // std::cout << 2 << std::endl;
+    // TimeControl tc(&player, fu);
+    // std::cout << 3 << std::endl;
+    // PrintUtility print12;
+    // print12.interactWithPet(&player);
 
     return 0;
 }
