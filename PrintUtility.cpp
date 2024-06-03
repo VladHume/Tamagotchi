@@ -10,7 +10,7 @@ int PrintUtility::charCounter(const std::string text)
     int count = 0;
     for (char c : text)
     {
-        if (c == ' ' || c == ':' || c == '\'' || (c >= 48 && c <=57))
+        if (c == ' '  c == ':'  c == '\''  (c >= 48 && c <=57))
             count++;
     }
     return count + text.length();
@@ -18,10 +18,6 @@ int PrintUtility::charCounter(const std::string text)
 
 void PrintUtility::showPetStats(Player *player)
 {
-    if (player == nullptr || player->getPet() == nullptr) {
-        std::cerr << "Player or Pet is null" << std::endl;
-        return;
-    }   
     const std::string strAttention = "Увага: ";
     const std::string strHealth = "Здоров'я: ";
     const std::string strCleanliness = "Чистота: ";
@@ -37,8 +33,8 @@ void PrintUtility::showPetStats(Player *player)
     std::cout << "| " << strAttention << drawStats(attention) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strAttention)/2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strHealth << drawStats(health) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strHealth)/2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strCleanliness << drawStats(cleanliness) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strCleanliness)/2) << std::setfill(' ') << "|" << std::endl;
-    std::cout << "| " << strRested << drawStats(satiated) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strRested)/2) << std::setfill(' ') << "|" << std::endl;
-    std::cout << "| " << strSatiated << drawStats(rested) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strSatiated)/2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strRested << drawStats(rested) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strRested)/2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strSatiated << drawStats(satiated) << std::right << std::setw(SCREEN_WIDGHT - statsLenght - charCounter(strSatiated)/2) << std::setfill(' ') << "|" << std::endl;
 
 
 }
@@ -59,15 +55,6 @@ void PrintUtility::showPetInfo(Player* player) {
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
 }
 
-void PrintUtility::func(Player* player)
-{
-    while(player->getPet()->getIsAlive())
-    {
-        
-        interactWithPet(player);
-    } 
-}
-
 void PrintUtility::mainScreen()
 {
     Player player;
@@ -77,20 +64,15 @@ void PrintUtility::mainScreen()
     std::cout << 2 << std::endl;
     TimeControl tc(&player, fu);
     std::cout << 3 << std::endl;
-    std::thread t1 (&PrintUtility::func, this, &player); 
     while(player.getPet()->getIsAlive())
     {
-        
-        cleanScreen();
-        std::cout.flush();
-        player.getPet()->drawPet();
-        showPetStats(&player);
-        std::cout << drawLine(SCREEN_WIDGHT);
-        std::cout.flush();
-        showPetInfo(&player);
-        // interactWithPet(&player);
+        // cleanScreen();
+        // player.getPet()->drawPet();
+        // showPetStats(&player);
+        // std::cout << drawLine(SCREEN_WIDGHT);
+        // showPetInfo(&player);
+        interactWithPet(&player);
     }
-    t1.join();
 }
 
 std::string PrintUtility::drawStats(int variable)
@@ -111,7 +93,7 @@ std::string PrintUtility::drawLine(int lenght)
 {
     std::string dots = "..";
     const int dotcount = 4;
-    return dots + std::string(lenght - dotcount, '-')+ dots + "\n";
+    return dots + std::string(lenght - dotcount, '-')+dots + "\n";
 }
 
 //FROM MENU
@@ -132,27 +114,31 @@ int PrintUtility::readControlKeys()
 {
     int userKey = 0;
     system("stty raw");
-    // while (true)
-    // {
+    while (true)
+    {
         userKey = getchar(); 
         if(isCorrectControlKeys(userKey))
         {
-             
+            break;     
         }      
-    // }
+    }
     system("stty cooked");
     return userKey;
 }
 
 bool PrintUtility::isCorrectControlKeys(int key) 
 { 
-    return key == ENTER || key == ARROW_UP || key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT;
+    return key == ENTER  key == ARROW_UP  key == ARROW_DOWN  key == ARROW_LEFT || key == ARROW_RIGHT;
 }
 
 
-void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen)
+void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen, Player *player)
 {
-
+    cleanScreen(); 
+    player->getPet()->drawPet();
+    showPetStats(player);
+    std::cout << drawLine(SCREEN_WIDGHT);
+    showPetInfo(player);
     std::cout << drawLine(maxLen);
     for (const auto& option : opt)
     {
@@ -169,83 +155,38 @@ void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen)
     std::cout << drawLine(maxLen);
 }
 
-void PrintUtility::displayHoriz(const std::vector<std::string>& opt, int maxLen)
-{
-
-    std::cout << drawLine(maxLen);
-    for (const auto& option : opt)
-    {
-        if (&option == &opt[currentOption])
-        {
-            std::cout << setColor << option << " ■" << unsetColor;
-        }
-        else
-        {
-            std::cout << option;
-        }
-        std::cout << std::setw(LINE_BETWEEN) << std::setfill(' ');
-    }
-    std::cout << '\n' << drawLine(maxLen);
-}
-
-
-int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxLen)
+int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxLen, Player *player)
 {
     
-    int t;
+    currentOption = 0;
     int numOptions = opt.size();
-    // while(true)
-    // {
-        displayVert(opt, maxLen);
+    while (true)
+    {
+        displayVert(opt, maxLen, player);
         int key = readControlKeys();
         switch (key)
         {
             case ARROW_UP:
                 currentOption = (currentOption - 1 + numOptions) % numOptions;
+
                 break;
             case ARROW_DOWN:
                 currentOption = (currentOption + 1) % numOptions;
                 break;
             case ENTER:
-                t = currentOption;
-                currentOption = 0;
-                return t; 
-                break;
-            default:
-                break; 
-        }
-    return 0;
-        
-    // }
-}
-
-int PrintUtility::chooseYesNo(const std::vector<std::string>& opt, int maxLen)
-{
-    currentOption = 0; 
-    while (true)
-    {
-        displayHoriz(opt, maxLen);
-        int key = readControlKeys();
-        switch (key)
-        {
-            case ARROW_LEFT:
-                currentOption = 0;
-                break;
-            case ARROW_RIGHT:
-                currentOption = 1;
-                break;
-            case ENTER:
-                return currentOption;
+                return currentOption; 
             default:
                 break;
         }
     }
 }
+
+
 void PrintUtility::interactWithPet(Player* player)
 {
     
     std::string petName = player->getPet()->getName();
-    int playerChoice = chooseVertOption(petOptions, SCREEN_WIDGHT);
+    int playerChoice = chooseVertOption(petOptions, SCREEN_WIDGHT, player);
     std::cin.clear();
     switch (playerChoice)
     {
