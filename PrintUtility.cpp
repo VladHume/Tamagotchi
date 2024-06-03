@@ -43,6 +43,7 @@ void PrintUtility::showPetInfo(Player* player) {
     const std::string strOwnerName = "Ім'я власника: ";
     const std::string strSteps = "Кроки власника: ";
     const std::string strMood = "Настрій улюбленця: ";
+    const std::string strLives = "Кількість життів: ";
 
     std::string ownerName = player->getName();
     std::string petName = player->getPet()->getName();
@@ -53,26 +54,6 @@ void PrintUtility::showPetInfo(Player* player) {
     std::cout << "| " << strPetName << petName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strPetName + petName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
-}
-
-void PrintUtility::mainScreen()
-{
-    Player player;
-    FileUtility *fu = FileUtility::createFile("test.json");
-    std::cout << 1 << std::endl;
-    fu->read(&player);
-    std::cout << 2 << std::endl;
-    TimeControl tc(&player, fu);
-    std::cout << 3 << std::endl;
-    while(player.getPet()->getIsAlive())
-    {
-        // cleanScreen();
-        // player.getPet()->drawPet();
-        // showPetStats(&player);
-        // std::cout << drawLine(SCREEN_WIDGHT);
-        // showPetInfo(&player);
-        interactWithPet(&player);
-    }
 }
 
 std::string PrintUtility::drawStats(int variable)
@@ -94,149 +75,4 @@ std::string PrintUtility::drawLine(int lenght)
     std::string dots = "..";
     const int dotcount = 4;
     return dots + std::string(lenght - dotcount, '-')+dots + "\n";
-}
-
-//FROM MENU
-
-std::ostream & setColor(std::ostream &stream)
-{
-    stream << "\x1b[1;32m";
-    return stream;
-}
-
-std::ostream & unsetColor(std::ostream &stream)
-{
-    stream << "\x1b[1;37m";
-    return stream;
-}
-
-int PrintUtility::readControlKeys()
-{
-    int userKey = 0;
-    system("stty raw");
-    while (true)
-    {
-        userKey = getchar(); 
-        if(isCorrectControlKeys(userKey))
-        {
-            break;     
-        }      
-    }
-    system("stty cooked");
-    return userKey;
-}
-
-bool PrintUtility::isCorrectControlKeys(int key) 
-{ 
-    return key == ENTER || key == ARROW_UP || key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT;
-}
-
-
-void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen, Player *player)
-{
-    cleanScreen(); 
-    player->getPet()->drawPet();
-    showPetStats(player);
-    std::cout << drawLine(SCREEN_WIDGHT);
-    showPetInfo(player);
-    std::cout << drawLine(maxLen);
-    for (const auto& option : opt)
-    {
-        int spaces = (maxLen - (charCounter(option) / 2)) - 2;
-        if (&option == &opt[currentOption])
-        {
-            std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
-        }
-        else
-        {
-            std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
-        }
-    }
-    std::cout << drawLine(maxLen);
-}
-
-int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxLen, Player *player)
-{
-    
-    currentOption = 0;
-    int numOptions = opt.size();
-    while (true)
-    {
-        displayVert(opt, maxLen, player);
-        int key = readControlKeys();
-        switch (key)
-        {
-            case ARROW_UP:
-                currentOption = (currentOption - 1 + numOptions) % numOptions;
-
-                break;
-            case ARROW_DOWN:
-                currentOption = (currentOption + 1) % numOptions;
-                break;
-            case ENTER:
-                return currentOption; 
-            default:
-                break;
-        }
-    }
-}
-
-
-void PrintUtility::interactWithPet(Player* player)
-{
-    
-    std::string petName = player->getPet()->getName();
-    int playerChoice = chooseVertOption(petOptions, SCREEN_WIDGHT, player);
-    std::cin.clear();
-    switch (playerChoice)
-    {
-    case 0: //Погодувати улюбленця
-        player->getPet()->feed();
-        std::cout << petName << " погодовано\n";
-        break;
-    case 1: //Полікувати улюбленця
-        player->getPet()->treat();
-        std::cout << petName << " поліковано\n";
-        break;
-    case 2: //Покупати улюбленця
-        player->getPet()->clean();
-        std::cout << petName << " покупано\n";
-        break;
-    case 3: //Погратися з улюбленцем
-        player->getPet()->play();
-        std::cout << "Ви погралися з "<< petName << '\n';
-        break;
-    case 4: //Погладити улюбленця
-        player->getPet()->pet();
-        std::cout << "Ви погладили "<< petName << '\n';    
-        break;
-    case 5: //Вдарити улюбленця
-        player->getPet()->punch();
-        std::cout << "Ви вдарили "<< petName << '\n';    
-        break;
-    case 6: // Покласти спати
-        player->getPet()->goToSleep();
-        std::cout << petName << " заснув\n";    
-        break;                    
-    default:
-        break;
-    }
-}
-int main()
-{
-    PrintUtility print;
-    print.mainScreen();
-
-
-    // Player player;
-    // FileUtility *fu = FileUtility::createFile("test.json");
-    // std::cout << 1 << std::endl;
-    // fu->read(&player);
-    // std::cout << 2 << std::endl;
-    // TimeControl tc(&player, fu);
-    // std::cout << 3 << std::endl;
-    // PrintUtility print12;
-    // print12.interactWithPet(&player);
-
-    return 0;
 }

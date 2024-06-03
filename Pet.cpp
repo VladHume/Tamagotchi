@@ -105,6 +105,7 @@ void Pet::setIsAwaken(bool isAwaken){
 
 void Pet::feed() { //погодувати
      if (isAlive_) {
+        isAwaken_ = true;
         satiated_ += 20;
         cleanliness_ -= 10;
         rested_ -= 10;
@@ -116,6 +117,7 @@ void Pet::feed() { //погодувати
    
 void Pet::treat(){ //лікувати
       if (isAlive_) {
+        isAwaken_ = true;
         if(health_ < 90){
             health_ = 100;
             rested_ -= 10;
@@ -127,6 +129,7 @@ void Pet::treat(){ //лікувати
 
 void Pet::clean() { //почистити 
      if (isAlive_) {
+        isAwaken_ = true;
         cleanliness_ += 30;
         rested_ -= 10;
         checkBounds();
@@ -136,6 +139,7 @@ void Pet::clean() { //почистити
 
 void Pet::play(){ //пограти
     if (isAlive_) {
+        isAwaken_ = true;
         attention_ += 20;
         cleanliness_ -= 10;
         satiated_ -= 10;
@@ -147,6 +151,7 @@ void Pet::play(){ //пограти
 
 void Pet::pet() { //погладити
     if (isAlive_) {
+        isAwaken_ = true;
         attention_ += 10;
         cleanliness_ -= 5;
         satiated_ -= 5;
@@ -158,6 +163,7 @@ void Pet::pet() { //погладити
 
 void Pet::punch(){ //вдарити :(
      if (isAlive_) {
+        isAwaken_ = true;
         health_ -= 10;
         rested_ -= 10;
         checkBounds();
@@ -194,7 +200,7 @@ void Pet::checkMood(){ //перевірка настрою
     double generalMood = ((attention_ *0.8)+ health_ + rested_*0.8 + satiated_ + (cleanliness_*0.5)) / 5;
     if(generalMood >= 60 && generalMood <= 100){
         currentMood_ = MOOD::HAPPY; 
-    }else if(generalMood >= 30 && generalMood < 60){//знову змінила діапазон стану
+    }else if(generalMood >= 40 && generalMood < 60){//знову змінила діапазон стану
         currentMood_ = MOOD::NORMAL;
     }else{
         currentMood_ = MOOD::SAD;
