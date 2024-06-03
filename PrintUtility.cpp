@@ -18,6 +18,10 @@ int PrintUtility::charCounter(const std::string text)
 
 void PrintUtility::showPetStats(Player *player)
 {
+    if (player == nullptr || player->getPet() == nullptr) {
+        std::cerr << "Player or Pet is null" << std::endl;
+        return;
+    }   
     const std::string strAttention = "Увага: ";
     const std::string strHealth = "Здоров'я: ";
     const std::string strCleanliness = "Чистота: ";
@@ -55,6 +59,15 @@ void PrintUtility::showPetInfo(Player* player) {
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
 }
 
+void PrintUtility::func(Player* player)
+{
+    while(player->getPet()->getIsAlive())
+    {
+        
+        interactWithPet(player);
+    } 
+}
+
 void PrintUtility::mainScreen()
 {
     Player player;
@@ -64,15 +77,16 @@ void PrintUtility::mainScreen()
     std::cout << 2 << std::endl;
     TimeControl tc(&player, fu);
     std::cout << 3 << std::endl;
-    std::thread t1 (&PrintUtility::interactWithPet, this, &player); 
+    std::thread t1 (&PrintUtility::func, this, &player); 
     while(player.getPet()->getIsAlive())
     {
         
         cleanScreen();
-        std::cout << "asfygusyhfnks" << std::endl;
+        std::cout.flush();
         player.getPet()->drawPet();
         showPetStats(&player);
         std::cout << drawLine(SCREEN_WIDGHT);
+        std::cout.flush();
         showPetInfo(&player);
         // interactWithPet(&player);
     }
@@ -118,14 +132,14 @@ int PrintUtility::readControlKeys()
 {
     int userKey = 0;
     system("stty raw");
-    while (true)
-    {
+    // while (true)
+    // {
         userKey = getchar(); 
         if(isCorrectControlKeys(userKey))
         {
-            break;     
+             
         }      
-    }
+    // }
     system("stty cooked");
     return userKey;
 }
@@ -178,10 +192,10 @@ void PrintUtility::displayHoriz(const std::vector<std::string>& opt, int maxLen)
 int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxLen)
 {
     
-    currentOption = 0;
+    int t;
     int numOptions = opt.size();
-    while(true)
-    {
+    // while(true)
+    // {
         displayVert(opt, maxLen);
         int key = readControlKeys();
         switch (key)
@@ -193,11 +207,16 @@ int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxL
                 currentOption = (currentOption + 1) % numOptions;
                 break;
             case ENTER:
-                return currentOption; 
-            default:
+                t = currentOption;
+                currentOption = 0;
+                return t; 
                 break;
+            default:
+                break; 
         }
-    }
+    return 0;
+        
+    // }
 }
 
 int PrintUtility::chooseYesNo(const std::vector<std::string>& opt, int maxLen)

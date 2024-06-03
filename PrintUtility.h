@@ -42,9 +42,9 @@ public:
     std::string drawStats(int variable);
     void mainScreen();
     static std::string drawLine(int lenght);
-
+    void func(Player *player);
     //funcs from menu
-    void interactWithPet(Player* player);
+     void interactWithPet(Player* player);
     int readControlKeys();
     bool isCorrectControlKeys(int key);
     void displayVert(const std::vector<std::string>& opt, int maxLen);
