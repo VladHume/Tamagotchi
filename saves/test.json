@@ -4,7 +4,7 @@
         "attention": 100,
         "cleanliness": 100,
         "health": 100,
-        "isAlive": false,
+        "isAlive": true,
         "name": "Гавчик",
         "rested": 100,
         "satiated": 100,
@@ -13,10 +13,10 @@
     "playerSteps": 100,
     "timeEndGame": {
         "day": 3,
-        "hour": 1,
-        "minute": 52,
+        "hour": 19,
+        "minute": 58,
         "month": 6,
-        "second": 58,
+        "second": 10,
         "year": 2024
     }
 }
