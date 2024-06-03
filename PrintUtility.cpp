@@ -64,14 +64,19 @@ void PrintUtility::mainScreen()
     std::cout << 2 << std::endl;
     TimeControl tc(&player, fu);
     std::cout << 3 << std::endl;
+    std::thread t1 (&PrintUtility::interactWithPet, this, &player); 
     while(player.getPet()->getIsAlive())
     {
+        
         cleanScreen();
+        std::cout << "asfygusyhfnks" << std::endl;
         player.getPet()->drawPet();
         showPetStats(&player);
         std::cout << drawLine(SCREEN_WIDGHT);
         showPetInfo(&player);
+        // interactWithPet(&player);
     }
+    t1.join();
 }
 
 std::string PrintUtility::drawStats(int variable)
@@ -133,7 +138,7 @@ bool PrintUtility::isCorrectControlKeys(int key)
 
 void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen)
 {
-    cleanScreen(); 
+
     std::cout << drawLine(maxLen);
     for (const auto& option : opt)
     {
@@ -152,7 +157,7 @@ void PrintUtility::displayVert(const std::vector<std::string>& opt, int maxLen)
 
 void PrintUtility::displayHoriz(const std::vector<std::string>& opt, int maxLen)
 {
-    cleanScreen();
+
     std::cout << drawLine(maxLen);
     for (const auto& option : opt)
     {
@@ -175,7 +180,7 @@ int PrintUtility::chooseVertOption(const std::vector<std::string>& opt, int maxL
     
     currentOption = 0;
     int numOptions = opt.size();
-    while (true)
+    while(true)
     {
         displayVert(opt, maxLen);
         int key = readControlKeys();
