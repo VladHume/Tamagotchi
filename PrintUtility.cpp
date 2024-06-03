@@ -10,7 +10,7 @@ int PrintUtility::charCounter(const std::string text)
     int count = 0;
     for (char c : text)
     {
-        if (c == ' '  c == ':'  c == '\''  (c >= 48 && c <=57))
+        if (c == ' ' || c == ':' || c == '\'' || (c >= 48 && c <=57))
             count++;
     }
     return count + text.length();
@@ -128,7 +128,7 @@ int PrintUtility::readControlKeys()
 
 bool PrintUtility::isCorrectControlKeys(int key) 
 { 
-    return key == ENTER  key == ARROW_UP  key == ARROW_DOWN  key == ARROW_LEFT || key == ARROW_RIGHT;
+    return key == ENTER || key == ARROW_UP || key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT;
 }
 
 

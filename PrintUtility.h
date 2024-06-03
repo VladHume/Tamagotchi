@@ -47,10 +47,10 @@ public:
      void interactWithPet(Player* player);
     int readControlKeys();
     bool isCorrectControlKeys(int key);
-    void displayVert(const std::vector<std::string>& opt, int maxLen);
-    void displayHoriz(const std::vector<std::string>& opt, int maxLen);
-    int chooseVertOption(const std::vector<std::string>& opt, int maxLen);
-    int chooseYesNo(const std::vector<std::string>& opt, int maxLen);
+    void displayVert(const std::vector<std::string>& opt, int maxLen, Player *player);
+    void displayHoriz(const std::vector<std::string>& opt, int maxLen) ;
+    int chooseVertOption(const std::vector<std::string>& opt, int maxLen, Player *player);
+    int chooseYesNo(const std::vector<std::string>& opt, int maxLen );
 
 
 };
