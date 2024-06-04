@@ -10,7 +10,7 @@ int PrintUtility::charCounter(const std::string text)
     int count = 0;
     for (char c : text)
     {
-        if (c == ' ' || c == ':' || c == '\'' || (c >= 48 && c <=57))
+        if (c == ' ' || (c >= 33 && c <=122))
             count++;
     }
     return count + text.length();

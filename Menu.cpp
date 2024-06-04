@@ -237,7 +237,7 @@ void Menu::menuScreen()
 
 void Menu::deathScreen()
 {
-    const int MENU_TEXT_E = 52;
+    const int MENU_TEXT_E = 31;
     PrintUtility::cleanScreen();
     FileUtility *file = new FileUtility("test1");
     file->printFileContent(endBanner);
@@ -245,7 +245,7 @@ void Menu::deathScreen()
     isGameRunning = false;
 
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_E);
-    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " << "|  Нажміть ENTER щоб повернутися в головне меню..  |" << std::endl;
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " << "|  Нажміть ENTER щоб вийти..  |" << std::endl;
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " << PrintUtility::drawLine(MENU_TEXT_E);
 
     std::cin.get(); 
