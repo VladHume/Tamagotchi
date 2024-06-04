@@ -40,22 +40,22 @@ int Menu::readControlKeys()
 
 bool Menu::isCorrectControlKeys(int key) 
 { 
-    return key == ENTER || key == ARROW_UP || key == ARROW_DOWN || key == ARROW_LEFT || key == ARROW_RIGHT;
+    return key == ENTER || key == ARROW_UP || key == ARROW_DOWN;
 }
 
 
-void Menu::displayMainScreen(const std::vector<std::string>& opt, int maxLen, Player *player)
+void Menu::displayMainScreen(Player *player)
 {
     PrintUtility::cleanScreen(); 
     player->getPet()->drawPet();
     PrintUtility::showPetStats(player);
-    std::cout << PrintUtility::drawLine(maxLen);
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     PrintUtility::showPetInfo(player);
-    std::cout << PrintUtility::drawLine(maxLen);
-    for (const auto& option : opt)
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
+    for (const auto& option : petOptions)
     {
-        int spaces = (maxLen - (PrintUtility::charCounter(option) / 2)) - 2;
-        if (&option == &opt[currentOption])
+        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
+        if (&option == &petOptions[currentOption])
         {
             std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
         }
@@ -64,17 +64,52 @@ void Menu::displayMainScreen(const std::vector<std::string>& opt, int maxLen, Pl
             std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
         }
     }
-    std::cout << PrintUtility::drawLine(maxLen);
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
-int Menu::chooseVertOption(const std::vector<std::string>& opt, int maxLen, Player *player)
+void Menu::displayChoosePetScreen()
+{
+    PrintUtility::cleanScreen();
+    FileUtility *file = new FileUtility("test1");
+    int const MENU_TEXT_CHP = 29;
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << PrintUtility::drawLine(MENU_TEXT_CHP);
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << "|  Оберіть свого улюбленця!  |" << std::endl;
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << PrintUtility::drawLine(MENU_TEXT_CHP);
+
+    for (size_t i = 0; i < choosePetOptions.size(); ++i)
+    {
+        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(choosePetOptions[i]) / 2));
+        if (static_cast<int>(i) == currentOption)
+        {
+            std::cout << std::right << std::setw((SCREEN_WIDGHT - spaces - 2) / 2) << " "  << setColor << choosePetOptions[i] << " ■" << unsetColor << std::endl;
+            if (i == 0)
+                file->printFileContent(chooseDogPic);
+            else
+                file->printFileContent(chooseCatPic);
+        }
+        else
+        {
+            std::cout << std::right << std::setw((SCREEN_WIDGHT - spaces) / 2)  << choosePetOptions[i] << std::endl;
+        }
+    }
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
+    delete file;
+}
+
+int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt)
 {
     
     currentOption = 0;
     int numOptions = opt.size();
     while (true)
     {
-        displayMainScreen(opt, maxLen, player);
+        if (a == FULL_SCREEN) {
+            displayMainScreen(player);
+        } else if (a == PART_SCREEN) {
+            choosePetScreen();  
+        }
+        else std::cerr <<  "Invalid extension" << std::endl;
+
         int key = readControlKeys();
         switch (key)
         {
@@ -92,13 +127,17 @@ int Menu::chooseVertOption(const std::vector<std::string>& opt, int maxLen, Play
         }
     }
 }
-
+//це буде реалізувати через світч в мейні
+void Menu::choosePetScreen()
+{
+    int playerChoice = chooseVertOption(player, PART_SCREEN, choosePetOptions);
+}
 
 void Menu::interactWithPet(Player* player)
 {
     
     std::string petName = player->getPet()->getName();
-    int playerChoice = chooseVertOption(petOptions, SCREEN_WIDGHT, player);
+    int playerChoice = chooseVertOption( player, FULL_SCREEN, petOptions);
     std::cin.clear();
     switch (playerChoice)
     {
@@ -184,12 +223,15 @@ void Menu::deathScreen()
     std::cin.get(); 
 }
 
+
 int main()
 {
     Menu print;
     print.menuScreen();
+    // print.choosePetScreen();
+        print.mainScreen();
     print.deathScreen();
-    // print.mainScreen();
+
 
     return 0;
 }
