@@ -206,9 +206,23 @@ Frames* FileUtility::readFrames(const std::string directory){
     return headFrame;
 }
 
+std::string FileUtility::createFileName(Player *player){
+    std::string fileName = player->getName() + player->getPet()->getType() + player->getPet()->getName();
+    if(checkFileExistence(fileName)){
+        int i = 1;
+        while(checkFileExistence(fileName + std::to_string(i))){
+            i++;
+        }
+    }
+    return fileName + ".json";
+}
 
 //Перевіряє наявність файлу у директорії
 bool FileUtility::checkFileExistence(const std::string& fileName) {
     std::ifstream file(fileDirectory + "\\" + fileName);
     return file.good();
+}
+
+std::string FileUtility::getFileName(){
+    return fileName;
 }

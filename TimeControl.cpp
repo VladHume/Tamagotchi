@@ -10,6 +10,7 @@ TimeControl::TimeControl(Player *player, FileUtility *filetm, Menu *menu) : play
     std::time_t now = std::time(nullptr);
     timeStartGame = *std::localtime(&now);
     currentTime = *std::localtime(&now);
+    //filetm->updateFile(player, currentTime);
         
     controlThread = std::thread(&TimeControl::timeControlLoop, this);
 }

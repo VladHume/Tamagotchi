@@ -28,6 +28,8 @@ public:
     static std::vector<std::string> fileList(const std::string directory);
     static bool checkFileExistence(const std::string& fileName);
     static Frames* readFrames(const std::string directory);
+    static std::string createFileName(Player *player);
+    std::string getFileName();
 };
 
 #endif 

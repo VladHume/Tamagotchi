@@ -1,0 +1,22 @@
+{
+    "name": "jfkdl",
+    "pet": {
+        "attention": 3,
+        "cleanliness": 3,
+        "health": 3,
+        "isAlive": true,
+        "name": "jfs",
+        "rested": 3,
+        "satiated": 3,
+        "type": "DOG"
+    },
+    "playerSteps": 0,
+    "timeEndGame": {
+        "day": 4,
+        "hour": 14,
+        "minute": 35,
+        "month": 6,
+        "second": 5,
+        "year": 2024
+    }
+}

@@ -1,22 +1,22 @@
 {
     "name": "Владислав",
     "pet": {
-        "attention": 10,
+        "attention": 33,
         "cleanliness": 0,
-        "health": 95,
+        "health": 98,
         "isAlive": true,
         "name": "Гавчик",
         "rested": 0,
-        "satiated": 100,
+        "satiated": 90,
         "type": "DOG"
     },
-    "playerSteps": 177,
+    "playerSteps": 179,
     "timeEndGame": {
         "day": 4,
-        "hour": 12,
-        "minute": 46,
+        "hour": 14,
+        "minute": 3,
         "month": 6,
-        "second": 16,
+        "second": 10,
         "year": 2024
     }
 }

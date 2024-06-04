@@ -103,6 +103,23 @@ void Menu::displayChoosePetScreen()
     delete file;
 }
 
+void Menu::displayMenuScreen(){
+    PrintUtility::cleanScreen();
+    for (const auto& option : menuOptions)
+    {
+    int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
+    if (&option == &menuOptions[currentOption])
+    {
+        std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
+    }
+    else
+        {
+            std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+        }
+    }
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
+}
+
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt)
 {
     
@@ -116,6 +133,8 @@ int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::s
             displayChoosePetScreen();  
         }else if(a == FILE_SCREEN){
             displayFileScreen();
+        }else if(a == MAIN_SCREEN){
+            displayMenuScreen();
         }
         else std::cerr <<  "Invalid extension" << std::endl;
 
@@ -136,9 +155,10 @@ int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::s
     }
 }
 //це буде реалізувати через світч в мейні
-void Menu::choosePetScreen()
+int Menu::choosePetScreen()
 {
     int playerChoice = chooseVertOption(player, PART_SCREEN, choosePetOptions);
+    return playerChoice;
 }
 
 void Menu::interactWithPet(Player* player)
@@ -179,6 +199,7 @@ void Menu::interactWithPet(Player* player)
         break;
     case 7:
         isMainScreen = false; 
+        mainMenu();
         return;                       
     default:
         break;
@@ -190,6 +211,7 @@ void Menu::mainScreen(std::string fileName)
     Player player;
     FileUtility *fu = FileUtility::createFile(fileName);
     //std::cout << 1 << std::endl;
+    
     fu->read(&player);
     //std::cout << 2 << std::endl;
     TimeControl tc(&player, fu, this);
@@ -251,11 +273,65 @@ void Menu::displayFileScreen(){
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
+void Menu::mainMenu(){
+    std::cin.clear();
+    int playerChoice = chooseVertOption(player, MAIN_SCREEN, menuOptions);
+    switch(playerChoice){
+        case 0:
+            startNewGame();
+            break;
+        case 1:
+            chooseSave();
+            break;
+        case 2:
+            break;
+        default:
+            break;
+    }
+}
+
+void Menu::startNewGame(){
+    PrintUtility::cleanScreen();
+    std::string playerName;
+    std::string petName;
+    std::cout << "Ведіть ім'я власника: ";
+    std::cin >> playerName;
+    PrintUtility::cleanScreen();
+
+    std::cout << "Ведіть ім'я улюбленця: ";
+    std::cin >> petName;
+    PrintUtility::cleanScreen();
+
+    player->setName(playerName);
+    player->setSteps(0);
+
+    Pet* pet;
+    int petType = choosePetScreen();
+
+    if (choosePetOptions[petType] == "Собака") {
+        pet = new Dog();
+    } else if (choosePetOptions[petType] == "Кіт") {
+        pet = new Cat();
+    } else {
+        return;
+    }
+    pet->setName(petName);
+
+    player->setPet(pet);
+    FileUtility fileUtility(FileUtility::createFileName(player));
+    std::time_t now = std::time(nullptr);
+    std::tm currentTime = *std::localtime(&now);
+    fileUtility.updateFile(player, currentTime);
+    mainScreen(fileUtility.getFileName());
+
+}
+
 int main()
 {
     Menu print;
     print.menuScreen();
-    print.chooseSave();
+    print.mainMenu();
+    //print.chooseSave();
     //print.choosePetScreen();
     // print.mainScreen();
     print.deathScreen();

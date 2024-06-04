@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <chrono>
+#include <ctime>
 #include <iomanip>
 #include "FileUtility.h"
 #include "Player.h"
@@ -20,7 +22,8 @@ enum displayVarients
 {
     FULL_SCREEN,
     PART_SCREEN,
-    FILE_SCREEN
+    FILE_SCREEN,
+    MAIN_SCREEN
 };
 
 class Menu
@@ -34,6 +37,7 @@ private:
     void displayMainScreen(Player* player);
     void displayChoosePetScreen();
     void displayFileScreen();
+    void displayMenuScreen();
     int readControlKeys();
     bool isCorrectControlKeys(int key);
 public:
@@ -50,12 +54,13 @@ public:
     void mainScreen(std::string fileName);
     void menuScreen();
     void deathScreen();
-    void  choosePetScreen();
-    void savesScreen();
-    void menuOptionScreen();
+    int choosePetScreen();
+    // void savesScreen();
+    // void menuOptionScreen();
     void chooseSave();
     bool getIsMainScreen();
-    
+    void mainMenu();
+    void startNewGame();
 };
 
 #endif
