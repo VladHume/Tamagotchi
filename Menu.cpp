@@ -126,6 +126,7 @@ void Menu::displayMenuScreen(){
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt)
 {
     int numOptions = opt.size();
+    currentOption = 0;
     while (true)
     {
         if (a == FULL_SCREEN) {
@@ -239,9 +240,7 @@ void Menu::deathScreen()
 {
     const int MENU_TEXT_E = 31;
     PrintUtility::cleanScreen();
-    FileUtility *file = new FileUtility("test1");
-    file->printFileContent(endBanner);
-    delete file;    
+    FileUtility::printFileContent(endBanner);  
     isGameRunning = false;
 
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_E);
@@ -255,6 +254,7 @@ void Menu::chooseSave(){
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
+        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     mainScreen(fileList[playerChoice]);
@@ -281,6 +281,7 @@ void Menu::deleteSave(){
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
+        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     FileUtility::deleteFile(fileList[playerChoice]);
@@ -302,8 +303,10 @@ void Menu::mainMenu(){
             deleteSave();
             break;
         case 3:
+            deathScreen();
             break;
         default:
+            deathScreen();
             break;
     }
 }
@@ -342,18 +345,4 @@ void Menu::startNewGame(){
     fileUtility->updateFile(player, currentTime);
     mainScreen(fileUtility->getFileName());
 
-}
-
-int main()
-{
-    Menu print;
-    print.menuScreen();
-    print.mainMenu();
-    //print.chooseSave();
-    //print.choosePetScreen();
-    // print.mainScreen();
-    print.deathScreen();
-
-
-    return 0;
 }
