@@ -45,7 +45,7 @@ public:
     ~Menu();
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
-    std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
+    std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Видалити збереження" ,"Вийти з гри"};
     std::vector<std::string> choosePetOptions {"Собака", "Кіт"};
     std::vector<std::string> fileList;
     
@@ -61,6 +61,7 @@ public:
     bool getIsMainScreen();
     void mainMenu();
     void startNewGame();
+    void deleteSave();
 };
 
 #endif

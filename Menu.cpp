@@ -252,6 +252,10 @@ void Menu::deathScreen()
 }
 
 void Menu::chooseSave(){
+    fileList = FileUtility::fileList();
+    if(fileList.empty()){
+        mainMenu();
+    }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     mainScreen(fileList[playerChoice]);
 }
@@ -273,6 +277,17 @@ void Menu::displayFileScreen(){
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
+void Menu::deleteSave(){
+    fileList = FileUtility::fileList();
+    if(fileList.empty()){
+        mainMenu();
+    }
+    int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
+    FileUtility::deleteFile(fileList[playerChoice]);
+    fileList = FileUtility::fileList();
+    mainMenu();
+}
+
 void Menu::mainMenu(){
     std::cin.clear();
     int playerChoice = chooseVertOption(player, MAIN_SCREEN, menuOptions);
@@ -284,6 +299,9 @@ void Menu::mainMenu(){
             chooseSave();
             break;
         case 2:
+            deleteSave();
+            break;
+        case 3:
             break;
         default:
             break;
