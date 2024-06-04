@@ -13,7 +13,6 @@ class Cat : public Pet{
     const std::string sleepPath = "pictures\\pet\\cat\\sleepCat";
     const std::string deathPath = "pictures\\pet\\cat\\deathCat";
     const std::string usualPath = "pictures\\pet\\cat\\usualCat";
-    int lives_;
     public:   
     Cat(std::string name);    
     Cat(); 

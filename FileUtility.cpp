@@ -49,7 +49,6 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
     petData["rested"] = player->getPet()->getRested();
     petData["satiated"] = player->getPet()->getSatiated();
     petData["isAlive"] = player->getPet()->getIsAlive();
-    petData["lives"] = player->getPet()->getLives();
 
     j["pet"] = petData;
 
@@ -88,7 +87,6 @@ void FileUtility::read(Player* player) {
         } else {
             pet = new Cat();
         } 
-        // player->getPet()->setLives(5); 
         pet->setName(petData["name"]);
         pet->setAttention(petData["attention"]);
         pet->setHealth(petData["health"]);
@@ -207,7 +205,7 @@ Frames* FileUtility::readFrames(const std::string directory){
 
 std::string FileUtility::createFileName(Player *player){
     std::string fileName = player->getName() + player->getPet()->getType() + player->getPet()->getName();
-    if(checkFileExistence(fileName)){
+    if(checkFileExistence(fileName + ".json")){
         int i = 1;
         while(checkFileExistence(fileName + std::to_string(i) + ".json")){
             ++i;

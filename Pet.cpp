@@ -6,15 +6,11 @@
 #include <string>
 
 //змінила орядок оголошення в конструкторі
-Pet::Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death): name_(name), attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60) , isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true), happy_(happy), sad_(sad), usual_(usual), sleep_(sleep), death_(death){
-    lives_ = 1;
-}
+Pet::Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death): name_(name), attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60) , isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true), happy_(happy), sad_(sad), usual_(usual), sleep_(sleep), death_(death){}
 
 Pet::Pet(): name_(""), attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), 
 isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true),  happy_(nullptr), sad_(nullptr),
-usual_(nullptr), sleep_(nullptr), death_(nullptr) {
-    lives_ = 1;
-}
+usual_(nullptr), sleep_(nullptr), death_(nullptr) {}
 
 Pet::~Pet() //додала віртуальний деструктор щоб прибрати попередження
 {
@@ -105,16 +101,6 @@ void Pet::setMood(MOOD mood){  //+
 void Pet::setIsAwaken(bool isAwaken){
     isAwaken_ = isAwaken;
 }
-
-
-int Pet::getLives(){ //+
-    return lives_;
-}
-
-void Pet::setLives(int lives){ //+
-    lives_ = lives;
-}
-
 
 void Pet::feed() { //погодувати
      if (isAlive_) {
