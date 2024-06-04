@@ -13,12 +13,14 @@
 #include "FileUtility.h"
 #include <iomanip>
 #include <sstream>
+#include "Menu.h"
 
 class TimeControl{
     private:
         Player *player;
         FileUtility *filetm;
         TimePhase currentPhase;
+        Menu *menu;
         std::thread controlThread;
         std::tm timeInGame;
         std::tm timeStartGame;
@@ -28,7 +30,7 @@ class TimeControl{
         
         
     public:
-        TimeControl(Player *player, FileUtility *filetm);
+        TimeControl(Player *player, FileUtility *filetm, Menu *menu);
         ~TimeControl();
         void timeControlLoop();
         void changePhaseInGame();

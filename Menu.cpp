@@ -1,8 +1,11 @@
 #include "Menu.h"
+#include "TimeControl.h"
+#include "PrintUtility.h"
 
 Menu::Menu()
 {
     player = new Player();
+    fileList = FileUtility::fileList();
 }
 
 Menu::~Menu()
@@ -36,6 +39,10 @@ int Menu::readControlKeys()
     }
     system("stty cooked");
     return userKey;
+}
+
+bool Menu::getIsMainScreen(){
+    return isMainScreen;
 }
 
 bool Menu::isCorrectControlKeys(int key) 
@@ -106,7 +113,9 @@ int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::s
         if (a == FULL_SCREEN) {
             displayMainScreen(player);
         } else if (a == PART_SCREEN) {
-            choosePetScreen();  
+            displayChoosePetScreen();  
+        }else if(a == FILE_SCREEN){
+            displayFileScreen();
         }
         else std::cerr <<  "Invalid extension" << std::endl;
 
@@ -115,7 +124,6 @@ int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::s
         {
             case ARROW_UP:
                 currentOption = (currentOption - 1 + numOptions) % numOptions;
-
                 break;
             case ARROW_DOWN:
                 currentOption = (currentOption + 1) % numOptions;
@@ -177,15 +185,15 @@ void Menu::interactWithPet(Player* player)
     }
 }
 
-void Menu::mainScreen()
+void Menu::mainScreen(std::string fileName)
 {
     Player player;
-    FileUtility *fu = FileUtility::createFile("test.json");
-    std::cout << 1 << std::endl;
+    FileUtility *fu = FileUtility::createFile(fileName);
+    //std::cout << 1 << std::endl;
     fu->read(&player);
-    std::cout << 2 << std::endl;
-    TimeControl tc(&player, fu);
-    std::cout << 3 << std::endl;
+    //std::cout << 2 << std::endl;
+    TimeControl tc(&player, fu, this);
+    //std::cout << 3 << std::endl;
     while(isMainScreen /*&& player.getPet()->getIsAlive()*/)
     {
         interactWithPet(&player);
@@ -196,9 +204,7 @@ void Menu::menuScreen()
 {
     const int MENU_TEXT_S = 36;
     PrintUtility::cleanScreen();
-    FileUtility *file = new FileUtility("test1");
-    file->printFileContent(startBanner);
-    delete file;
+    FileUtility::printFileContent(startBanner);
 
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_S)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_S);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_S)/2) << " " << "|  Нажміть ENTER щоб почати гру..  |" << std::endl;
@@ -223,13 +229,35 @@ void Menu::deathScreen()
     std::cin.get(); 
 }
 
+void Menu::chooseSave(){
+    int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
+    mainScreen(fileList[playerChoice]);
+}
+
+void Menu::displayFileScreen(){
+    PrintUtility::cleanScreen();
+    for (const auto& option : fileList)
+    {
+    int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
+    if (&option == &fileList[currentOption])
+    {
+        std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
+    }
+    else
+        {
+            std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+        }
+    }
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
+}
 
 int main()
 {
     Menu print;
     print.menuScreen();
-    // print.choosePetScreen();
-        print.mainScreen();
+    print.chooseSave();
+    //print.choosePetScreen();
+    // print.mainScreen();
     print.deathScreen();
 
 

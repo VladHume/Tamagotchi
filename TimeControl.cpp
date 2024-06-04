@@ -1,7 +1,8 @@
 #include "TimeControl.h"
+
 //#include "PrintUtility.h"
 //змінила орядок оголошення в конструкторі
-TimeControl::TimeControl(Player *player, FileUtility *filetm) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING) {
+TimeControl::TimeControl(Player *player, FileUtility *filetm, Menu *menu) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING), menu(menu) {
     // Ініціалізація часу гри нульовими значеннями 
     timeInGame = std::tm{};
 
@@ -23,7 +24,7 @@ void TimeControl::timeControlLoop(){
     int durationOfTheCurrentPhase = 0; //к-сть часу, який триває поточна фаза
     checkElapsedTimeAndUpdate();
     updateTimeInGame();
-    while(player->getPet()->getIsAlive()){
+    while(menu->getIsMainScreen() && player->getPet()->getIsAlive()){
         std::this_thread::sleep_for(std::chrono::seconds(1));
         player->getPet()->nextFrame();
         player->getPet()->checkMood();
@@ -156,20 +157,3 @@ std::string TimeControl::getCurrentTimeString() {
     return oss.str();
 }
 
-// int main(){
-//     Player player;
-//     FileUtility *fu = FileUtility::createFile("test.json");
-//     fu->read(&player);
-//     TimeControl tc(&player, fu);
-//     while(true){
-//         PrintUtility::cleanScreen();
-//         std::cout << tc.getTimeInGameString() << std::endl;
-//     }
-    
-//     // while(player.getPet()->getIsAlive()){
-//     //     PrintUtility::cleanScreen();
-//     //     player.getPet()->drawPet();
-//     // }
-
-//     return 0;
-// }

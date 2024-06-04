@@ -4,10 +4,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-#include <memory>
-#include "PrintUtility.h"
 #include "FileUtility.h"
-#include "TimeControl.h"
 #include "Player.h"
 
 enum ControlKeys
@@ -22,7 +19,8 @@ enum ControlKeys
 enum displayVarients
 {
     FULL_SCREEN,
-    PART_SCREEN
+    PART_SCREEN,
+    FILE_SCREEN
 };
 
 class Menu
@@ -35,6 +33,7 @@ private:
     bool isGameRunning = true; 
     void displayMainScreen(Player* player);
     void displayChoosePetScreen();
+    void displayFileScreen();
     int readControlKeys();
     bool isCorrectControlKeys(int key);
 public:
@@ -44,15 +43,18 @@ public:
                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
     std::vector<std::string> choosePetOptions {"Собака", "Кіт"};
+    std::vector<std::string> fileList;
     
     int chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt);
     void interactWithPet(Player* player);
-    void mainScreen();
+    void mainScreen(std::string fileName);
     void menuScreen();
     void deathScreen();
     void  choosePetScreen();
     void savesScreen();
     void menuOptionScreen();
+    void chooseSave();
+    bool getIsMainScreen();
     
 };
 

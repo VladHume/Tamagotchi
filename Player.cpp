@@ -12,7 +12,9 @@ Player::~Player(){
 }
 
 void Player::increasePlayerSteps(){
-    ++playerSteps_;
+    if(pet_->getIsAlive()){
+        ++playerSteps_;
+    }
 }
 
 int Player::getSteps(){
