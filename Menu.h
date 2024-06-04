@@ -32,8 +32,8 @@ private:
     Player *player;
     int currentOption; 
     int numOptions;   
-    bool isMainScreen = true; 
-    bool isGameRunning = true; 
+    bool isMainScreen; 
+    bool isGameRunning; 
     void displayMainScreen(Player* player);
     void displayChoosePetScreen();
     void displayFileScreen();
