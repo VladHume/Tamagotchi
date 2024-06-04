@@ -6,6 +6,9 @@ Menu::Menu()
 {
     player = new Player();
     fileList = FileUtility::fileList();
+    numOptions = 0;   
+    isMainScreen = true; 
+    isGameRunning = true; 
 }
 
 Menu::~Menu()
@@ -122,8 +125,6 @@ void Menu::displayMenuScreen(){
 
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt)
 {
-    
-    currentOption = 0;
     int numOptions = opt.size();
     while (true)
     {
