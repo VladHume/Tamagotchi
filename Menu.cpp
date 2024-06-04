@@ -213,7 +213,7 @@ void Menu::mainScreen(std::string fileName)
     fu->read(&player);
 
     TimeControl tc(&player, fu, this);
-    std::cout << "tc" << std::endl;
+
     isMainScreen = true;
     while(isMainScreen /*&& player.getPet()->getIsAlive()*/)
     {
