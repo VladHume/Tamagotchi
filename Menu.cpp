@@ -44,7 +44,7 @@ bool Menu::isCorrectControlKeys(int key)
 }
 
 
-void Menu::displayVert(const std::vector<std::string>& opt, int maxLen, Player *player)
+void Menu::displayMainScreen(const std::vector<std::string>& opt, int maxLen, Player *player)
 {
     PrintUtility::cleanScreen(); 
     player->getPet()->drawPet();
@@ -74,7 +74,7 @@ int Menu::chooseVertOption(const std::vector<std::string>& opt, int maxLen, Play
     int numOptions = opt.size();
     while (true)
     {
-        displayVert(opt, maxLen, player);
+        displayMainScreen(opt, maxLen, player);
         int key = readControlKeys();
         switch (key)
         {
@@ -132,7 +132,7 @@ void Menu::interactWithPet(Player* player)
         break;
     case 7:
         isMainScreen = false; 
-        break;                       
+        return;                       
     default:
         break;
     }
@@ -147,16 +147,49 @@ void Menu::mainScreen()
     std::cout << 2 << std::endl;
     TimeControl tc(&player, fu);
     std::cout << 3 << std::endl;
-    while(isMainScreen && player.getPet()->getIsAlive())
+    while(isMainScreen /*&& player.getPet()->getIsAlive()*/)
     {
         interactWithPet(&player);
     }
 }
 
+void Menu::menuScreen()
+{
+    const int MENU_TEXT_S = 36;
+    PrintUtility::cleanScreen();
+    FileUtility *file = new FileUtility("test1");
+    file->printFileContent(startBanner);
+    delete file;
+
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_S)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_S);
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_S)/2) << " " << "|  Нажміть ENTER щоб почати гру..  |" << std::endl;
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_S)/2) << " " << PrintUtility::drawLine(MENU_TEXT_S);
+
+    std::cin.get(); 
+}
+
+void Menu::deathScreen()
+{
+    const int MENU_TEXT_E = 52;
+    PrintUtility::cleanScreen();
+    FileUtility *file = new FileUtility("test1");
+    file->printFileContent(endBanner);
+    delete file;    
+    isGameRunning = false;
+
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_E);
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " << "|  Нажміть ENTER щоб повернутися в головне меню..  |" << std::endl;
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " << PrintUtility::drawLine(MENU_TEXT_E);
+
+    std::cin.get(); 
+}
+
 int main()
 {
     Menu print;
-    print.mainScreen();
+    print.menuScreen();
+    print.deathScreen();
+    // print.mainScreen();
 
     return 0;
 }

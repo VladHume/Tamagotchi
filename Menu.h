@@ -9,9 +9,7 @@
 #include "TimeControl.h"
 #include "Player.h"
 
-static const int MENU_WIDGHT = 40;
-static const int LINE_BETWEEN = 20;
-static const int INDENT = 10;
+
 
 enum ControlKeys
 {
@@ -28,11 +26,12 @@ private:
     Player *player;
     int currentOption; 
     int numOptions;   
-    bool isMainScreen = true;  
+    bool isMainScreen = true; 
+    bool isGameRunning = true; 
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
-    void displayVert(const std::vector<std::string>& opt, int maxLen, Player* player);
+    void displayMainScreen(const std::vector<std::string>& opt, int maxLen, Player* player);
     int readControlKeys();
     bool isCorrectControlKeys(int key);
 public:
@@ -42,6 +41,7 @@ public:
     void interactWithPet(Player* player);
     void mainScreen();
     void menuScreen();
+    void deathScreen();
     void choosePetScreen();
     void savesScreen();
     

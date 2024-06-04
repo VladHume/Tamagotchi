@@ -12,7 +12,9 @@
 #include "TimeControl.h"
 
 static const int SCREEN_WIDGHT = 76;
-
+static const int INDENT = 10;
+static const std::string startBanner = "pictures\\banners\\start.txt";
+static const std::string endBanner = "pictures\\banners\\end.txt";
 
 class PrintUtility
 {
