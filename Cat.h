@@ -17,8 +17,6 @@ class Cat : public Pet{
     public:   
     Cat(std::string name);    
     Cat(); 
-    int getLives(); //+
-    void setLives(int lives); //+
     bool death() override;
     std::string getType() override;
 

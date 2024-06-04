@@ -49,11 +49,7 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
     petData["rested"] = player->getPet()->getRested();
     petData["satiated"] = player->getPet()->getSatiated();
     petData["isAlive"] = player->getPet()->getIsAlive();
-    if (player->getPet()->getType() == "CAT") {
-            petData["lives"] = player->getPet()->getLives();
-    } else {
-        return;
-    }
+    petData["lives"] = player->getPet()->getLives();
 
     j["pet"] = petData;
 
@@ -87,15 +83,12 @@ void FileUtility::read(Player* player) {
         Pet* pet;
         json petData = j["pet"];
         std::string petType = petData["type"];
-
         if (petType == "DOG") {
             pet = new Dog();
-        } else if (petType == "CAT") {
-            pet = new Cat();
-            player->getPet()->setLives(petData["lives"]); 
         } else {
-            return;
-        }
+            pet = new Cat();
+        } 
+        // player->getPet()->setLives(5); 
         pet->setName(petData["name"]);
         pet->setAttention(petData["attention"]);
         pet->setHealth(petData["health"]);
@@ -219,14 +212,14 @@ std::string FileUtility::createFileName(Player *player){
         while(checkFileExistence(fileName + std::to_string(i))){
             i++;
         }
+        return fileName + std::to_string(i) + ".json";
     }
     return fileName + ".json";
 }
 
 //Перевіряє наявність файлу у директорії
 bool FileUtility::checkFileExistence(const std::string& fileName) {
-    std::ifstream file(fileDirectory + "\\" + fileName);
-    return file.good();
+    return std::filesystem::exists(fileDirectory + "\\" + fileName);
 }
 
 std::string FileUtility::getFileName(){

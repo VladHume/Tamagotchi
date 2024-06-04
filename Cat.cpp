@@ -2,21 +2,16 @@
 #include "Cat.h"
 #include "FileUtility.h"
 
-Cat::Cat(std::string name) :  Pet(name, FileUtility::readFrames(happyPath),  FileUtility::readFrames(sadPath), FileUtility::readFrames(usualPath), FileUtility::readFrames(sleepPath), FileUtility::readFrames(deathPath)), lives_(9){}
-Cat::Cat():Pet(), lives_(9){
+Cat::Cat(std::string name) :  Pet(name, FileUtility::readFrames(happyPath),  FileUtility::readFrames(sadPath), FileUtility::readFrames(usualPath), FileUtility::readFrames(sleepPath), FileUtility::readFrames(deathPath)){
+    lives_ = 9;
+}
+Cat::Cat():Pet(){
     happy_ = FileUtility::readFrames(happyPath);
     sad_ = FileUtility::readFrames(sadPath);
     usual_ = FileUtility::readFrames(usualPath);
     sleep_ = FileUtility::readFrames(sleepPath);
     death_ = FileUtility::readFrames(deathPath);
-}
-
-int Cat::getLives(){ //+
-    return lives_;
-}
-
-void Cat::setLives(int lives){ //+
-    lives_ = lives;
+    lives_ = 9;
 }
 
 bool Cat::death (){

@@ -20,6 +20,7 @@ protected:
     int cleanliness_;
     int rested_;
     int satiated_;
+    int lives_;
 
     bool isAlive_;
     MOOD currentMood_;
@@ -41,6 +42,7 @@ public:
     int getCleanliness();
     int getRested();
     int getSatiated();
+    int getLives();
     std::string getName();
     MOOD getMood(); 
     std::string getStringMood();
@@ -56,6 +58,7 @@ public:
     void setName(std::string name);
     void setMood(MOOD mood);  
     void setIsAwaken(bool isAwaken);
+    void setLives(int lives);
 
     virtual bool death() = 0;
     void nextFrame();
@@ -63,8 +66,6 @@ public:
     void wakeUp();
 
     virtual std::string getType() = 0;
-    // virtual int getLives() = 0;
-    // virtual void setLives() = 0;
 
     void feed();
     void treat();

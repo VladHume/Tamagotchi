@@ -208,13 +208,18 @@ void Menu::interactWithPet(Player* player)
 
 void Menu::mainScreen(std::string fileName)
 {
+    std::cout << "mainScreen" << std::endl;
     Player player;
+    std::cout << "player" << std::endl;
     FileUtility *fu = FileUtility::createFile(fileName);
+    std::cout << "fu" << std::endl;
     //std::cout << 1 << std::endl;
     
     fu->read(&player);
+    std::cout << "read" << std::endl;
     //std::cout << 2 << std::endl;
     TimeControl tc(&player, fu, this);
+    std::cout << "tc" << std::endl;
     //std::cout << 3 << std::endl;
     while(isMainScreen /*&& player.getPet()->getIsAlive()*/)
     {
@@ -312,11 +317,11 @@ void Menu::startNewGame(){
         pet = new Dog();
     } else if (choosePetOptions[petType] == "Кіт") {
         pet = new Cat();
+        std::cout << "кіт" << std::endl;
     } else {
         return;
     }
     pet->setName(petName);
-
     player->setPet(pet);
     FileUtility fileUtility(FileUtility::createFileName(player));
     std::time_t now = std::time(nullptr);
