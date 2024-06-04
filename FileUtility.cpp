@@ -49,6 +49,11 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
     petData["rested"] = player->getPet()->getRested();
     petData["satiated"] = player->getPet()->getSatiated();
     petData["isAlive"] = player->getPet()->getIsAlive();
+    if (player->getPet()->getType() == "CAT") {
+            petData["lives"] = player->getPet()->getLives();
+    } else {
+        return;
+    }
 
     j["pet"] = petData;
 
@@ -87,6 +92,7 @@ void FileUtility::read(Player* player) {
             pet = new Dog();
         } else if (petType == "CAT") {
             pet = new Cat();
+            player->getPet()->setLives(petData["lives"]); 
         } else {
             return;
         }

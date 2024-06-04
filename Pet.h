@@ -63,6 +63,8 @@ public:
     void wakeUp();
 
     virtual std::string getType() = 0;
+    // virtual int getLives() = 0;
+    // virtual void setLives() = 0;
 
     void feed();
     void treat();
