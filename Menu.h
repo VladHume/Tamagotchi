@@ -1,49 +1,59 @@
-// #ifndef MENU_H
-// #define MENU_H
-// #include <vector>
-// #include <string>
-// #include <iostream>
-// #include <iomanip>
-// #include "Pet.h"
-// #include "Player.h"
-// #include "Dog.h"
+#ifndef MENU_H
+#define MENU_H
+#include <vector>
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <memory>
+#include "PrintUtility.h"
+#include "FileUtility.h"
+#include "TimeControl.h"
+#include "Player.h"
 
-// static const int SCREEN_WIDGHT = 76;
-// static const int MENU_WIDGHT = 40;
-// static const int LINE_BETWEEN = 20;
-// static const int INDENT = 10;
+enum ControlKeys
+{
+    ENTER = 13,
+    ARROW_UP = 65,  
+    // ARROW_LEFT = 68,
+    // ARROW_RIGHT = 67,
+    ARROW_DOWN = 66
+};
 
-// enum ControlKeys
-// {
-//     ENTER = 13,
-//     ARROW_UP = 65,
-//     ARROW_DOWN = 66,  
-//     ARROW_LEFT = 68,
-//     ARROW_RIGHT = 67
-// };
+enum displayVarients
+{
+    FULL_SCREEN,
+    PART_SCREEN
+};
 
-// class Menu
-// {
-// private:
-//     int currentOption; 
-//     int numOptions;     
-//     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
-//                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
-//     std::vector<std::string> yesNoOptions {"Ні", "Так"};
-//     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
-// public:
-//     const std::vector<std::string>& getPetOptions() const;
-//     const std::vector<std::string>& getYesNoOptions() const;
-//     const std::vector<std::string>& getMenuOptions() const;
-//     bool isCorrectControlKey(int key);
-//     int readControlKeys();
-//     void interactWithPet(Player* player);
-//     int chooseYesNo(const std::vector<std::string>& opt, int maxLen);
-//     int chooseVertOption(const std::vector<std::string>& opt, int maxLen); 
-//     void displayVert(const std::vector<std::string>& opt, int maxLen);
-//     void displayHoriz(const std::vector<std::string>& opt, int maxLen);
-//     void hovnotest();
+class Menu
+{
+private:
+    Player *player;
+    int currentOption; 
+    int numOptions;   
+    bool isMainScreen = true; 
+    bool isGameRunning = true; 
+    void displayMainScreen(Player* player);
+    void displayChoosePetScreen();
+    int readControlKeys();
+    bool isCorrectControlKeys(int key);
+public:
+    Menu();
+    ~Menu();
+    std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
+                                     "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
+    std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Вийти з гри"};
+    std::vector<std::string> choosePetOptions {"Собака", "Кіт"};
     
-// };
+    int chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt);
+    void interactWithPet(Player* player);
+    void mainScreen();
+    void menuScreen();
+    void deathScreen();
+    void  choosePetScreen();
+    void savesScreen();
+    void menuOptionScreen();
+    
+};
 
-// #endif
+#endif
