@@ -214,6 +214,7 @@ void Menu::mainScreen(std::string fileName)
 
     TimeControl tc(&player, fu, this);
     std::cout << "tc" << std::endl;
+    isMainScreen = true;
     while(isMainScreen /*&& player.getPet()->getIsAlive()*/)
     {
         interactWithPet(&player);
