@@ -239,9 +239,7 @@ void Menu::deathScreen()
 {
     const int MENU_TEXT_E = 31;
     PrintUtility::cleanScreen();
-    FileUtility *file = new FileUtility("test1");
-    file->printFileContent(endBanner);
-    delete file;    
+    FileUtility::printFileContent(end);
     isGameRunning = false;
 
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_E);
