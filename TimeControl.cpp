@@ -29,12 +29,12 @@ void TimeControl::timeControlLoop(){
         std::this_thread::sleep_for(std::chrono::seconds(1));
         player->getPet()->nextFrame();
         player->getPet()->checkMood();
+        player->getPet()->death();
         updateTimeInGame();
         filetm->updateFile(player, currentTime);
         durationOfTheCurrentPhase++;
         if((durationOfTheCurrentPhase %= timePhaseChanger) == 0){
             changePhaseInGame();
-            player->getPet()->death();
         }
     }
     filetm->updateFile(player, currentTime);
