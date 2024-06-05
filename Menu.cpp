@@ -316,7 +316,6 @@ void Menu::mainMenu()
             deleteSave();
             break;
         case 3:
-            deathScreen();
             break;
         default:
             break;
