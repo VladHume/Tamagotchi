@@ -1,22 +1,22 @@
 {
     "name": "P;",
     "pet": {
-        "attention": 63,
-        "cleanliness": 43,
-        "health": 100,
-        "isAlive": true,
+        "attention": 43,
+        "cleanliness": 23,
+        "health": 70,
+        "isAlive": false,
         "name": "P;",
-        "rested": 100,
-        "satiated": 63,
+        "rested": 0,
+        "satiated": 80,
         "type": "DOG"
     },
-    "playerSteps": 5,
+    "playerSteps": 11,
     "timeEndGame": {
         "day": 5,
-        "hour": 20,
-        "minute": 40,
+        "hour": 21,
+        "minute": 25,
         "month": 6,
-        "second": 53,
+        "second": 11,
         "year": 2024
     }
 }
