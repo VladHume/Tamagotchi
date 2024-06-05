@@ -12,7 +12,10 @@
 #include "TimeControl.h"
 
 static const int SCREEN_WIDGHT = 76;
-static const int BETWEEN_LINES = 46;
+static const int BETWEEN_LINES = 15;
+static const int LIMIT_FOR_INPUT = 25;
+static const int MAX_LEFT_INFO = 47;
+static const int TIME_SPACE = 10;
 static const std::string startBanner = "pictures\\banners\\start.txt";
 static const std::string endBanner = "pictures\\banners\\end.txt";
 static const std::string chooseCatPic = "pictures\\icons\\CatIcon.txt";
@@ -29,6 +32,7 @@ public:
     static void showPetInfo(Player *player);
     static std::string drawStats(int variable);
     static std::string drawLine(int lenght);
+    static std::string limitedInput(const std::string& input, size_t maxLength); 
 
 };
 
