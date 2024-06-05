@@ -1,12 +1,12 @@
 {
-    "name": "Vlad",
+    "name": "pwero",
     "pet": {
         "attention": 0,
         "cleanliness": 0,
-        "health": 15,
+        "health": 30,
         "isAlive": false,
-        "name": "Flex",
-        "rested": 11,
+        "name": "pwero",
+        "rested": 26,
         "satiated": 0,
         "type": "CAT"
     },
@@ -14,9 +14,9 @@
     "timeEndGame": {
         "day": 5,
         "hour": 20,
-        "minute": 38,
+        "minute": 40,
         "month": 6,
-        "second": 39,
+        "second": 55,
         "year": 2024
     }
 }

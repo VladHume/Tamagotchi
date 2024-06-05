@@ -1,0 +1,22 @@
+{
+    "name": "Tania",
+    "pet": {
+        "attention": 63,
+        "cleanliness": 63,
+        "health": 100,
+        "isAlive": true,
+        "name": "Jean",
+        "rested": 100,
+        "satiated": 43,
+        "type": "CAT"
+    },
+    "playerSteps": 1,
+    "timeEndGame": {
+        "day": 5,
+        "hour": 20,
+        "minute": 38,
+        "month": 6,
+        "second": 49,
+        "year": 2024
+    }
+}

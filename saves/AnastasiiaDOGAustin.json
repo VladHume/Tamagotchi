@@ -1,22 +1,22 @@
 {
     "name": "Anastasiia",
     "pet": {
-        "attention": 33,
-        "cleanliness": 28,
-        "health": 70,
+        "attention": 0,
+        "cleanliness": 0,
+        "health": 39,
         "isAlive": true,
         "name": "Austin",
-        "rested": 13,
-        "satiated": 68,
+        "rested": 60,
+        "satiated": 32,
         "type": "DOG"
     },
-    "playerSteps": 6,
+    "playerSteps": 14,
     "timeEndGame": {
         "day": 5,
-        "hour": 16,
-        "minute": 41,
+        "hour": 20,
+        "minute": 39,
         "month": 6,
-        "second": 44,
+        "second": 26,
         "year": 2024
     }
 }

@@ -337,7 +337,6 @@ void Menu::startNewGame()
     std::cin >> playerName;
     playerName = PrintUtility::limitedInput(playerName, LIMIT_FOR_INPUT);
     PrintUtility::cleanScreen();
-
     FileUtility::printFileContent(welcomeText);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я улюбленця: ";
     std::cin >> petName;
