@@ -4,8 +4,8 @@
 #include <cstring>
 #include <string>
 //змінила орядок оголошення в конструкторі
-Player::Player(std::string name, Pet* pet, int playerSteps): name_(name), pet_(pet), playerSteps_(playerSteps), timeInGame_(""), timePhase_(""){}
-Player::Player(): name_(""), pet_(nullptr), playerSteps_(0), timeInGame_(""), timePhase_("") {}
+Player::Player(std::string name, Pet* pet, int playerSteps): name_(name), pet_(pet), playerSteps_(playerSteps), timeInGame_("00:00:00"), timePhase_("РАНОК") {}
+Player::Player(): name_(""), pet_(nullptr), playerSteps_(0), timeInGame_("00:00:00"), timePhase_("РАНОК") {}
 
 Player::~Player(){
     delete pet_;

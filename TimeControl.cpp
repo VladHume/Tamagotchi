@@ -134,11 +134,11 @@ std::string TimeControl::getCurrentPhaseString() {
         case TimePhase::MORNING:
             return "РАНОК";
         case TimePhase::AFTERNOON:
-            return "ДЕНЬ";
+            return " ДЕНЬ";
         case TimePhase::EVENING:
             return "ВЕЧІР";
         case TimePhase::NIGHT:
-            return "НІЧ";
+            return "  НІЧ";
         default:
             return " ";
     }

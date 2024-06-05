@@ -44,17 +44,21 @@ void PrintUtility::showPetInfo(Player* player) {
     const std::string strSteps = "Кроки власника: ";
     const std::string strMood = "Настрій улюбленця: ";
     const std::string strLives = "Кількість життів: ";
-
+    const int ADD_LINES_FOR_PHASE = 4;
     std::string ownerName = player->getName();
     std::string petName = player->getPet()->getName();
     std::string petMood = player->getPet()->getStringMood();
     int ownerSteps = player->getSteps();
+    std::string timePhase = player->getTimePhase();
     std::string timeInGame = player->getTimeInGame();
-    std::string TimePhase = player->getTimePhase();
+    
 
-    std::cout << timeInGame << " " << TimePhase << std::endl;
-    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
-    std::cout << "| " << strPetName << petName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strPetName + petName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(BETWEEN_LINES + ADD_LINES_FOR_PHASE) << ' ' << timePhase;
+    std::cout << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName + std::string(BETWEEN_LINES + ADD_LINES_FOR_PHASE, ' ') + timePhase) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+
+    std::cout << "| " << strPetName << petName << std::right << std::setw(BETWEEN_LINES) << ' ' << timeInGame;
+    std::cout << std::setw(SCREEN_WIDGHT - charCounter(strPetName + petName + std::string(BETWEEN_LINES, ' ') + timeInGame) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+    
     std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
 }
