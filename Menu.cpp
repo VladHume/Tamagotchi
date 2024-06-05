@@ -267,6 +267,7 @@ void Menu::chooseSave(){
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
+        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     mainScreen(fileList[playerChoice]);
@@ -296,6 +297,7 @@ void Menu::deleteSave()
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
+        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     FileUtility::deleteFile(fileList[playerChoice]);
