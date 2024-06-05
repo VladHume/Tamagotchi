@@ -113,7 +113,8 @@ void Menu::displayChoosePetScreen()
     }
 }
 
-void Menu::displayMenuScreen(){
+void Menu::displayMenuScreen()
+{
     PrintUtility::cleanScreen();
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (const auto& option : menuOptions)
@@ -267,7 +268,8 @@ void Menu::chooseSave(){
     mainScreen(fileList[playerChoice]);
 }
 
-void Menu::displayFileScreen(){
+void Menu::displayFileScreen()
+{
     PrintUtility::cleanScreen();
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (const auto& option : fileList)
@@ -285,7 +287,8 @@ void Menu::displayFileScreen(){
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
-void Menu::deleteSave(){
+void Menu::deleteSave()
+{
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
@@ -296,7 +299,8 @@ void Menu::deleteSave(){
     mainMenu();
 }
 
-void Menu::mainMenu(){
+void Menu::mainMenu()
+{
     std::cin.clear();
     int playerChoice = chooseVertOption(player, MAIN_SCREEN, menuOptions);
     switch(playerChoice){
@@ -316,16 +320,18 @@ void Menu::mainMenu(){
     }
 }
 
-void Menu::startNewGame(){
+void Menu::startNewGame()
+{
     const int MENU_TEXT_STARTGAME = 24;
     PrintUtility::cleanScreen();
     std::string playerName;
     std::string petName;
-    
+    FileUtility::printFileContent(welcomeText);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я власника: ";
     std::cin >> playerName;
-    PrintUtility::cleanScreen();
 
+    PrintUtility::cleanScreen();
+    FileUtility::printFileContent(welcomeText);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я улюбленця: ";
     std::cin >> petName;
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);

@@ -17,6 +17,7 @@ static const std::string startBanner = "pictures\\banners\\start.txt";
 static const std::string endBanner = "pictures\\banners\\end.txt";
 static const std::string chooseCatPic = "pictures\\icons\\CatIcon.txt";
 static const std::string chooseDogPic = "pictures\\icons\\DogIcon.txt";
+static const std::string welcomeText = "data\\welcometext.txt";
 
 class PrintUtility
 {
