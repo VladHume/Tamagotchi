@@ -16,10 +16,13 @@ static const int BETWEEN_LINES = 15;
 static const int LIMIT_FOR_INPUT = 25;
 static const int MAX_LEFT_INFO = 47;
 static const int TIME_SPACE = 10;
+//pics for start and end game
 static const std::string startBanner = "pictures\\banners\\start.txt";
 static const std::string endBanner = "pictures\\banners\\end.txt";
+//icons for choose pet
 static const std::string chooseCatPic = "pictures\\icons\\CatIcon.txt";
 static const std::string chooseDogPic = "pictures\\icons\\DogIcon.txt";
+//text when you enter pet's and player's game
 static const std::string welcomeText = "data\\welcometext.txt";
 
 class PrintUtility
