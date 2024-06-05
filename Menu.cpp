@@ -87,31 +87,33 @@ void Menu::displayChoosePetScreen()
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << PrintUtility::drawLine(MENU_TEXT_CHP);
 
     std::cout << '\n' << PrintUtility::drawLine(SCREEN_WIDGHT);
-    for (size_t i = 0; i < choosePetOptions.size(); ++i)
+    int index = 0;
+    for (const auto& option : choosePetOptions)
     {
-        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(choosePetOptions[i]) / 2 + 1));
-        if (static_cast<int>(i) == currentOption)
+        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2 + 1));
+        if (index == currentOption)
         {
-            std::cout << "| " << setColor << choosePetOptions[i] << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
-            if (i == 0)
+            std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
+            if (index == 0)
             {
                 FileUtility::printFileContent(chooseDogPic);
                 std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
             }
             else
             {
-                
                 FileUtility::printFileContent(chooseCatPic);
                 std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
             }
         }
         else 
         {
-            std::cout << "| " << choosePetOptions[i] << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+            std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
             std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
         }
+        ++index;
     }
 }
+
 
 void Menu::displayMenuScreen()
 {
