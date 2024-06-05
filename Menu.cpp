@@ -342,7 +342,6 @@ void Menu::startNewGame()
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я улюбленця: ";
     std::cin >> petName;
     petName = PrintUtility::limitedInput(petName, LIMIT_FOR_INPUT);
-    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     PrintUtility::cleanScreen();
 
     player->setName(playerName);

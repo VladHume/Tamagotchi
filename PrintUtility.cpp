@@ -51,16 +51,11 @@ void PrintUtility::showPetInfo(Player* player) {
     std::string timePhase = player->getTimePhase();
     std::string timeInGame = player->getTimeInGame();
 
-    const int ACTUAL_DIFF1 = MAX_LEFT_INFO - charCounter(strOwnerName + ownerName)/2 + BETWEEN_LINES;
-    const int ACTUAL_DIFF2 = MAX_LEFT_INFO - charCounter(strPetName + petName)/2 + BETWEEN_LINES;
-    const int RIGHT_SPACE1 = SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timePhase)/2 - 2;
-    const int RIGHT_SPACE2 = SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timeInGame)/2 - 2;
+    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strOwnerName + ownerName)/2 + BETWEEN_LINES) << ' ' << timePhase;
+    std::cout << std::setw(SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timePhase)/2 - 2) << std::setfill(' ') << "|" << std::endl;
 
-    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(ACTUAL_DIFF1) << ' ' << timePhase;
-    std::cout << std::setw(RIGHT_SPACE1) << std::setfill(' ') << "|" << std::endl;
-
-    std::cout << "| " << strPetName << petName << std::right << std::setw(ACTUAL_DIFF2) << ' ' << timeInGame;
-    std::cout << std::setw(RIGHT_SPACE2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strPetName << petName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strPetName + petName)/2 + BETWEEN_LINES) << ' ' << timeInGame;
+    std::cout << std::setw(SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timeInGame)/2 - 2) << std::setfill(' ') << "|" << std::endl;
     
     std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
