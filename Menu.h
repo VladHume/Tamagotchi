@@ -53,8 +53,6 @@ public:
     void menuScreen();
     void deathScreen();
     int choosePetScreen();
-    // void savesScreen();
-    // void menuOptionScreen();
     void chooseSave();
     bool getIsMainScreen();
     void mainMenu();
