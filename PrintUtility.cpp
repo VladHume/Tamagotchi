@@ -44,20 +44,23 @@ void PrintUtility::showPetInfo(Player* player) {
     const std::string strSteps = "Кроки власника: ";
     const std::string strMood = "Настрій улюбленця: ";
     const std::string strLives = "Кількість життів: ";
-    const int ADD_LINES_FOR_PHASE = 4;
     std::string ownerName = player->getName();
     std::string petName = player->getPet()->getName();
     std::string petMood = player->getPet()->getStringMood();
     int ownerSteps = player->getSteps();
     std::string timePhase = player->getTimePhase();
     std::string timeInGame = player->getTimeInGame();
-    
 
-    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(BETWEEN_LINES + ADD_LINES_FOR_PHASE) << ' ' << timePhase;
-    std::cout << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName + std::string(BETWEEN_LINES + ADD_LINES_FOR_PHASE, ' ') + timePhase) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+    const int ACTUAL_DIFF1 = MAX_LEFT_INFO - charCounter(strOwnerName + ownerName)/2 + BETWEEN_LINES;
+    const int ACTUAL_DIFF2 = MAX_LEFT_INFO - charCounter(strPetName + petName)/2 + BETWEEN_LINES;
+    const int RIGHT_SPACE1 = SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timePhase)/2 - 2;
+    const int RIGHT_SPACE2 = SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timeInGame)/2 - 2;
 
-    std::cout << "| " << strPetName << petName << std::right << std::setw(BETWEEN_LINES) << ' ' << timeInGame;
-    std::cout << std::setw(SCREEN_WIDGHT - charCounter(strPetName + petName + std::string(BETWEEN_LINES, ' ') + timeInGame) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
+    std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(ACTUAL_DIFF1) << ' ' << timePhase;
+    std::cout << std::setw(RIGHT_SPACE1) << std::setfill(' ') << "|" << std::endl;
+
+    std::cout << "| " << strPetName << petName << std::right << std::setw(ACTUAL_DIFF2) << ' ' << timeInGame;
+    std::cout << std::setw(RIGHT_SPACE2) << std::setfill(' ') << "|" << std::endl;
     
     std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
@@ -82,4 +85,13 @@ std::string PrintUtility::drawLine(int lenght)
     std::string dots = "..";
     const int dotcount = 4;
     return dots + std::string(lenght - dotcount, '-')+dots + "\n";
+    
+}
+std::string PrintUtility::limitedInput(const std::string& input, size_t maxLength) 
+{
+    if (input.length() > maxLength) 
+    {
+        return input.substr(0, maxLength);
+    }
+    return input;
 }
