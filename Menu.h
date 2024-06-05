@@ -38,6 +38,7 @@ private:
     void displayMenuScreen();
     int readControlKeys();
     bool isCorrectControlKeys(int key);
+
 public:
     Menu();
     ~Menu();
@@ -46,7 +47,6 @@ public:
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Видалити збереження" ,"Вийти з гри"};
     std::vector<std::string> choosePetOptions {"Собака", "Кіт"};
     std::vector<std::string> fileList;
-    
     int chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt);
     void interactWithPet(Player* player);
     void mainScreen(std::string fileName);

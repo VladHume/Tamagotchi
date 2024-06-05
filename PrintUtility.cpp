@@ -49,7 +49,10 @@ void PrintUtility::showPetInfo(Player* player) {
     std::string petName = player->getPet()->getName();
     std::string petMood = player->getPet()->getStringMood();
     int ownerSteps = player->getSteps();
+    std::string timeInGame = player->getTimeInGame();
+    std::string TimePhase = player->getTimePhase();
 
+    std::cout << timeInGame << " " << TimePhase << std::endl;
     std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strOwnerName + ownerName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strPetName << petName << std::right << std::setw(SCREEN_WIDGHT - charCounter(strPetName + petName) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;

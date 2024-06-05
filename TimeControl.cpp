@@ -27,6 +27,8 @@ void TimeControl::timeControlLoop(){
     updateTimeInGame();
     while(menu->getIsMainScreen() && player->getPet()->getIsAlive()){
         std::this_thread::sleep_for(std::chrono::seconds(1));
+        player->setTimeInGame(getTimeInGameString());
+        player->setTimePhase(getCurrentPhaseString());
         player->getPet()->nextFrame();
         player->getPet()->checkMood();
         player->getPet()->death();
