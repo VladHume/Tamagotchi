@@ -11,13 +11,6 @@ Cat::Cat():Pet(){
     death_ = FileUtility::readFrames(deathPath);
 }
 
-bool Cat::death (){
-    if (health_ <= 0 || rested_ <= 0 || satiated_ <= 0) {
-            isAlive_ = false;
-            return true;
-        } else  return false;
-}
-
 std::string Cat::getType(){
     return std::string("CAT"); 
 }

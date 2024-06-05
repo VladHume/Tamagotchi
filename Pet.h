@@ -57,7 +57,7 @@ public:
     void setMood(MOOD mood);  
     void setIsAwaken(bool isAwaken);
 
-    virtual bool death() = 0;
+    bool death() ;
     void nextFrame();
     void drawPet();
     void wakeUp();

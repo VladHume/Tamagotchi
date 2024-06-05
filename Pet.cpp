@@ -5,17 +5,13 @@
 #include <cstring>
 #include <string>
 
-//змінила орядок оголошення в конструкторі
 Pet::Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death): name_(name), attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60) , isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true), happy_(happy), sad_(sad), usual_(usual), sleep_(sleep), death_(death){}
 
 Pet::Pet(): name_(""), attention_(60), health_(100), cleanliness_(60), rested_(90), satiated_(60), 
 isAlive_(true), currentMood_(MOOD::NORMAL), isAwaken_(true),  happy_(nullptr), sad_(nullptr),
 usual_(nullptr), sleep_(nullptr), death_(nullptr) {}
 
-Pet::~Pet() //додала віртуальний деструктор щоб прибрати попередження
-{
-}
-
+Pet::~Pet() {}
 //гетери
 int  Pet::getAttention(){
     return attention_;
@@ -50,11 +46,10 @@ bool Pet::getIsAwaken(){
     return isAwaken_;
 }
 
-//метод який повертає стрінгове знчення настрою пета
 std::string Pet::getStringMood() {
     switch(currentMood_) {
         case MOOD::HAPPY:
-            return "Щасливий"; //змінила на українську
+            return "Щасливий"; 
         case MOOD::NORMAL:
             return "Спокійний";
         case MOOD::SAD:
@@ -180,6 +175,15 @@ void Pet::goToSleep() { //покласти спати
         }
     } 
 }
+
+bool Pet::death (){
+    if (health_ <= 0 || rested_ <= 0 || satiated_ <= 0) {
+            isAlive_ = false;
+            return true;
+        } else 
+         return false;
+}
+
 
 void Pet::checkBounds() { //перевірка меж потреб
     if (attention_ > MAX_VALUE) attention_ = MAX_VALUE;
