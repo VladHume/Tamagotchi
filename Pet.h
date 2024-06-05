@@ -5,9 +5,11 @@
 #include <string>
 #include "Frames.h"
 
-const int MAX_VALUE = 100;
-const int MIN_VALUE = 0;
+const int MAX_VALUE = 100; //the maximum value of the level of needs
+const int MIN_VALUE = 0;  //the minimum value of the level of needs
 
+
+//enum for mood of pet
 enum class MOOD{  
     HAPPY, NORMAL, SAD
 };
@@ -34,7 +36,7 @@ public:
     Pet(std::string name, Frames *happy, Frames *sad, Frames *usual, Frames *sleep, Frames *death);
     Pet();
     virtual ~Pet();
-    // Гетери
+    // getters
     bool getIsAlive();
     int getAttention();
     int getHealth();
@@ -46,7 +48,7 @@ public:
     std::string getStringMood();
     bool getIsAwaken();
 
-    // Сетери
+    // setters
     void setIsAlive(bool isAlive);
     void setAttention(int attention);
     void setHealth(int health);
@@ -57,12 +59,12 @@ public:
     void setMood(MOOD mood);  
     void setIsAwaken(bool isAwaken);
 
-    bool death() ;
-    void nextFrame();
-    void drawPet();
-    void wakeUp();
+    bool death() ; //method for death 
+    void nextFrame();  //method for rearranging the frame when drawing a pet
+    void drawPet();  ///a method for drawing a pet depending on its mood
+    void wakeUp();  //method for wake up the pet
 
-    virtual std::string getType() = 0;
+    virtual std::string getType() = 0;  //method for determining the type of animal
 
     void feed();
     void treat();
@@ -75,7 +77,5 @@ public:
     void checkBounds();
     void checkMood(); 
 };
-
-
 
 #endif 

@@ -8,6 +8,7 @@
 
 class Cat : public Pet{
     private:
+    //picture directories
     const std::string happyPath = "pictures\\pet\\cat\\happyCat";
     const std::string sadPath = "pictures\\pet\\cat\\sadCat";
     const std::string sleepPath = "pictures\\pet\\cat\\sleepCat";
@@ -17,7 +18,6 @@ class Cat : public Pet{
     Cat(std::string name);    
     Cat(); 
     std::string getType() override;
-
 };
 
 #endif

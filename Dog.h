@@ -7,6 +7,7 @@
 #include <string>
 
 class Dog : public Pet{
+    //picture directories
     const std::string happyPath = "pictures\\pet\\dog\\happyDog";
     const std::string sadPath = "pictures\\pet\\dog\\sadDog";
     const std::string sleepPath = "pictures\\pet\\dog\\sleepDog";
