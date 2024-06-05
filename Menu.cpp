@@ -17,6 +17,7 @@ Menu::~Menu()
     delete player;
 }
 
+
 std::ostream & setColor(std::ostream &stream)
 {
     stream << "\x1b[1;32m";
@@ -134,7 +135,8 @@ void Menu::displayMenuScreen()
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
-int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt)
+
+int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string> &opt)
 {
     currentOption = 0;
     int numOptions = opt.size();
@@ -265,6 +267,7 @@ void Menu::chooseSave(){
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
+        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     mainScreen(fileList[playerChoice]);
@@ -294,6 +297,7 @@ void Menu::deleteSave()
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
+        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     FileUtility::deleteFile(fileList[playerChoice]);

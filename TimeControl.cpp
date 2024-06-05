@@ -27,6 +27,8 @@ void TimeControl::timeControlLoop(){
     updateTimeInGame();
     while(menu->getIsMainScreen() && player->getPet()->getIsAlive()){
         std::this_thread::sleep_for(std::chrono::seconds(1));
+        player->setTimeInGame(getTimeInGameString());
+        player->setTimePhase(getCurrentPhaseString());
         player->getPet()->nextFrame();
         player->getPet()->checkMood();
         player->getPet()->death();
@@ -132,11 +134,11 @@ std::string TimeControl::getCurrentPhaseString() {
         case TimePhase::MORNING:
             return "РАНОК";
         case TimePhase::AFTERNOON:
-            return "ДЕНЬ";
+            return " ДЕНЬ";
         case TimePhase::EVENING:
             return "ВЕЧІР";
         case TimePhase::NIGHT:
-            return "НІЧ";
+            return "  НІЧ";
         default:
             return " ";
     }
