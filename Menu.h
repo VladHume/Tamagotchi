@@ -13,8 +13,6 @@ enum ControlKeys
 {
     ENTER = 13,
     ARROW_UP = 65,  
-    // ARROW_LEFT = 68,
-    // ARROW_RIGHT = 67,
     ARROW_DOWN = 66
 };
 

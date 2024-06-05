@@ -7,6 +7,7 @@ Menu::Menu()
     player = new Player();
     fileList = FileUtility::fileList();
     numOptions = 0;   
+    currentOption = 0;
     isMainScreen = true; 
     isGameRunning = true; 
 }
@@ -80,34 +81,41 @@ void Menu::displayMainScreen(Player *player)
 void Menu::displayChoosePetScreen()
 {
     PrintUtility::cleanScreen();
-    FileUtility *file = new FileUtility("test1");
     int const MENU_TEXT_CHP = 29;
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << PrintUtility::drawLine(MENU_TEXT_CHP);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << "|  Оберіть свого улюбленця!  |" << std::endl;
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_CHP) / 2) << " " << PrintUtility::drawLine(MENU_TEXT_CHP);
 
+    std::cout << '\n' << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (size_t i = 0; i < choosePetOptions.size(); ++i)
     {
-        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(choosePetOptions[i]) / 2));
+        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(choosePetOptions[i]) / 2 + 1));
         if (static_cast<int>(i) == currentOption)
         {
-            std::cout << std::right << std::setw((SCREEN_WIDGHT - spaces - 2) / 2) << " "  << setColor << choosePetOptions[i] << " ■" << unsetColor << std::endl;
+            std::cout << "| " << setColor << choosePetOptions[i] << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
             if (i == 0)
-                file->printFileContent(chooseDogPic);
+            {
+                FileUtility::printFileContent(chooseDogPic);
+                std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
+            }
             else
-                file->printFileContent(chooseCatPic);
+            {
+                
+                FileUtility::printFileContent(chooseCatPic);
+                std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
+            }
         }
-        else
+        else 
         {
-            std::cout << std::right << std::setw((SCREEN_WIDGHT - spaces) / 2)  << choosePetOptions[i] << std::endl;
+            std::cout << "| " << choosePetOptions[i] << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
+            std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
         }
     }
-    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
-    delete file;
 }
 
 void Menu::displayMenuScreen(){
     PrintUtility::cleanScreen();
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (const auto& option : menuOptions)
     {
     int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
@@ -125,8 +133,8 @@ void Menu::displayMenuScreen(){
 
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt)
 {
-    int numOptions = opt.size();
     currentOption = 0;
+    int numOptions = opt.size();
     while (true)
     {
         if (a == FULL_SCREEN) {
@@ -240,11 +248,7 @@ void Menu::deathScreen()
 {
     const int MENU_TEXT_E = 31;
     PrintUtility::cleanScreen();
-<<<<<<< HEAD
-    FileUtility::printFileContent(endBanner);  
-=======
     FileUtility::printFileContent(endBanner);
->>>>>>> 85abeedad91a7f35eec57ed20435242251591631
     isGameRunning = false;
 
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " <<  PrintUtility::drawLine(MENU_TEXT_E);
@@ -258,7 +262,6 @@ void Menu::chooseSave(){
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
-        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     mainScreen(fileList[playerChoice]);
@@ -266,6 +269,7 @@ void Menu::chooseSave(){
 
 void Menu::displayFileScreen(){
     PrintUtility::cleanScreen();
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (const auto& option : fileList)
     {
     int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
@@ -285,7 +289,6 @@ void Menu::deleteSave(){
     fileList = FileUtility::fileList();
     if(fileList.empty()){
         mainMenu();
-        return;
     }
     int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
     FileUtility::deleteFile(fileList[playerChoice]);
@@ -307,24 +310,25 @@ void Menu::mainMenu(){
             deleteSave();
             break;
         case 3:
-            deathScreen();
             break;
         default:
-            deathScreen();
             break;
     }
 }
 
 void Menu::startNewGame(){
+    const int MENU_TEXT_STARTGAME = 24;
     PrintUtility::cleanScreen();
     std::string playerName;
     std::string petName;
-    std::cout << "Ведіть ім'я власника: ";
+    
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я власника: ";
     std::cin >> playerName;
     PrintUtility::cleanScreen();
 
-    std::cout << "Ведіть ім'я улюбленця: ";
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я улюбленця: ";
     std::cin >> petName;
+    std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     PrintUtility::cleanScreen();
 
     player->setName(playerName);
