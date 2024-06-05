@@ -1,0 +1,22 @@
+{
+    "name": "vlad",
+    "pet": {
+        "attention": 63,
+        "cleanliness": 63,
+        "health": 100,
+        "isAlive": true,
+        "name": "vlad",
+        "rested": 100,
+        "satiated": 43,
+        "type": "DOG"
+    },
+    "playerSteps": 1,
+    "timeEndGame": {
+        "day": 5,
+        "hour": 21,
+        "minute": 4,
+        "month": 6,
+        "second": 9,
+        "year": 2024
+    }
+}

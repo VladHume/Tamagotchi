@@ -173,7 +173,7 @@ void Pet::punch(){
 void Pet::goToSleep() { 
     if (isAlive_) {
         if(rested_ < 100){
-            wakeUp();
+            isAwaken_ = false;
             rested_ = 100;
             satiated_ -= 20;
             checkBounds();
