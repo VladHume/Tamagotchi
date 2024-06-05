@@ -29,7 +29,7 @@ class Menu
 {
 private:
     Player *player;
-    int currentOption; 
+    int currentOption = 0; 
     int numOptions;   
     bool isMainScreen; 
     bool isGameRunning; 

@@ -138,8 +138,8 @@ void Menu::displayMenuScreen()
 
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string> &opt)
 {
-    currentOption = 0;
     int numOptions = opt.size();
+    currentOption = currentOption % numOptions;
     while (true)
     {
         if (a == FULL_SCREEN) {
