@@ -10,6 +10,7 @@
 #include "FileUtility.h"
 #include "Player.h"
 
+//enum interaction with the console
 enum ControlKeys
 {
     ENTER = 13,
@@ -17,6 +18,7 @@ enum ControlKeys
     ARROW_DOWN = 66
 };
 
+//Enum for different extensions
 enum displayVarients
 {
     FULL_SCREEN,
@@ -43,11 +45,13 @@ private:
 public:
     Menu();
     ~Menu();
+    //vectors with options
     std::vector<std::string> petOptions {"Погодувати", "Полікувати", "Покупати", "Погратися",
                                      "Погладити", "Вдарити", "Покласти спати", "Вийти в головне меню"}; 
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Видалити збереження" ,"Вийти з гри"};
     std::vector<std::string> choosePetOptions {"Собака", "Кіт"};
     std::vector<std::string> fileList;
+    
     int chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt);
     void interactWithPet(Player* player);
     void mainScreen(std::string fileName);

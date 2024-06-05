@@ -17,22 +17,26 @@ Menu::~Menu()
     delete player;
 }
 
-
+//manipulator
+//set green for selected option
 std::ostream & setColor(std::ostream &stream)
 {
     stream << "\x1b[1;32m";
     return stream;
 }
 
+//unset green
 std::ostream & unsetColor(std::ostream &stream)
 {
     stream << "\x1b[1;37m";
     return stream;
 }
 
+//a function to read input in raw mode
 int Menu::readControlKeys()
 {
     int userKey = 0;
+    //enter raw mode
     system("stty raw");
     while (true)
     {
@@ -42,20 +46,23 @@ int Menu::readControlKeys()
             break;     
         }      
     }
+    //exit raw mode
     system("stty cooked");
     return userKey;
 }
+
 
 bool Menu::getIsMainScreen(){
     return isMainScreen;
 }
 
+//all keys user need to use and its validation
 bool Menu::isCorrectControlKeys(int key) 
 { 
     return key == ENTER || key == ARROW_UP || key == ARROW_DOWN;
 }
 
-
+//a function that displays(animations) main screen where user can interact with pet 
 void Menu::displayMainScreen(Player *player)
 {
     PrintUtility::cleanScreen(); 
@@ -63,22 +70,26 @@ void Menu::displayMainScreen(Player *player)
     PrintUtility::showPetStats(player);
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     PrintUtility::showPetInfo(player);
+
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (const auto& option : petOptions)
     {
         int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
         if (&option == &petOptions[currentOption])
         {
+            //display selected option
             std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
         }
         else
         {
+            //display unselected option
             std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
         }
     }
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
+//a function that displays(animations) main screen where user can interact with pet 
 void Menu::displayChoosePetScreen()
 {
     PrintUtility::cleanScreen();
@@ -93,21 +104,24 @@ void Menu::displayChoosePetScreen()
     {
         int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2 + 1));
         if (index == currentOption)
-        {
+        {  
+             //display selected option
             std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
             if (index == 0)
             {
+                //the first element of vactor is dog so it prints dog pic
                 FileUtility::printFileContent(chooseDogPic);
                 std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
             }
             else
-            {
+            {   //the second is cat
                 FileUtility::printFileContent(chooseCatPic);
                 std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
             }
         }
         else 
         {
+            //display unselected option
             std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
             std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
         }
@@ -122,26 +136,34 @@ void Menu::displayMenuScreen()
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
     for (const auto& option : menuOptions)
     {
-    int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
-    if (&option == &menuOptions[currentOption])
-    {
-        std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
-    }
-    else
+        int spaces = (SCREEN_WIDGHT - (PrintUtility::charCounter(option) / 2)) - 2;
+        if (&option == &menuOptions[currentOption])
         {
+             //display selected option
+            std::cout << "| " << setColor << option << " ■" << unsetColor << std::right << std::setw(spaces - 2) << std::setfill(' ') << "|" << std::endl;
+        }
+        else
+        {    
+            //display unselected option
             std::cout << "| " << option << std::right << std::setw(spaces) << std::setfill(' ') << "|" << std::endl;
         }
     }
     std::cout << PrintUtility::drawLine(SCREEN_WIDGHT);
 }
 
-
+//the main function that determines what exactly the user has entered
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string> &opt)
 {
+<<<<<<< HEAD
+=======
+    //int so our curroption != 328742 element in array
+    currentOption = 0;
+>>>>>>> a7ae4fa882a851584004d8e3a341260c581328d1
     int numOptions = opt.size();
     currentOption = currentOption % numOptions;
     while (true)
     {
+        //extension - this is the type of display option we need to display
         if (a == FULL_SCREEN) {
             displayMainScreen(player);
         } else if (a == PART_SCREEN) {
@@ -157,9 +179,11 @@ int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::s
         switch (key)
         {
             case ARROW_UP:
+            //to move the current selection up 
                 currentOption = (currentOption - 1 + numOptions) % numOptions;
                 break;
             case ARROW_DOWN:
+            //to move the current selection down
                 currentOption = (currentOption + 1) % numOptions;
                 break;
             case ENTER:
@@ -169,7 +193,7 @@ int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::s
         }
     }
 }
-//це буде реалізувати через світч в мейні
+//
 int Menu::choosePetScreen()
 {
     int playerChoice = chooseVertOption(player, PART_SCREEN, choosePetOptions);
@@ -181,9 +205,11 @@ void Menu::interactWithPet(Player* player)
     
     std::string petName = player->getPet()->getName();
     int playerChoice = chooseVertOption( player, FULL_SCREEN, petOptions);
+    // clears the buffer that catches the extra char
     std::cin.clear();
     switch (playerChoice)
     {
+        // interact with pet: feed, clean, etc. and increase steps
     case 0: 
         player->getPet()->feed();
         player->increasePlayerSteps();
@@ -209,6 +235,7 @@ void Menu::interactWithPet(Player* player)
         player->increasePlayerSteps();
         break;
     case 6: 
+        //  when pet goes to sleep he is actually sleeping
         player->getPet()->goToSleep();
         player->increasePlayerSteps();
         break;
@@ -225,8 +252,11 @@ void Menu::mainScreen(std::string fileName)
 {
     Player player;
     FileUtility *fu = FileUtility::createFile(fileName);
+    //read from file to player
     fu->read(&player);
-
+    //In the constructor of the time controller
+    //the timeloop function is launched
+    //which runs on a separate thread
     TimeControl tc(&player, fu, this);
 
     isMainScreen = true;
@@ -236,6 +266,7 @@ void Menu::mainScreen(std::string fileName)
     }
 }
 
+//a function that prints tamagotchi title
 void Menu::menuScreen()
 {
     const int MENU_TEXT_S = 36;
@@ -249,6 +280,7 @@ void Menu::menuScreen()
     std::cin.get(); 
 }
 
+//a function that prints end game title
 void Menu::deathScreen()
 {
     const int MENU_TEXT_E = 31;
@@ -261,16 +293,6 @@ void Menu::deathScreen()
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_E)/2) << " " << PrintUtility::drawLine(MENU_TEXT_E);
 
     std::cin.get(); 
-}
-
-void Menu::chooseSave(){
-    fileList = FileUtility::fileList();
-    if(fileList.empty()){
-        mainMenu();
-        return;
-    }
-    int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
-    mainScreen(fileList[playerChoice]);
 }
 
 void Menu::displayFileScreen()
@@ -305,6 +327,19 @@ void Menu::deleteSave()
     mainMenu();
 }
 
+//a funtion that determinates with wich file we are working
+void Menu::chooseSave(){
+    fileList = FileUtility::fileList();
+    //if file list with saves is empty
+    if(fileList.empty()){
+        mainMenu();
+        return;
+    }
+    int playerChoice = chooseVertOption(player, FILE_SCREEN, fileList);
+    mainScreen(fileList[playerChoice]);
+}
+
+//a funtion that literally do menu menu
 void Menu::mainMenu()
 {
     std::cin.clear();
@@ -326,16 +361,19 @@ void Menu::mainMenu()
     }
 }
 
+//a function that creates new file save
 void Menu::startNewGame()
 {
     const int MENU_TEXT_STARTGAME = 25;
     PrintUtility::cleanScreen();
     std::string playerName;
     std::string petName;
+
     FileUtility::printFileContent(welcomeText);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я власника: ";
     std::cin >> playerName;
     playerName = PrintUtility::limitedInput(playerName, LIMIT_FOR_INPUT);
+
     PrintUtility::cleanScreen();
     FileUtility::printFileContent(welcomeText);
     std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я улюбленця: ";
@@ -349,6 +387,7 @@ void Menu::startNewGame()
     Pet* pet;
     int petType = choosePetScreen();
 
+    //type of pet
     if (choosePetOptions[petType] == "Собака") {
         pet = new Dog();
     } else if (choosePetOptions[petType] == "Кіт") {
@@ -358,8 +397,10 @@ void Menu::startNewGame()
     }
     pet->setName(petName);
     player->setPet(pet);
+
     FileUtility *fileUtility;
     fileUtility = FileUtility::createFile(FileUtility::createFileName(player));
+
     std::time_t now = std::time(nullptr);
     std::tm currentTime = *std::localtime(&now);
     fileUtility->updateFile(player, currentTime);

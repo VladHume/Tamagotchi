@@ -73,14 +73,18 @@ void PrintUtility::showPetInfo(Player* player)
     //display table and pet info like player's name or pet name etc
     std::cout << "| " << strOwnerName << ownerName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strOwnerName + ownerName)/2 + BETWEEN_LINES) << ' ' << timePhase;
     std::cout << std::setw(SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timePhase)/2 - 2) << std::setfill(' ') << "|" << std::endl;
-
+    /*(MAX_LEFT_INFO - charCounter(strOwnerName + ownerName)/2 + BETWEEN_LINES)  
+    calculate the difference between the maximum length and what the user has entered 
+    + the string const value. Add the distance between the lines, which is a global constant (15)
+    Now the distance between the lines will be the same and will not depend on the length of the username
+    and the animal name*/
     std::cout << "| " << strPetName << petName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strPetName + petName)/2 + BETWEEN_LINES) << ' ' << timeInGame;
     std::cout << std::setw(SCREEN_WIDGHT  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timeInGame)/2 - 2) << std::setfill(' ') << "|" << std::endl;
-    
+
     std::cout << "| " << strSteps << ownerSteps << std::right << std::setw(SCREEN_WIDGHT - charCounter(strSteps + std::to_string(ownerSteps))/ 2  - 2) << std::setfill(' ') << "|" << std::endl;
     std::cout << "| " << strMood << petMood << std::right << std::setw(SCREEN_WIDGHT - charCounter(strMood + petMood) / 2 - 2) << std::setfill(' ') << "|" << std::endl;
-    //to clarify the mess in the brackets 
-    //first and foremost (MAX_LEFT_INFO - charCounter(strOwnerName + ownerName)/2 + BETWEEN_LINES)
+
+
 }
 
 // a funtion to get the scale of each stat;
