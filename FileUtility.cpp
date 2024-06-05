@@ -6,27 +6,33 @@
 
 const std::string fileDirectory = ".\\saves";
 
+// Constructor for the FileUtility class
 FileUtility::FileUtility(std::string fName) : fileName(fName) {}
 
-//Створює новий файл у вказаній директорії, або повертає вже існуючиий файл
-FileUtility* FileUtility::createFile(const std::string& fileName){
+// Creates a new file in the specified directory or returns an existing file
+FileUtility* FileUtility::createFile(const std::string& fileName) {
+    // Construct the full file path
     std::string filePath = fileDirectory + "\\" + fileName;
+
+    // Check if the file already exists
     if (!std::filesystem::exists(filePath)) {
+        // If the file does not exist, create it
         std::ofstream f(filePath);
         if (f.is_open()) {
             FileUtility* newFile = new FileUtility(fileName);
-            f.close();
+            f.close(); // Close the file
             return newFile;
         } else {
-            return nullptr;
+            return nullptr; // Return null if the file could not be opened
         }
     } else {
-        return new FileUtility(fileName);
+        return new FileUtility(fileName); // Return a new FileUtility object if the file already exists
     }
 }
 
-//Видаляє файл
-bool FileUtility::deleteFile(const std::string& fileName){
+// Deletes a file
+bool FileUtility::deleteFile(const std::string& fileName) {
+    // Attempt to remove the file and return true if successful, false otherwise
     if (std::remove((fileDirectory + "\\" + fileName).c_str()) != 0) {
         return false;
     } else {
@@ -34,12 +40,13 @@ bool FileUtility::deleteFile(const std::string& fileName){
     }
 }
 
-//Оновлює файл
+// Updates the file with player data and current time
 void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
     json j;
     j["name"] = player->getName();
     j["playerSteps"] = player->getSteps();
 
+    // Populate pet data
     json petData;
     petData["type"] = player->getPet()->getType();
     petData["name"] = player->getPet()->getName();
@@ -52,9 +59,10 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
 
     j["pet"] = petData;
 
+    // Populate time data
     json timeData;
-    timeData["year"] = currentTime.tm_year + 1900;  // tm_year відраховується від 1900
-    timeData["month"] = currentTime.tm_mon + 1;     // tm_mon починається з 0 для січня
+    timeData["year"] = currentTime.tm_year + 1900;  // tm_year is counted from 1900
+    timeData["month"] = currentTime.tm_mon + 1;     // tm_mon starts from 0 for January
     timeData["day"] = currentTime.tm_mday;
     timeData["hour"] = currentTime.tm_hour;
     timeData["minute"] = currentTime.tm_min;
@@ -62,6 +70,7 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
 
     j["timeEndGame"] = timeData;
 
+    // Write to the file
     std::ofstream file((fileDirectory + "\\" + fileName), std::ofstream::trunc);
     if (file.is_open()) {
         file << std::setw(4) << j << std::endl;
@@ -69,7 +78,7 @@ void FileUtility::updateFile(Player* player, const std::tm& currentTime) {
     }
 }
 
-//Зчитує данні з файлу
+// Reads data from the file and updates the player object
 void FileUtility::read(Player* player) {
     std::ifstream file(fileDirectory + "\\" + fileName);
     if (file.is_open()) {
@@ -79,6 +88,7 @@ void FileUtility::read(Player* player) {
         player->setName(j["name"]);
         player->setSteps(j["playerSteps"]);
 
+        // Populate pet data
         Pet* pet;
         json petData = j["pet"];
         std::string petType = petData["type"];
@@ -86,7 +96,7 @@ void FileUtility::read(Player* player) {
             pet = new Dog();
         } else {
             pet = new Cat();
-        } 
+        }
         pet->setName(petData["name"]);
         pet->setAttention(petData["attention"]);
         pet->setHealth(petData["health"]);
@@ -101,10 +111,11 @@ void FileUtility::read(Player* player) {
     }
 }
 
+// Prints the content of the file to the console
 bool FileUtility::printFileContent(const std::string& filePath) {
     std::ifstream file(filePath); 
     if (!file.is_open()) { 
-        return false;
+        return false; // Return false if the file could not be opened
     }
 
     std::string line;
@@ -116,6 +127,7 @@ bool FileUtility::printFileContent(const std::string& filePath) {
     return true;
 }
 
+// Reads the end game time from the file and returns it as a std::tm object
 std::tm FileUtility::readTimeEndGame() {
     std::tm timeEndGame = {};
 
@@ -141,8 +153,7 @@ std::tm FileUtility::readTimeEndGame() {
     return timeEndGame;
 }
 
-
-//Повертає вектор з файлами, які містяться у папці saves
+// Returns a vector of files in the "saves" directory
 std::vector<std::string> FileUtility::fileList() {
     std::vector<std::string> files;
     for (const auto& entry : std::filesystem::directory_iterator(fileDirectory)) {
@@ -153,7 +164,7 @@ std::vector<std::string> FileUtility::fileList() {
     return files;
 }
 
-//Повертає вектор з файлами, які містяться у директорії
+// Returns a vector of files in the specified directory
 std::vector<std::string> FileUtility::fileList(const std::string directory) {
     std::vector<std::string> files;
     for (const auto& entry : std::filesystem::directory_iterator(directory)) {
@@ -164,11 +175,12 @@ std::vector<std::string> FileUtility::fileList(const std::string directory) {
     return files;
 }
 
-Frames* FileUtility::readFrames(const std::string directory){
+// Reads frames from files in the specified directory and links them into a circular linked list
+Frames* FileUtility::readFrames(const std::string directory) {
     std::vector<std::string> fileNames = FileUtility::fileList(directory);
 
     if (fileNames.empty()) {
-        return nullptr;
+        return nullptr; // Return null if no files are found
     }
 
     Frames* headFrame = nullptr; 
@@ -180,46 +192,48 @@ Frames* FileUtility::readFrames(const std::string directory){
             if (headFrame != nullptr) {
                 delete headFrame;
             }
-            return nullptr;
+            return nullptr; // Return null if a file could not be opened
         }
 
         Frames* frame = new Frames();
         if (headFrame == nullptr) {
-            headFrame = frame;
+            headFrame = frame; // Set the first frame as headFrame
         } else {
-            currentFrame->next = frame; 
+            currentFrame->next = frame; // Link the current frame to the new frame
         }
         currentFrame = frame;
 
         std::string line;
         while (std::getline(file, line)) {
-            currentFrame->frame.push_back(line);
+            currentFrame->frame.push_back(line); // Add lines to the frame
         }
 
         file.close();
     }
-    currentFrame->next = headFrame;
+    currentFrame->next = headFrame; // Make the linked list circular
 
     return headFrame;
 }
 
-std::string FileUtility::createFileName(Player *player){
+// Creates a unique file name based on player and pet information
+std::string FileUtility::createFileName(Player *player) {
     std::string fileName = player->getName() + player->getPet()->getType() + player->getPet()->getName();
-    if(checkFileExistence(fileName + ".json")){
+    if(checkFileExistence(fileName + ".json")) {
         int i = 1;
-        while(checkFileExistence(fileName + std::to_string(i) + ".json")){
+        while(checkFileExistence(fileName + std::to_string(i) + ".json")) {
             ++i;
         }
-        return fileName + std::to_string(i) + ".json";
+        return fileName + std::to_string(i) + ".json"; // Append a number to the file name if it already exists
     }
     return fileName + ".json";
 }
 
-//Перевіряє наявність файлу у директорії
+// Checks if a file exists in the directory
 bool FileUtility::checkFileExistence(const std::string& fileName) {
     return std::filesystem::exists(fileDirectory + "\\" + fileName);
 }
 
-std::string FileUtility::getFileName(){
+// Returns the file name
+std::string FileUtility::getFileName() {
     return fileName;
 }

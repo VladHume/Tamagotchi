@@ -1,31 +1,36 @@
 #include "TimeControl.h"
 
-//#include "PrintUtility.h"
-//змінила орядок оголошення в конструкторі
-TimeControl::TimeControl(Player *player, FileUtility *filetm, Menu *menu) : player(player), filetm(filetm), currentPhase(TimePhase::MORNING), menu(menu) {
-    // Ініціалізація часу гри нульовими значеннями 
+TimeControl::TimeControl(Player *player, FileUtility *filetm, Menu *menu) 
+    : player(player), filetm(filetm), currentPhase(TimePhase::MORNING), menu(menu) {
+    // Initialize game time with zero values
     timeInGame = std::tm{};
 
-    // Ініціалізація часу початку гри поточним часом
+    // Initialize game start time with the current time
     std::time_t now = std::time(nullptr);
     timeStartGame = *std::localtime(&now);
     currentTime = *std::localtime(&now);
-    //filetm->updateFile(player, currentTime);
-        
+
+    // Start the control thread
     controlThread = std::thread(&TimeControl::timeControlLoop, this);
 }
 
+// Destructor for TimeControl
 TimeControl::~TimeControl() {
+    // Join the control thread if it's joinable
     if (controlThread.joinable()) {
         controlThread.join();
     }
 }
 
-void TimeControl::timeControlLoop(){
-    int durationOfTheCurrentPhase = 0; //к-сть часу, який триває поточна фаза
+// Main loop for controlling game time
+void TimeControl::timeControlLoop() {
+    int durationOfTheCurrentPhase = 0; // Duration of the current phase in seconds
+
     checkElapsedTimeAndUpdate();
     updateTimeInGame();
-    while(menu->getIsMainScreen() && player->getPet()->getIsAlive()){
+
+    // Main loop for updating game time and player/pet state
+    while(menu->getIsMainScreen() && player->getPet()->getIsAlive()) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         player->setTimeInGame(getTimeInGameString());
         player->setTimePhase(getCurrentPhaseString());
@@ -34,38 +39,44 @@ void TimeControl::timeControlLoop(){
         player->getPet()->death();
         updateTimeInGame();
         filetm->updateFile(player, currentTime);
+
         durationOfTheCurrentPhase++;
-        if((durationOfTheCurrentPhase %= timePhaseChanger) == 0){
+        if((durationOfTheCurrentPhase %= timePhaseChanger) == 0) {
             changePhaseInGame();
         }
     }
     filetm->updateFile(player, currentTime);
 }
 
+// Updates the time in the game
 void TimeControl::updateTimeInGame() {
     auto now = std::chrono::system_clock::now();
     auto start = std::chrono::system_clock::from_time_t(std::mktime(&timeStartGame));
     auto elapsed = now - start;
 
-    // Отримання тривалості в годинах, хвилинах та секундах
+    // Get the elapsed time in hours, minutes, and seconds
     auto hours = std::chrono::duration_cast<std::chrono::hours>(elapsed).count();
     auto minutes = std::chrono::duration_cast<std::chrono::minutes>(elapsed).count() % 60;
     auto seconds = std::chrono::duration_cast<std::chrono::seconds>(elapsed).count() % 60;
 
-    // Оновлення timeInGame
+    // Update timeInGame
     timeInGame.tm_hour = hours;
     timeInGame.tm_min = minutes;
     timeInGame.tm_sec = seconds;
 
+    // Update currentTime with the current local time
     std::time_t currentNow = std::time(nullptr);
     currentTime = *std::localtime(&currentNow);
 }
 
-void TimeControl::changePhaseInGame(){
-    currentPhase = static_cast<TimePhase>((static_cast<int>(currentPhase) + 1) % (static_cast<int>(TimePhase::NIGHT) +1));
+// Changes the current phase in the game
+void TimeControl::changePhaseInGame() {
+    // Cycle through the phases in a circular manner
+    currentPhase = static_cast<TimePhase>((static_cast<int>(currentPhase) + 1) % (static_cast<int>(TimePhase::NIGHT) + 1));
     changeStatesDueToPhase();
 }
 
+// Updates the pet's state based on the current phase
 void TimeControl::changeStatesDueToPhase() {
     switch (currentPhase) {
         case TimePhase::MORNING:
@@ -101,34 +112,39 @@ void TimeControl::changeStatesDueToPhase() {
     }
 }
 
+// Checks the elapsed time since the last saved time and updates the pet's state
 void TimeControl::checkElapsedTimeAndUpdate() {
     std::tm savedTime = filetm->readTimeEndGame();
     
-    // Конвертуємо часи в time_t для обчислення різниці
+    // Convert times to time_t for calculating the difference
     std::time_t savedTime_t = std::mktime(const_cast<std::tm*>(&savedTime));
     std::time_t nowTime_t = std::mktime(&timeStartGame);
 
-    // Обчислення різниці в секундах
+    // Calculate the difference in seconds
     double elapsedSeconds = std::difftime(nowTime_t, savedTime_t);
 
-    // Обчислення різниці в годинах
+    // Calculate the difference in hours
     int elapsedHours = static_cast<int>(elapsedSeconds / 3600);
 
+    // Update the pet's state based on the elapsed time
     updateStateBasedOnAbsenceTime(elapsedHours);
 }
 
-void TimeControl::updateStateBasedOnAbsenceTime(int elapsedHours){
-    player->getPet()->setAttention(player->getPet()->getAttention() - (3*elapsedHours));
-    player->getPet()->setCleanliness(player->getPet()->getCleanliness() - (3*elapsedHours));
-    player->getPet()->setHealth(player->getPet()->getHealth() - (3*elapsedHours));
-    player->getPet()->setRested(player->getPet()->getRested() - (3*elapsedHours));
-    player->getPet()->setSatiated(player->getPet()->getSatiated() - (3*elapsedHours));
+// Updates the pet's state based on the time the player was absent
+void TimeControl::updateStateBasedOnAbsenceTime(int elapsedHours) {
+    player->getPet()->setAttention(player->getPet()->getAttention() - (3 * elapsedHours));
+    player->getPet()->setCleanliness(player->getPet()->getCleanliness() - (3 * elapsedHours));
+    player->getPet()->setHealth(player->getPet()->getHealth() - (3 * elapsedHours));
+    player->getPet()->setRested(player->getPet()->getRested() - (3 * elapsedHours));
+    player->getPet()->setSatiated(player->getPet()->getSatiated() - (3 * elapsedHours));
 }
 
+// Gets the current phase of the game
 TimePhase TimeControl::getCurrentPhase() {
     return currentPhase;
 }
 
+// Returns the current phase of the game as a string
 std::string TimeControl::getCurrentPhaseString() {
     switch (currentPhase) {
         case TimePhase::MORNING:
@@ -144,6 +160,7 @@ std::string TimeControl::getCurrentPhaseString() {
     }
 }
 
+// Returns the elapsed time in the game as a string
 std::string TimeControl::getTimeInGameString() {
     std::ostringstream oss;
     oss << std::setw(2) << std::setfill('0') << timeInGame.tm_hour << ":"
@@ -152,6 +169,7 @@ std::string TimeControl::getTimeInGameString() {
     return oss.str();
 }
 
+// Returns the current local time as a string
 std::string TimeControl::getCurrentTimeString() {
     std::ostringstream oss;
     oss << std::setw(2) << std::setfill('0') << currentTime.tm_hour << ":"
@@ -159,4 +177,3 @@ std::string TimeControl::getCurrentTimeString() {
         << std::setw(2) << std::setfill('0') << currentTime.tm_sec;
     return oss.str();
 }
-
