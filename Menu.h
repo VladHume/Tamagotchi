@@ -1,5 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -39,8 +42,18 @@ private:
     void displayChoosePetScreen();
     void displayFileScreen();
     void displayMenuScreen();
+    void displayOptions(const std::vector<std::string>& options);
+    int chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt);
     int readControlKeys();
     bool isCorrectControlKeys(int key);
+    const std::string startBanner = "pictures\\banners\\start.txt";
+    const std::string endBanner = "pictures\\banners\\end.txt";
+    const std::string chooseCatPic = "pictures\\icons\\CatIcon.txt";
+    const std::string chooseDogPic = "pictures\\icons\\DogIcon.txt";
+    const std::string welcomeText = "data\\welcometext.txt";
+    const char strBar = '|';
+    const int LIMIT_FOR_INPUT = 25;
+    const int SCREEN_WIDTH = 76;
 
 public:
     Menu();
@@ -51,10 +64,9 @@ public:
     std::vector<std::string> menuOptions {"Почати нову гру", "Завантажити збереження", "Видалити збереження" ,"Вийти з гри"};
     std::vector<std::string> choosePetOptions {"Собака", "Кіт"};
     std::vector<std::string> fileList;
-    
-    int chooseVertOption(Player *player, displayVarients a, std::vector<std::string>& opt);
+
     void interactWithPet(Player* player);
-    void mainScreen(std::string fileName);
+    void mainScreen(const std::string& fileName);
     void menuScreen();
     void deathScreen();
     int choosePetScreen();
