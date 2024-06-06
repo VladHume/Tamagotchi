@@ -69,8 +69,8 @@ void PrintUtility::showPetInfo(Player* player)
     std::string timeInGame = player->getTimeInGame();
     
     //display table and pet info like player's name or pet name etc
-    std::cout << strBar << strOwnerName << ownerName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strOwnerName + ownerName) + BETWEEN_LINES) << ' ' << timePhase;
-    std::cout << std::setw(SCREEN_WIDTH  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timePhase) - 1) << std::setfill(' ') << strBar << std::endl;
+    std::cout << strBar << strOwnerName << ownerName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strOwnerName + ownerName) + BETWEEN_LINES) << ' ' << std::left << timePhase << std::right;
+    std::cout << std::setw(SCREEN_WIDTH  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timePhase) - 1) << strBar << std::endl;
     std::cout << strBar << strPetName << petName << std::right << std::setw(MAX_LEFT_INFO - charCounter(strPetName + petName) + BETWEEN_LINES) << ' ' << timeInGame;
     std::cout << std::setw(SCREEN_WIDTH  - MAX_LEFT_INFO - BETWEEN_LINES - charCounter(timeInGame) - 1) << std::setfill(' ') << strBar << std::endl;
 
