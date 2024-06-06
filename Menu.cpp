@@ -154,11 +154,6 @@ void Menu::displayMenuScreen()
 //the main function that determines what exactly the user has entered
 int Menu::chooseVertOption(Player *player, displayVarients a, std::vector<std::string> &opt)
 {
-<<<<<<< HEAD
-=======
-    //int so our curroption != 328742 element in array
-    currentOption = 0;
->>>>>>> a7ae4fa882a851584004d8e3a341260c581328d1
     int numOptions = opt.size();
     currentOption = currentOption % numOptions;
     while (true)
@@ -370,13 +365,13 @@ void Menu::startNewGame()
     std::string petName;
 
     FileUtility::printFileContent(welcomeText);
-    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я власника: ";
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Введіть ім'я власника: ";
     std::cin >> playerName;
     playerName = PrintUtility::limitedInput(playerName, LIMIT_FOR_INPUT);
-
+і
     PrintUtility::cleanScreen();
     FileUtility::printFileContent(welcomeText);
-    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Ведіть ім'я улюбленця: ";
+    std::cout << std::right << std::setw((SCREEN_WIDGHT - MENU_TEXT_STARTGAME)/2) << " " << "Введіть ім'я улюбленця: ";
     std::cin >> petName;
     petName = PrintUtility::limitedInput(petName, LIMIT_FOR_INPUT);
     PrintUtility::cleanScreen();
