@@ -1,22 +1,22 @@
 {
     "name": "vlad",
     "pet": {
-        "attention": 63,
-        "cleanliness": 33,
-        "health": 90,
+        "attention": 0,
+        "cleanliness": 0,
+        "health": 0,
         "isAlive": false,
         "name": "vlad",
-        "rested": 100,
+        "rested": 0,
         "satiated": 0,
         "type": "CAT"
     },
     "playerSteps": 4,
     "timeEndGame": {
-        "day": 5,
-        "hour": 21,
-        "minute": 3,
+        "day": 7,
+        "hour": 9,
+        "minute": 14,
         "month": 6,
-        "second": 34,
+        "second": 28,
         "year": 2024
     }
 }

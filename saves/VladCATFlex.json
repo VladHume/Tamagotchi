@@ -3,20 +3,20 @@
     "pet": {
         "attention": 0,
         "cleanliness": 0,
-        "health": 15,
+        "health": 0,
         "isAlive": false,
         "name": "Flex",
-        "rested": 11,
+        "rested": 0,
         "satiated": 0,
         "type": "CAT"
     },
     "playerSteps": 0,
     "timeEndGame": {
-        "day": 5,
-        "hour": 21,
-        "minute": 3,
+        "day": 7,
+        "hour": 9,
+        "minute": 14,
         "month": 6,
-        "second": 44,
+        "second": 22,
         "year": 2024
     }
 }
