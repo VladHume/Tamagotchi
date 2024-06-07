@@ -2,6 +2,8 @@
 #define FILEUTILITY_H
 
 #include <string>
+#include <iostream>
+#include <filesystem>
 #include "Player.h"
 #include "Pet.h"
 #include "Dog.h"
